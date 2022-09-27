@@ -48,6 +48,7 @@ public class Lever {
 
     public void click(Cage [][] cages){
         if (!is_activ) open_door_sound.play();
+        else close_door_sound.play();
         is_activ = !is_activ;
         cages[door_x][door_y].change_movable();
     }
