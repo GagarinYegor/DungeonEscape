@@ -74,6 +74,8 @@ public class DungeonEscape extends Game {
 		uohd = new Texture("doors/uohd.png");
 		dchd = new Texture("doors/dchd.png");
 		dohd = new Texture("doors/dohd.png");
+		open_doors_sound = Gdx.audio.newSound(Gdx.files.internal("doors/open_doors_sound.ogg"));
+		open_doors_sound.play();
 
 		//interface res
 		begin_button = new Texture("interface/begin_button.png");

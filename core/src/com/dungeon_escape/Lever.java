@@ -12,6 +12,7 @@ public class Lever {
     private float speed, real_x, real_y, door_real_x, door_real_y, vertical_otstup, horizontal_otstup;
     private boolean is_activ;
     private  Texture activ_lever, passiv_lever, closed_door, opened_door;
+    Sound lever_sound, open_door_sound, close_door_sound;
     Lever (int x, int y, int door_x, int door_y, float size, float horizontal_otstup, float vertical_otstup, Texture activ_lever, Texture passiv_lever, float speed, Texture closed_door, Texture opened_door, Sound lever_sound, Sound open_door_sound, Sound close_door_sound){
         this.speed = speed;
         this.x = x;
@@ -28,6 +29,9 @@ public class Lever {
         this.passiv_lever = passiv_lever;
         this.closed_door = closed_door;
         this.opened_door = opened_door;
+        this.lever_sound = lever_sound;
+        this.open_door_sound = open_door_sound;
+        this.close_door_sound = close_door_sound;
         is_activ = false;
     }
 
@@ -43,6 +47,7 @@ public class Lever {
     }
 
     public void click(Cage [][] cages){
+        open_door_sound.play();
         is_activ = !is_activ;
         cages[door_x][door_y].change_movable();
     }
