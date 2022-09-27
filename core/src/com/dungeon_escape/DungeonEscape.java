@@ -85,6 +85,7 @@ public class DungeonEscape extends Game {
 		font_region = new TextureRegion(new Texture("interface/font.png"));
 		title_text_table = new Texture("interface/title_text_table.png");
 
+		//walls res
 		wu__ = new Texture("walls/wu__.png");
 		wd__ = new Texture("walls/wd__.png");
 		wl__ = new Texture("walls/wl__.png");
@@ -100,8 +101,10 @@ public class DungeonEscape extends Game {
 		cwdl = new Texture("corners_and_walls/cwdl.png");
 		cwdr = new Texture("corners_and_walls/cwdr.png");
 
+		//fonts
 		font = new BitmapFont();
 		record_font = new BitmapFont();
+
 
 		width = Gdx.app.getGraphics().getWidth();
 		height = Gdx.app.getGraphics().getHeight();
@@ -170,6 +173,7 @@ public class DungeonEscape extends Game {
 		font_map.put("Э", new TextureRegion(font_region, 29 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
 		font_map.put("Ю", new TextureRegion(font_region, 30 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
 		font_map.put("Я", new TextureRegion(font_region, 31 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
+
 		setScreen(new MainMenuScreen(this));
 	}
 
