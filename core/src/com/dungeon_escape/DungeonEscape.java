@@ -30,7 +30,9 @@ public class DungeonEscape extends Game {
 			cul_, cur_, cdl_, cdr_,
 			activ_lever, passiv_lever,
 			uchd, uohd, dchd, dohd;
-	Sound slime_attacked_sound, slime_attacking_sound;
+	Sound slime_attacked_sound, slime_attacking_sound,
+			player_attacking_sound, player_attacked_sound,
+			lever_sound, open_doors_sound, closed_doors_sound;
 	TextureRegion font_region;
 
 	float size, horisontal_otstup, vertical_otstup, left_border_x, left_border_y, right_border_x, right_border_y,
@@ -45,25 +47,35 @@ public class DungeonEscape extends Game {
 	public void create() {
 		speed = 150f;
 		batch = new SpriteBatch();
+
+		//slime res
 		green_slime_texture_region = new Texture("slime/green_slime_texture_region.png");
 		green_slime_attacking = new Texture("slime/green_attacking_slime.png");
 		green_slime_attacked = new Texture("slime/green_attacked_slime.png");
 		slime_blast = new Texture("slime/slime_charge.png");
+		slime_attacked_sound = Gdx.audio.newSound(Gdx.files.internal("slime/slime_attacked.mp3"));
+		slime_attacking_sound = Gdx.audio.newSound(Gdx.files.internal("slime/slime_attacking.wav"));
 
+		//floor res
 		stone_floor_texture_region = new Texture("floor/stone_floor.png");
 
+		//player res
 		player_texture_region = new Texture("player/player_texture_region.png");
 		player_attacked = new Texture("player/player_attacked.png");
 		player_attacking = new Texture("player/player_attacking.png");
 		player_blast = new Texture("interface/nothing.png");
 
+		//lever res
 		activ_lever = new Texture("levers/al__.png");
 		passiv_lever = new Texture("levers/dl__.png");
+
+		//doors res
 		uchd = new Texture("doors/uchd.png");
 		uohd = new Texture("doors/uohd.png");
 		dchd = new Texture("doors/dchd.png");
 		dohd = new Texture("doors/dohd.png");
 
+		//interface res
 		begin_button = new Texture("interface/begin_button.png");
 		record_button = new Texture("interface/record_button.png");
 		return_button = new Texture("interface/return_button.png");
@@ -90,9 +102,6 @@ public class DungeonEscape extends Game {
 
 		font = new BitmapFont();
 		record_font = new BitmapFont();
-
-		slime_attacked_sound = Gdx.audio.newSound(Gdx.files.internal("slime/slime_attacked.mp3"));
-		slime_attacking_sound = Gdx.audio.newSound(Gdx.files.internal("slime/slime_attacking.wav"));
 
 		width = Gdx.app.getGraphics().getWidth();
 		height = Gdx.app.getGraphics().getHeight();
