@@ -64,6 +64,8 @@ public class DungeonEscape extends Game {
 		player_attacked = new Texture("player/player_attacked.png");
 		player_attacking = new Texture("player/player_attacking.png");
 		player_blast = new Texture("interface/nothing.png");
+		player_attacked_sound = Gdx.audio.newSound(Gdx.files.internal("player/attacked_player_sound.wav"));
+		player_attacking_sound = Gdx.audio.newSound(Gdx.files.internal("player/attacking_player_sound.wav"));
 
 		//lever res
 		activ_lever = new Texture("levers/al__.png");
