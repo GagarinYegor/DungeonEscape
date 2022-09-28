@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class GameScreen extends ScreenAdapter {
 
@@ -13,8 +14,11 @@ public class GameScreen extends ScreenAdapter {
     Player player;
     FontString hello;
     Lever [] levers;
+    OrthographicCamera camera;
 
     public GameScreen(DungeonEscape game) {
+        camera = new OrthographicCamera(game.width, game.height);
+        camera.setToOrtho(false, game.width, game.height);
         this.game = game;
         slimes = new Slime[10];
         cages = new Cage[game.cage_x][game.cage_y];
@@ -95,6 +99,7 @@ public class GameScreen extends ScreenAdapter {
 
         Gdx.gl.glClearColor(0.4f, 0.4f, 0.4f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         //game.batch.setColor(0, 0, 0, 1);
         for (int i = 0; i < game.cage_x; i++){
@@ -110,6 +115,7 @@ public class GameScreen extends ScreenAdapter {
         }
         hello.draw(game.batch, game.size/6, game.font_map);
         player.draw(game.batch, game.size, Gdx.graphics.getDeltaTime());
+        camera.update();
         game.batch.end();
 
     }
