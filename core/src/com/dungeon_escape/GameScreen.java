@@ -115,6 +115,7 @@ public class GameScreen extends ScreenAdapter {
         }
         hello.draw(game.batch, game.size/6, game.font_map);
         player.draw(game.batch, game.size, Gdx.graphics.getDeltaTime());
+        camera.translate(game.speed*Gdx.graphics.getDeltaTime(), 0);
         camera.update();
         game.batch.end();
 
