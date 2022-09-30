@@ -28,7 +28,7 @@ public class Cage {
     }
     public void draw(SpriteBatch batch, float size, float dt){
         batch.draw(cage_animation.getFrame(), real_x, real_y, size, size);
-        font.draw(batch, x+":"+(10-y), real_x+size/2, real_y+size/2);
+        font.draw(batch, x+":"+(y), real_x+size/2, real_y+size/2);
         cage_animation.update(dt);
     }
     public boolean get_movable(){
