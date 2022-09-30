@@ -91,6 +91,27 @@ public class GameScreen extends ScreenAdapter {
                 }
                 return false;
             }
+
+            @Override
+            public boolean keyDown(int keycode) {
+                if (keycode == Input.Keys.UP){
+                    camera.translate(0, game.size);
+                    return true;
+                }
+                if (keycode == Input.Keys.DOWN){
+                    camera.translate(0, -game.size);
+                    return true;
+                }
+                if (keycode == Input.Keys.RIGHT){
+                    camera.translate(game.size, 0);
+                    return true;
+                }
+                if (keycode == Input.Keys.LEFT){
+                    camera.translate(-game.size, 0);
+                    return true;
+                }
+                return false;
+            }
         });
     }
 
@@ -115,7 +136,6 @@ public class GameScreen extends ScreenAdapter {
         }
         hello.draw(game.batch, game.size/6, game.font_map);
         player.draw(game.batch, game.size, Gdx.graphics.getDeltaTime());
-        camera.translate(game.speed*Gdx.graphics.getDeltaTime(), 0);
         camera.update();
         game.batch.end();
 
