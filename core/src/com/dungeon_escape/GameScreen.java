@@ -27,6 +27,8 @@ public class GameScreen extends ScreenAdapter {
             for (int j = 0; j < game.cage_y; j++){
                 if (game.map[i][j].contains("sf__")) cages[i][j] = new Cage(i, j, true, game.size, game.horisontal_otstup, game.vertical_otstup, game.stone_floor_texture_region, 1);
                 else if (game.map[i][j].contains("nthi")) cages[i][j] = new Cage(i, j, true, game.size, game.horisontal_otstup, game.vertical_otstup, game.player_blast, 1);
+                else if (game.map[i][j].contains("clmn")) cages[i][j] = new Cage(i, j, true, game.size, game.horisontal_otstup, game.vertical_otstup, game.clmn, 1);
+
 
                 else if (game.map[i][j].contains("wd__")) cages[i][j] = new Cage(i, j, true, game.size, game.horisontal_otstup, game.vertical_otstup, game.wd__, 1);
                 else if (game.map[i][j].contains("wu__")) cages[i][j] = new Cage(i, j, true, game.size, game.horisontal_otstup, game.vertical_otstup, game.wu__, 1);

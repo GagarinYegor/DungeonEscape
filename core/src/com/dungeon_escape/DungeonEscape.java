@@ -22,7 +22,7 @@ public class DungeonEscape extends Game {
 	SpriteBatch batch;
 	BitmapFont font, record_font;
 	Texture green_slime_texture_region, slime_blast, green_slime_attacked, green_slime_attacking,
-			stone_floor_texture_region,
+			stone_floor_texture_region, clmn,
 			player_texture_region, player_blast, player_attacked, player_attacking,
 			begin_button, record_button, return_button, row, row_heading, arrow_next, title_text_table,
 			wu__, wd__, wl__, wr__,
@@ -58,6 +58,7 @@ public class DungeonEscape extends Game {
 
 		//floor res
 		stone_floor_texture_region = new Texture("floor/stone_floor.png");
+		clmn = new Texture("floor/clmn.png");
 
 		//player res
 		player_texture_region = new Texture("player/player_texture_region.png");
