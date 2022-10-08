@@ -130,7 +130,7 @@ public class DungeonEscape extends Game {
 		down_border_x = 0;
 		down_border_y = 0;
 
-		map = new String[41][37];
+		map = new String[41][41];
 		FileHandle file = Gdx.files.internal("text_resources/map.txt");
 		String [] text_y = file.readString().split("\n");
 		cage_y = text_y.length;
