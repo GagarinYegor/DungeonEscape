@@ -114,11 +114,11 @@ public class DungeonEscape extends Game {
 		width = Gdx.app.getGraphics().getWidth();
 		height = Gdx.app.getGraphics().getHeight();
 		size = height / 7;
-		horisontal_otstup = (width-size*10)/2;
+		horisontal_otstup = (width-size*9)/2;
 		vertical_otstup = 0;
 		if(horisontal_otstup < 0){
 			horisontal_otstup = 0;
-			size = width/10;
+			size = width/9;
 			vertical_otstup = (height - 7*size)/2;
 		}
 		left_border_x = 0;

@@ -12,7 +12,6 @@ public class GameScreen extends ScreenAdapter {
     Slime [] slimes;
     Cage [][] cages;
     Player player;
-    FontString hello;
     Lever [] levers;
     OrthographicCamera camera;
 
@@ -54,7 +53,6 @@ public class GameScreen extends ScreenAdapter {
         for (int i=0; i< levers.length; i++){
             levers[i] = new Lever(i+3, 1, i+3, 5, game.size, game.horisontal_otstup, game.vertical_otstup, game.activ_lever, game.passiv_lever, game.speed, game.uchd, game.uohd, game.slime_attacked_sound, game.open_doors_sound, game.closed_doors_sound);
         }
-        hello = new FontString("привет", 0, 0, game.size, game.horisontal_otstup, game.vertical_otstup);
         player = new Player(4, 2, game.size, game.horisontal_otstup, game.vertical_otstup, game.player_texture_region, 12, game.speed, game.player_blast, game.player_attacking, game.player_attacked, game.player_attacking_sound, game.player_attacked_sound);
     }
 
@@ -114,6 +112,14 @@ public class GameScreen extends ScreenAdapter {
                     camera.translate(-game.size, 0);
                     return true;
                 }
+                if (keycode == Input.Keys.Q){
+                    camera.zoom+=0.05f;
+                    return true;
+                }
+                if (keycode == Input.Keys.A){
+                    camera.zoom-=0.05f;
+                    return true;
+                }
                 return false;
             }
         });
@@ -138,7 +144,6 @@ public class GameScreen extends ScreenAdapter {
         for (Lever lever: levers){
             lever.draw(game.batch, game.size);
         }
-       hello.draw(game.batch, game.size/6, game.font_map);
         player.draw(game.batch, game.size, Gdx.graphics.getDeltaTime());
         camera.update();
         game.batch.end();
