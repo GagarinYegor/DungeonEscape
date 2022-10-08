@@ -16,6 +16,7 @@ public class GameScreen extends ScreenAdapter {
     OrthographicCamera camera;
 
     public GameScreen(DungeonEscape game) {
+
         camera = new OrthographicCamera(game.width, game.height);
         camera.setToOrtho(false, game.width, game.height);
         this.game = game;
@@ -63,10 +64,10 @@ public class GameScreen extends ScreenAdapter {
                 int touch_x;
                 int touch_y;
                 if ((Gdx.input.getX()-game.horisontal_otstup) / game.size>=0){
-                    touch_x = (int) ((Gdx.input.getX()-game.horisontal_otstup) / game.size);
+                    touch_x = (int) ((Gdx.input.getX()-game.horisontal_otstup*camera.zoom) / game.size);
                 }
                 else{
-                    touch_x = (int) ((Gdx.input.getX()-game.horisontal_otstup) / game.size - 1);
+                    touch_x = (int) ((Gdx.input.getX()-game.horisontal_otstup*camera.zoom) / game.size - 1);
                 }
                 if ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size >=0){
                     touch_y= (int) ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size);
