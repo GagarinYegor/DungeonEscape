@@ -138,7 +138,7 @@ public class GameScreen extends ScreenAdapter {
         for (Lever lever: levers){
             lever.draw(game.batch, game.size);
         }
-        hello.draw(game.batch, game.size/6, game.font_map);
+       hello.draw(game.batch, game.size/6, game.font_map);
         player.draw(game.batch, game.size, Gdx.graphics.getDeltaTime());
         camera.update();
         game.batch.end();
