@@ -61,13 +61,15 @@ public class GameScreen extends ScreenAdapter {
     public void show() {
         Gdx.input.setInputProcessor(new InputAdapter() {
             public boolean touchDown (int x, int y, int pointer, int button) {
+                System.out.println(camera.zoom);
                 int touch_x;
                 int touch_y;
-                if ((Gdx.input.getX()-game.horisontal_otstup) / game.size>=0){
-                    touch_x = (int) ((Gdx.input.getX()-game.horisontal_otstup*camera.zoom) / game.size);
+                if ((Gdx.input.getX()-game.horisontal_otstup) / game.size / camera.zoom>=0){
+                    touch_x = (int) ((Gdx.input.getX()-game.horisontal_otstup) / (game.size + game.size * (camera.zoom-1)));
+                    System.out.println("cccccccccccc");
                 }
                 else{
-                    touch_x = (int) ((Gdx.input.getX()-game.horisontal_otstup*camera.zoom) / game.size - 1);
+                    touch_x = (int) ((Gdx.input.getX()-game.horisontal_otstup) / game.size / camera.zoom - 1);
                 }
                 if ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size >=0){
                     touch_y= (int) ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size);
@@ -114,11 +116,11 @@ public class GameScreen extends ScreenAdapter {
                     return true;
                 }
                 if (keycode == Input.Keys.Q){
-                    camera.zoom+=0.05f;
+                    camera.zoom+=0.5f;
                     return true;
                 }
                 if (keycode == Input.Keys.A){
-                    camera.zoom-=0.05f;
+                    camera.zoom-=0.5f;
                     return true;
                 }
                 return false;
