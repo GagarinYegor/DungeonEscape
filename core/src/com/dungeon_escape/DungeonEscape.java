@@ -20,24 +20,30 @@ import java.util.Scanner;
 public class DungeonEscape extends Game {
 
 	SpriteBatch batch;
+
 	BitmapFont font, record_font;
+
 	Texture green_slime_texture_region, slime_blast, green_slime_attacked, green_slime_attacking,
 			stone_floor_texture_region, clmn,
 			player_texture_region, player_blast, player_attacked, player_attacking,
-			begin_button, record_button, return_button, row, row_heading, arrow_next, title_text_table,
+			begin_button, record_button, return_button, row, row_heading, arrow_next, title_text_table, border,
 			wu__, wd__, wl__, wr__,
 			cwul, cwur, cwdl, cwdr,
 			cul_, cur_, cdl_, cdr_,
 			activ_lever, passiv_lever,
 			uchd, uohd, dchd, dohd;
+
 	Sound slime_attacked_sound, slime_attacking_sound,
 			player_attacking_sound, player_attacked_sound,
 			lever_sound, open_doors_sound, closed_doors_sound;
+
 	TextureRegion font_region;
 
 	float size, horisontal_otstup, vertical_otstup, left_border_x, left_border_y, right_border_x, right_border_y,
 			up_border_x, up_border_y, down_border_x, down_border_y, width, height, speed;
+
 	public static final int SCR_WIDTH = 960, SCR_HEIGHT = 540;
+
 	String [][] map;
 	int cage_x, cage_y;
 	HashMap<String, TextureRegion> font_map;
@@ -89,6 +95,7 @@ public class DungeonEscape extends Game {
 		arrow_next = new Texture("interface/arrow_next.png");
 		font_region = new TextureRegion(new Texture("interface/font.png"));
 		title_text_table = new Texture("interface/title_text_table.png");
+		border = new Texture("interface/border.png");
 
 		//walls res
 		wu__ = new Texture("walls/wu__.png");
