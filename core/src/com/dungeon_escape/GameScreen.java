@@ -204,7 +204,6 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
-        //game.batch.setColor(0, 0, 0, 1);
         for (int i = 0; i < game.cage_x; i++){
             for (int j = 0; j < game.cage_y; j++){
                 cages[i][j].draw(game.batch, game.size, Gdx.graphics.getDeltaTime());
