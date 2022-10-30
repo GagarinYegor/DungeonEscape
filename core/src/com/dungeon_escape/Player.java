@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Player {
-    private boolean is_attack, is_attacked;
+    private boolean is_attack, is_attacked, is_moving;
     private int x, y;
     private float real_x, real_y, attacked_timer, speed, horizontal_otstup, vertical_otstup, size;
     private Animation player_animation;
@@ -52,8 +52,39 @@ public class Player {
             }
             else batch.draw(player_animation.getFrame(), real_x, real_y, size, size);
         }
-        blast.draw(batch, size, dt);
-        player_animation.update(dt);
+        if (is_moving){
+            batch.draw(player_animation.getFrame(), real_x, real_y, size, size);
+            player_animation.update(dt);
+            if (real_x<x*size+horizontal_otstup){
+                if (real_x+speed*dt<x*size+horizontal_otstup) {
+                    real_x += speed*dt;
+                }
+                else real_x+=speed*dt-(real_x+speed*dt-(x*size+horizontal_otstup));
+            }
+            if (real_x>x*size+horizontal_otstup){
+                if (real_x+speed*dt>x*size+horizontal_otstup) {
+                    real_x -= speed*dt;
+                }
+                else real_x-=speed*dt-(real_x+speed*dt-(x*size+horizontal_otstup));
+            }
+            if (real_y<y*size+vertical_otstup){
+                if (real_y+speed*dt<y*size+vertical_otstup) {
+                    real_y += speed*dt;
+                }
+                else {
+                    real_y+=speed*dt-(real_y+speed*dt-(y*size+vertical_otstup));
+                }
+            }
+            if (real_y>y*size+vertical_otstup){
+                if (real_y+speed*dt>y*size+vertical_otstup) {
+                    real_y -= speed*dt;
+                }
+                else real_y-=speed*dt-(real_y+speed*dt-(y*size+vertical_otstup));
+            }
+        }
+        if (real_x==x*size+horizontal_otstup&&real_y==y*size+vertical_otstup) {
+            is_moving = false;
+        }
     }
 
     public void attacking(int x, int y){
@@ -69,6 +100,11 @@ public class Player {
             is_attacked = true;
             attacked_timer = 0;
         }
+    }
+    public void move(int x, int y){
+        this.x += x;
+        this.y += y;
+        is_moving = true;
     }
     public int getX(){
         return x;

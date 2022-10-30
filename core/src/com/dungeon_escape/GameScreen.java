@@ -14,11 +14,17 @@ public class GameScreen extends ScreenAdapter {
     Player player;
     Lever [] levers;
     OrthographicCamera camera;
+    float camera_move_up, camera_move_down, camera_move_left, camera_move_right;
+    boolean is_hod, is_attack;
 
     public GameScreen(DungeonEscape game) {
-
         camera = new OrthographicCamera(game.width, game.height);
         camera.setToOrtho(false, game.width, game.height);
+        camera_move_up = 0;
+        camera_move_down = 0;
+        camera_move_left = 0;
+        camera_move_right = 0;
+        is_hod = true;
         this.game = game;
         slimes = new Slime[10];
         cages = new Cage[game.cage_x][game.cage_y];
@@ -54,7 +60,7 @@ public class GameScreen extends ScreenAdapter {
         for (int i=0; i< levers.length; i++){
             levers[i] = new Lever(i+3, 1, i+3, 5, game.size, game.horisontal_otstup, game.vertical_otstup, game.activ_lever, game.passiv_lever, game.speed, game.uchd, game.uohd, game.slime_attacked_sound, game.open_doors_sound, game.closed_doors_sound);
         }
-        player = new Player(4, 2, game.size, game.horisontal_otstup, game.vertical_otstup, game.player_texture_region, 12, game.speed, game.player_blast, game.player_attacking, game.player_attacked, game.player_attacking_sound, game.player_attacked_sound);
+        player = new Player(4, 3, game.size, game.horisontal_otstup, game.vertical_otstup, game.player_texture_region, 12, game.speed, game.player_blast, game.player_attacking, game.player_attacked, game.player_attacking_sound, game.player_attacked_sound);
     }
 
     @Override
@@ -78,13 +84,52 @@ public class GameScreen extends ScreenAdapter {
                     touch_y = (int) ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size - 1);
                 }
                 if (button == Input.Buttons.LEFT) {
-                    for (Slime slime : slimes){
-                        if (slime.getX() == touch_x && slime.getY() == touch_y) slime.attacking(9-slime.getX(), 0);
+                    if (is_hod) {
+                        if (is_attack) {
+                            if (touch_x == 4 && touch_y == 4) {
+                                is_hod = false;
+                                player.move(0, 1);
+                            }
+                            if (touch_x == 4 && touch_y == 4) {
+                                is_hod = false;
+                                player.move(0, 1);
+                            }
+                            if (touch_x == 4 && touch_y == 4) {
+                                is_hod = false;
+                                player.move(0, 1);
+                            }
+                            if (touch_x == 4 && touch_y == 4) {
+                                is_hod = false;
+                                player.move(0, 1);
+                            }
+                        }
+                        else{
+                            if (touch_x == 4 && touch_y == 4) {
+                                if (cages[player.getX()][player.getY()+1].get_movable()) {
+                                    is_hod = false;
+                                    player.move(0, 1);
+                                }
+                            }
+                            if (touch_x == 4 && touch_y == 2) {
+                                if (cages[player.getX()][player.getY()-1].get_movable()) {
+                                    is_hod = false;
+                                    player.move(0, -1);
+                                }
+                            }
+                            if (touch_x == 3 && touch_y == 3) {
+                                if (cages[player.getX()+1][player.getY()].get_movable()) {
+                                    is_hod = false;
+                                    player.move(1, 0);
+                                }
+                            }
+                            if (touch_x == 5 && touch_y == 3) {
+                                if (cages[player.getX()-1][player.getY()].get_movable()) {
+                                    is_hod = false;
+                                    player.move(-1, 0);
+                                }
+                            }
+                        }
                     }
-                    for (Lever lever : levers){
-                        if (lever.getX() == touch_x && lever.getY() == touch_y) lever.click(cages);
-                    }
-                    if (player.getX() == touch_x && player.getY() == touch_y) player.attacking(4, 0);
                     return true;
                 }
                 if (button == Input.Buttons.RIGHT) {
@@ -100,27 +145,31 @@ public class GameScreen extends ScreenAdapter {
             @Override
             public boolean keyDown(int keycode) {
                 if (keycode == Input.Keys.UP){
+                    player.move(0, 1);
                     camera.translate(0, game.size);
                     return true;
                 }
                 if (keycode == Input.Keys.DOWN){
+                    player.move(0, -1);
                     camera.translate(0, -game.size);
                     return true;
                 }
                 if (keycode == Input.Keys.RIGHT){
+                    player.move(1, 0);
                     camera.translate(game.size, 0);
                     return true;
                 }
                 if (keycode == Input.Keys.LEFT){
+                    player.move(-1, 0);
                     camera.translate(-game.size, 0);
                     return true;
                 }
                 if (keycode == Input.Keys.Q){
-                    camera.zoom+=0.5f;
+                    camera.zoom+=game.size/10;
                     return true;
                 }
                 if (keycode == Input.Keys.A){
-                    camera.zoom-=0.5f;
+                    camera.zoom-=game.size/10;
                     return true;
                 }
                 return false;
@@ -130,7 +179,6 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-
         Gdx.gl.glClearColor(0.4f, 0.4f, 0.4f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.setProjectionMatrix(camera.combined);
