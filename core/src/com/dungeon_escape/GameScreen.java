@@ -25,6 +25,7 @@ public class GameScreen extends ScreenAdapter {
         camera_move_left = 0;
         camera_move_right = 0;
         is_hod = true;
+        is_attack = true;
         this.game = game;
         slimes = new Slime[10];
         cages = new Cage[game.cage_x][game.cage_y];
@@ -87,20 +88,40 @@ public class GameScreen extends ScreenAdapter {
                     if (is_hod) {
                         if (is_attack) {
                             if (touch_x == 4 && touch_y == 4) {
-                                is_hod = false;
-                                player.move(0, 1);
+                                for (Slime slime : slimes){
+                                    if (slime.getX() == player.getX() && slime.getY() == player.getY()+1) {
+                                        player.attacking(player.getX(), player.getY()+1);
+                                        slime.attacked();
+                                        is_attack = false;
+                                    }
+                                }
                             }
-                            if (touch_x == 4 && touch_y == 4) {
-                                is_hod = false;
-                                player.move(0, 1);
+                            if (touch_x == 4 && touch_y == 2) {
+                                for (Slime slime : slimes){
+                                    if (slime.getX() == player.getX() && slime.getY() == player.getY()-1) {
+                                        player.attacking(player.getX(), player.getY()-1);
+                                        slime.attacked();
+                                        is_attack = false;
+                                    }
+                                }
                             }
-                            if (touch_x == 4 && touch_y == 4) {
-                                is_hod = false;
-                                player.move(0, 1);
+                            if (touch_x == 5 && touch_y == 3) {
+                                for (Slime slime : slimes){
+                                    if (slime.getX() == player.getX()+1 && slime.getY() == player.getY()) {
+                                        player.attacking(player.getX()+1, player.getY());
+                                        slime.attacked();
+                                        is_attack = false;
+                                    }
+                                }
                             }
-                            if (touch_x == 4 && touch_y == 4) {
-                                is_hod = false;
-                                player.move(0, 1);
+                            if (touch_x == 3 && touch_y == 3) {
+                                for (Slime slime : slimes){
+                                    if (slime.getX() == player.getX()-1 && slime.getY() == player.getY()) {
+                                        player.attacking(player.getX()-1, player.getY());
+                                        slime.attacked();
+                                        is_attack = false;
+                                    }
+                                }
                             }
                         }
                         else{
@@ -116,13 +137,13 @@ public class GameScreen extends ScreenAdapter {
                                     player.move(0, -1);
                                 }
                             }
-                            if (touch_x == 3 && touch_y == 3) {
+                            if (touch_x == 5 && touch_y == 3) {
                                 if (cages[player.getX()+1][player.getY()].get_movable()) {
                                     is_hod = false;
                                     player.move(1, 0);
                                 }
                             }
-                            if (touch_x == 5 && touch_y == 3) {
+                            if (touch_x == 3 && touch_y == 3) {
                                 if (cages[player.getX()-1][player.getY()].get_movable()) {
                                     is_hod = false;
                                     player.move(-1, 0);
