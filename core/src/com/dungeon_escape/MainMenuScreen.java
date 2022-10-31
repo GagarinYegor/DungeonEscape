@@ -21,11 +21,11 @@ public class MainMenuScreen extends ScreenAdapter {
             public boolean touchDown (int x, int y, int pointer, int button) {
                 int touch_x;
                 int touch_y;
-                if ((Gdx.input.getX()-game.horisontal_otstup) / game.size>=0){
-                    touch_x = (int) ((Gdx.input.getX()-game.horisontal_otstup) / game.size);
+                if ((Gdx.input.getX()-game.horizontal_otstup) / game.size>=0){
+                    touch_x = (int) ((Gdx.input.getX()-game.horizontal_otstup) / game.size);
                 }
                 else{
-                    touch_x = (int) ((Gdx.input.getX()-game.horisontal_otstup) / game.size - 1);
+                    touch_x = (int) ((Gdx.input.getX()-game.horizontal_otstup) / game.size - 1);
                 }
                 if ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size >=0){
                     touch_y= (int) ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size);
@@ -51,8 +51,8 @@ public class MainMenuScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, .25f, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
-        game.batch.draw(game.begin_button, game.horisontal_otstup, game.vertical_otstup+game.size*2, game.size*10, game.size);
-        game.batch.draw(game.record_button, game.horisontal_otstup, game.vertical_otstup+game.size*1, game.size*10, game.size);
+        game.batch.draw(game.begin_button, game.horizontal_otstup, game.vertical_otstup+game.size*2, game.size*10, game.size);
+        game.batch.draw(game.record_button, game.horizontal_otstup, game.vertical_otstup+game.size*1, game.size*10, game.size);
         game.batch.end();
     }
 

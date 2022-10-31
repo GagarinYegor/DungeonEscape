@@ -36,11 +36,11 @@ public class RecordScreen extends ScreenAdapter {
             public boolean touchDown (int x, int y, int pointer, int button) {
                 int touch_x;
                 int touch_y;
-                if ((Gdx.input.getX()-game.horisontal_otstup) / game.size>=0){
-                    touch_x = (int) ((Gdx.input.getX()-game.horisontal_otstup) / game.size);
+                if ((Gdx.input.getX()-game.horizontal_otstup) / game.size>=0){
+                    touch_x = (int) ((Gdx.input.getX()-game.horizontal_otstup) / game.size);
                 }
                 else{
-                    touch_x = (int) ((Gdx.input.getX()-game.horisontal_otstup) / game.size - 1);
+                    touch_x = (int) ((Gdx.input.getX()-game.horizontal_otstup) / game.size - 1);
                 }
                 if ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size >=0){
                     touch_y= (int) ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size);
@@ -62,12 +62,12 @@ public class RecordScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, .25f, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
-        game.batch.draw(game.return_button, game.horisontal_otstup, game.vertical_otstup+game.size*0, game.size*10, game.size);
-        game.batch.draw(game.row_heading, game.horisontal_otstup, game.vertical_otstup+game.size*6, game.size*10, game.size);
+        game.batch.draw(game.return_button, game.horizontal_otstup, game.vertical_otstup+game.size*0, game.size*10, game.size);
+        game.batch.draw(game.row_heading, game.horizontal_otstup, game.vertical_otstup+game.size*6, game.size*10, game.size);
         for (int i = 0; i<(list_num)*5; i++){
             String [] string = rows[i+(list_num-1)*5].split(" ");
-            game.batch.draw(game.row, game.horisontal_otstup, game.vertical_otstup+game.size*(5-i), game.size*10, game.size);
-            game.record_font.draw(game.batch, string[0], game.horisontal_otstup+ game.size*0+game.size/10, game.vertical_otstup+game.size*(6-i)- game.size/4);
+            game.batch.draw(game.row, game.horizontal_otstup, game.vertical_otstup+game.size*(5-i), game.size*10, game.size);
+            game.record_font.draw(game.batch, string[0], game.horizontal_otstup+ game.size*0+game.size/10, game.vertical_otstup+game.size*(6-i)- game.size/4);
         }
         game.batch.end();
     }

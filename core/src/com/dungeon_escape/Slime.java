@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Slime {
-    private boolean is_attack, is_attacked;
+    private boolean is_attack, is_attacked, is_moving;
     private int x, y;
     private float real_x, real_y, attacked_timer, speed, horizontal_otstup, vertical_otstup, size;
     private Animation slime_animation;
@@ -59,6 +59,39 @@ public class Slime {
                 if (!blast.get_activ()) is_attack = false;
             }
         }
+        if (is_moving){
+            batch.draw(slime_animation.getFrame(), real_x, real_y, size, size);
+            slime_animation.update(dt);
+            if (real_x<x*size+horizontal_otstup){
+                if (real_x+speed*dt<x*size+horizontal_otstup) {
+                    real_x += speed*dt;
+                }
+                else real_x+=speed*dt-(real_x+speed*dt-(x*size+horizontal_otstup));
+            }
+            if (real_x>x*size+horizontal_otstup){
+                if (real_x+speed*dt>x*size+horizontal_otstup) {
+                    real_x -= speed*dt;
+                }
+                else real_x-=speed*dt-(real_x+speed*dt-(x*size+horizontal_otstup));
+            }
+            if (real_y<y*size+vertical_otstup){
+                if (real_y+speed*dt<y*size+vertical_otstup) {
+                    real_y += speed*dt;
+                }
+                else {
+                    real_y+=speed*dt-(real_y+speed*dt-(y*size+vertical_otstup));
+                }
+            }
+            if (real_y>y*size+vertical_otstup){
+                if (real_y+speed*dt>y*size+vertical_otstup) {
+                    real_y -= speed*dt;
+                }
+                else real_y-=speed*dt-(real_y+speed*dt-(y*size+vertical_otstup));
+            }
+        }
+        if (real_x==x*size+horizontal_otstup&&real_y==y*size+vertical_otstup) {
+            is_moving = false;
+        }
         slime_animation.update(dt);
         blast.draw(batch, size, dt);
     }
@@ -76,10 +109,16 @@ public class Slime {
             attacked_timer = 0;
         }
     }
+    public void move(int x, int y){
+        this.x += x;
+        this.y += y;
+        is_moving = true;
+    }
     public int getX(){
         return x;
     }
     public int getY(){
         return y;
     }
+    public boolean getMoving(){return is_moving;}
 }

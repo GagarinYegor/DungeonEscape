@@ -39,7 +39,7 @@ public class DungeonEscape extends Game {
 
 	TextureRegion font_region;
 
-	float size, horisontal_otstup, vertical_otstup, left_border_x, left_border_y, right_border_x, right_border_y,
+	float size, horizontal_otstup, vertical_otstup, left_border_x, left_border_y, right_border_x, right_border_y,
 			up_border_x, up_border_y, down_border_x, down_border_y, width, height, speed;
 
 	public static final int SCR_WIDTH = 960, SCR_HEIGHT = 540;
@@ -51,7 +51,7 @@ public class DungeonEscape extends Game {
 
 	@Override
 	public void create() {
-		speed = 150f;
+		speed = 200f;
 		batch = new SpriteBatch();
 
 		//slime res
@@ -121,16 +121,16 @@ public class DungeonEscape extends Game {
 		width = Gdx.app.getGraphics().getWidth();
 		height = Gdx.app.getGraphics().getHeight();
 		size = height / 7;
-		horisontal_otstup = (width-size*10)/2;
+		horizontal_otstup = (width-size*10)/2;
 		vertical_otstup = 0;
-		if(horisontal_otstup < 0){
-			horisontal_otstup = 0;
+		if(horizontal_otstup < 0){
+			horizontal_otstup = 0;
 			size = width/10;
 			vertical_otstup = (height - 7*size)/2;
 		}
 		left_border_x = 0;
 		left_border_y = 0;
-		right_border_x = width-horisontal_otstup;
+		right_border_x = width-horizontal_otstup;
 		right_border_y = 0;
 		up_border_x = 0;
 		up_border_y = height-vertical_otstup;

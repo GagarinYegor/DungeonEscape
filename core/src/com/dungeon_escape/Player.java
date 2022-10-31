@@ -85,6 +85,9 @@ public class Player {
         if (real_x==x*size+horizontal_otstup&&real_y==y*size+vertical_otstup) {
             is_moving = false;
         }
+        batch.draw(player_animation.getFrame(), real_x, real_y, size, size);
+        player_animation.update(dt);
+        blast.draw(batch, size, dt);
     }
 
     public void attacking(int x, int y){
@@ -112,4 +115,5 @@ public class Player {
     public int getY(){
         return y;
     }
+    public boolean getMoving(){return !is_moving;}
 }
