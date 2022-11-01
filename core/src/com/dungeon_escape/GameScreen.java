@@ -252,7 +252,7 @@ public class GameScreen extends ScreenAdapter {
             camera_move_right -= game.speed*delta;
             if (camera_move_right == 0) is_hod = true;
         }
-        if (game.speed > camera_move_right && camera_move_right > 0){
+        if (game.speed*delta > camera_move_right && camera_move_right > 0){
             camera.translate(camera_move_right, 0);
             game.left_border_x+=camera_move_right;
             game.right_border_x+=camera_move_right;
@@ -270,7 +270,7 @@ public class GameScreen extends ScreenAdapter {
             camera_move_left -= game.speed*delta;
             if (camera_move_left == 0) is_hod = true;
         }
-        if (game.speed > camera_move_left && camera_move_left > 0){
+        if (game.speed*delta > camera_move_left && camera_move_left > 0){
             camera.translate(-camera_move_left, 0);
             game.left_border_x-=camera_move_left;
             game.right_border_x-=camera_move_left;
@@ -288,7 +288,7 @@ public class GameScreen extends ScreenAdapter {
             camera_move_up -= game.speed*delta;
             if (camera_move_up == 0) is_hod = true;
         }
-        if (game.speed > camera_move_up && camera_move_up > 0){
+        if (game.speed*delta > camera_move_up && camera_move_up > 0){
             camera.translate(0, camera_move_up);
             game.left_border_y+=camera_move_up;
             game.right_border_y+=camera_move_up;
@@ -306,7 +306,7 @@ public class GameScreen extends ScreenAdapter {
             camera_move_down -= game.speed*delta;
             if (camera_move_down == 0) is_hod = true;
         }
-        if (game.speed > camera_move_down && camera_move_down > 0){
+        if (game.speed*delta > camera_move_down && camera_move_down > 0){
             camera.translate(0, -camera_move_down);
             game.left_border_y-=camera_move_down;
             game.right_border_y-=camera_move_down;

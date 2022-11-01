@@ -115,5 +115,5 @@ public class Player {
     public int getY(){
         return y;
     }
-    public boolean getMoving(){return !is_moving;}
+    public boolean getMoving(){return is_moving;}
 }
