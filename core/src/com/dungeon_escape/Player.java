@@ -38,21 +38,21 @@ public class Player {
     }
 
     public void draw(SpriteBatch batch, float size, float dt){
-        if (is_attacked) {
-            batch.draw(attacked_player, real_x, real_y, size, size);
-            if (attacked_timer<0.5f) {
-                attacked_timer+=dt;
+        if(!is_moving) {
+            if (is_attacked) {
+                batch.draw(attacked_player, real_x, real_y, size, size);
+                if (attacked_timer < 0.5f) {
+                    attacked_timer += dt;
+                } else is_attacked = false;
+            } else {
+                if (is_attack) {
+                    batch.draw(attacking_player, real_x, real_y, size, size);
+                    if (!blast.get_activ()) is_attack = false;
+                } else batch.draw(player_animation.getFrame(), real_x, real_y, size, size);
             }
-            else is_attacked = false;
         }
         else {
-            if (is_attack) {
-                batch.draw(attacking_player, real_x, real_y, size, size);
-                if (!blast.get_activ()) is_attack = false;
-            }
-            else batch.draw(player_animation.getFrame(), real_x, real_y, size, size);
-        }
-        if (is_moving){
+            batch.draw(player_animation.getFrame(), real_x, real_y, size, size);
             if (real_x<x*size+horizontal_otstup){
                 if (real_x+speed*dt<x*size+horizontal_otstup) {
                     real_x += speed*dt;
@@ -83,8 +83,7 @@ public class Player {
         if (real_x==x*size+horizontal_otstup&&real_y==y*size+vertical_otstup) {
             is_moving = false;
         }
-        //batch.draw(player_animation.getFrame(), real_x, real_y, size, size);
-        //player_animation.update(dt);
+        player_animation.update(dt);
         blast.draw(batch, size, dt);
     }
 
