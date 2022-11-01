@@ -222,27 +222,6 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        /*displacement = game.speed*delta;
-        if (camera_real_x<camera_x*game.size+game.horizontal_otstup){
-            if (camera_real_x+displacement<camera_x*game.size+game.horizontal_otstup) {
-                camera_real_x += displacement;
-                camera.translate(displacement, 0);
-            }
-            else{
-                camera_real_x+=displacement-(camera_real_x+displacement-(camera_x*game.size+game.horizontal_otstup));
-                camera.translate(displacement-(camera_real_x+displacement-(camera_x*game.size+game.horizontal_otstup)), 0);
-            }
-        }
-        if (camera_real_x>camera_x*game.size+game.horizontal_otstup){
-            if (camera_real_x+displacement>camera_x*game.size+game.horizontal_otstup) {
-                camera_real_x -= displacement;
-                camera.translate(-displacement, 0);
-            }
-            else{
-                camera_real_x-=displacement-(camera_real_x+displacement-(camera_x*game.size+game.horizontal_otstup));
-                camera.translate(-displacement-(camera_real_x+displacement-(camera_x*game.size+game.horizontal_otstup)), 0);
-            }
-        }*/
         if (camera_move_right > 0){
             camera.translate(game.speed*delta, 0);
             game.left_border_x+=game.speed*delta;
@@ -326,17 +305,17 @@ public class GameScreen extends ScreenAdapter {
                 cages[i][j].draw(game.batch, game.size, delta);
             }
         }
+        player.draw(game.batch, game.size, delta);
         for (Slime slime: slimes){
             slime.draw(game.batch, game.size, delta);
         }
         for (Lever lever: levers){
             lever.draw(game.batch, game.size);
         }
-        game.batch.draw(game.border, game.left_border_x, game.left_border_y, game.horizontal_otstup, game.height);
-        game.batch.draw(game.border, game.right_border_x, game.right_border_y, game.horizontal_otstup, game.height);
+        game.batch.draw(game.border, game.left_border_x-game.size, game.left_border_y-game.size, game.horizontal_otstup+game.size, game.height+2*game.size);
+        game.batch.draw(game.border, game.right_border_x, game.right_border_y-game.size, game.horizontal_otstup+game.size, game.height+2*game.size);
         game.batch.draw(game.border, game.up_border_x, game.up_border_y, game.width, game.vertical_otstup);
         game.batch.draw(game.border, game.down_border_x, game.down_border_y, game.width, game.vertical_otstup);
-        player.draw(game.batch, game.size, delta);
         camera.update();
         game.batch.end();
         check_hod();
