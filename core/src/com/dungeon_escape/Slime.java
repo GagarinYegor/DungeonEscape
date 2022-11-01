@@ -10,13 +10,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Slime {
     private boolean is_attack, is_attacked, is_moving, is_alive;
-    private int x, y, health, max_health;
+    private int x, y, health, max_health, power;
     private float real_x, real_y, attacked_timer, speed, horizontal_otstup, vertical_otstup, size;
     private Animation slime_animation;
     private Texture attacking_slime, title_text_table, attacked_slime;
     private BitmapFont font;
     private Blast blast;
-    Sound slime_attacking_sound, slime_attacked_sound;
+    private Sound slime_attacking_sound, slime_attacked_sound;
 
     Slime(int x, int y, float size, float horizontal_otstup, float vertical_otstup, Texture slime_texture_region, int frameCount, float speed, Texture slime_blast, Texture attacking_slime, Texture attacked_slime, Sound slime_attacking_sound, Sound slime_attacked_sound, Texture title_text_table){
         this.speed = speed;
@@ -43,14 +43,11 @@ public class Slime {
         is_alive = true;
         max_health = 100;
         health = max_health;
+        power = 20;
     }
 
     public void draw(SpriteBatch batch, float size, float dt) {
         if (is_alive) {
-            if (health<=0){
-
-                is_alive = false;
-            }
             batch.draw(title_text_table, real_x, real_y + size - size / 4, size, size / 4);
             font.draw(batch, "Hp:"+health+"/"+max_health, real_x + size / 10, real_y + size - size / 20);
             if (is_attacked) {
@@ -126,6 +123,19 @@ public class Slime {
     }
     public int getY(){
         return y;
+    }
+    public int getHealth(){
+        return health;
+    }
+    public int getPower(){
+        return power;
+    }
+    public void death(){
+        x = 24;
+        y = 15;
+        real_x = x*size+horizontal_otstup;
+        real_y = y*size+vertical_otstup;
+        is_alive = false;
     }
     public boolean getMoving(){return is_moving;}
 }

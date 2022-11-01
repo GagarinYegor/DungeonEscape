@@ -8,14 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class DungeonEscape extends Game {
 
@@ -45,7 +39,8 @@ public class DungeonEscape extends Game {
 	public static final int SCR_WIDTH = 960, SCR_HEIGHT = 540;
 
 	String [][] map;
-	int cage_x, cage_y;
+	int[][] revers_slime_mass;
+	int cage_x, cage_y, slime_mass_x, slime_mass_y;
 	HashMap<String, TextureRegion> font_map;
 
 
@@ -146,7 +141,18 @@ public class DungeonEscape extends Game {
 			cage_x = text_x.length;
 			for (int j=0; j<cage_x; j++){
 				map [j][(cage_y-1)-i] = text_x[j];
-				//System.out.println(map [j][i]);
+			}
+		}
+
+		revers_slime_mass = new int[4][2];
+		FileHandle slime_file = Gdx.files.internal("text_resources/slimes.txt");
+		String [] slime_text_y = slime_file.readString().split("\n");
+		slime_mass_y = slime_text_y.length;
+		for (int i=0; i<slime_mass_y; i++){
+			String [] slime_text_x = slime_text_y[i].split(" ");
+			slime_mass_x = 2;
+			for (int j=0; j<2; j++){
+				revers_slime_mass[i][j] = Integer.parseInt(slime_text_x[j].trim());
 			}
 		}
 
