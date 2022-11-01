@@ -228,77 +228,45 @@ public class GameScreen extends ScreenAdapter {
         game.down_border_x = player.get_real_X()- game.size*4-game.horizontal_otstup;
         game.left_border_y = player.get_real_Y()- game.size*3-game.vertical_otstup;
         game.right_border_y = player.get_real_Y()- game.size*3-game.vertical_otstup;
-        game.up_border_y = player.get_real_Y()+ game.size*3;
+        game.up_border_y = player.get_real_Y()+ game.size*4;
         game.down_border_y = player.get_real_Y()- game.size*3-game.vertical_otstup;
         if (camera_move_right > 0){
             camera.translate(game.speed*delta, 0);
-            //game.left_border_x+=game.speed*delta;
-            //game.right_border_x+=game.speed*delta;
-            //game.up_border_x+=game.speed*delta;
-            //game.down_border_x+=game.speed*delta;
             camera_move_right -= game.speed*delta;
             if (camera_move_right == 0) is_hod = true;
         }
         if (game.speed*delta > camera_move_right && camera_move_right > 0){
             camera.translate(camera_move_right, 0);
-            //game.left_border_x+=camera_move_right;
-            //game.right_border_x+=camera_move_right;
-            //game.up_border_x+=camera_move_right;
-            //game.down_border_x+=camera_move_right;
             camera_move_right = 0;
             is_hod = true;
         }
         if (camera_move_left > 0){
             camera.translate(-game.speed*delta, 0);
-            //game.left_border_x-=game.speed*delta;
-            //game.right_border_x-=game.speed*delta;
-            //game.up_border_x-=game.speed*delta;
-            //game.down_border_x-=game.speed*delta;
             camera_move_left -= game.speed*delta;
             if (camera_move_left == 0) is_hod = true;
         }
         if (game.speed*delta > camera_move_left && camera_move_left > 0){
             camera.translate(-camera_move_left, 0);
-            //game.left_border_x-=camera_move_left;
-            //game.right_border_x-=camera_move_left;
-            //game.up_border_x-=camera_move_left;
-            //game.down_border_x-=camera_move_left;
             camera_move_left = 0;
             is_hod = true;
         }
         if (camera_move_up > 0){
             camera.translate(0, game.speed*delta);
-            //game.left_border_y+=game.speed*delta;
-            //game.right_border_y+=game.speed*delta;
-            //game.up_border_y+=game.speed*delta;
-            //game.down_border_y+=game.speed*delta;
             camera_move_up -= game.speed*delta;
             if (camera_move_up == 0) is_hod = true;
         }
         if (game.speed*delta > camera_move_up && camera_move_up > 0){
             camera.translate(0, camera_move_up);
-            //game.left_border_y+=camera_move_up;
-            //game.right_border_y+=camera_move_up;
-            //game.up_border_y+=camera_move_up;
-            //game.down_border_y+=camera_move_up;
             camera_move_up = 0;
             is_hod = true;
         }
         if (camera_move_down > 0){
             camera.translate(0, -game.speed*delta);
-            //game.left_border_y-=game.speed*delta;
-            //game. right_border_y-=game.speed*delta;
-            //game.up_border_y-=game.speed*delta;
-            //game.down_border_y-=game.speed*delta;
             camera_move_down -= game.speed*delta;
             if (camera_move_down == 0) is_hod = true;
         }
         if (game.speed*delta > camera_move_down && camera_move_down > 0){
             camera.translate(0, -camera_move_down);
-            //game.left_border_y-=camera_move_down;
-            //game.right_border_y-=camera_move_down;
-            //game.up_border_y-=camera_move_down;
-            //game.down_border_y-=camera_move_down;
             camera_move_down = 0;
             is_hod = true;
         }
@@ -321,8 +289,8 @@ public class GameScreen extends ScreenAdapter {
         }
         game.batch.draw(game.border, game.left_border_x-game.size, game.left_border_y-game.size, game.horizontal_otstup+game.size, game.height+2*game.size);
         game.batch.draw(game.border, game.right_border_x, game.right_border_y-game.size, game.horizontal_otstup+game.size, game.height+2*game.size);
-        game.batch.draw(game.border, game.up_border_x, game.up_border_y, game.width, game.vertical_otstup);
-        game.batch.draw(game.border, game.down_border_x, game.down_border_y, game.width, game.vertical_otstup);
+        game.batch.draw(game.border, game.up_border_x-game.size, game.up_border_y, game.width+2*game.size, game.vertical_otstup+game.size);
+        game.batch.draw(game.border, game.down_border_x-game.size, game.down_border_y-game.size, game.width+2*game.size, game.vertical_otstup+game.size);
         camera.update();
         game.batch.end();
         check_hod();

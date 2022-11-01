@@ -134,6 +134,7 @@ public class DungeonEscape extends Game {
 		right_border_y = 0;
 		up_border_x = 0;
 		up_border_y = height-vertical_otstup;
+		System.out.println(up_border_y/size);
 		down_border_x = 0;
 		down_border_y = 0;
 
