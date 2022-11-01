@@ -14,8 +14,7 @@ public class GameScreen extends ScreenAdapter {
     Player player;
     Lever [] levers;
     OrthographicCamera camera;
-    float camera_real_x, camera_real_y, displacement;
-    int camera_x, camera_y;
+    float camera_move_up, camera_move_down, camera_move_left, camera_move_right;
     boolean is_hod, is_attack;
 
     public void check_hod(){
@@ -29,19 +28,28 @@ public class GameScreen extends ScreenAdapter {
 
     public void Go(int x, int y){
         is_hod = false;
-        camera_x+=x;
-        camera_y+=y;
+        if (x==0&&y==1){
+            camera_move_up+= game.size;
+        }
+        if (x==0&&y==-1){
+            camera_move_down+= game.size;
+        }
+        if (x==1&&y==0){
+            camera_move_right+= game.size;
+        }
+        if (x==-1&&y==0){
+            camera_move_left+= game.size;
+        }
         player.move(x, y);
-        System.out.println(camera_x +" "+ camera_y);
     }
 
     public GameScreen(DungeonEscape game) {
         camera = new OrthographicCamera(game.width, game.height);
         camera.setToOrtho(false, game.width, game.height);
-        camera_x = 4;
-        camera_y = 3;
-        camera_real_x = (camera_x+1)* game.size+ game.horizontal_otstup;
-        camera_real_y = camera_y* game.size+ game.vertical_otstup;
+        camera_move_up = 0;
+        camera_move_down = 0;
+        camera_move_left = game.size;
+        camera_move_right = 0;
         is_hod = true;
         is_attack = true;
         this.game = game;
@@ -214,7 +222,7 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        displacement = game.speed*delta;
+        /*displacement = game.speed*delta;
         if (camera_real_x<camera_x*game.size+game.horizontal_otstup){
             if (camera_real_x+displacement<camera_x*game.size+game.horizontal_otstup) {
                 camera_real_x += displacement;
@@ -234,6 +242,78 @@ public class GameScreen extends ScreenAdapter {
                 camera_real_x-=displacement-(camera_real_x+displacement-(camera_x*game.size+game.horizontal_otstup));
                 camera.translate(-displacement-(camera_real_x+displacement-(camera_x*game.size+game.horizontal_otstup)), 0);
             }
+        }*/
+        if (camera_move_right > 0){
+            camera.translate(game.speed*delta, 0);
+            game.left_border_x+=game.speed*delta;
+            game.right_border_x+=game.speed*delta;
+            game.up_border_x+=game.speed*delta;
+            game.down_border_x+=game.speed*delta;
+            camera_move_right -= game.speed*delta;
+            if (camera_move_right == 0) is_hod = true;
+        }
+        if (game.speed > camera_move_right && camera_move_right > 0){
+            camera.translate(camera_move_right, 0);
+            game.left_border_x+=camera_move_right;
+            game.right_border_x+=camera_move_right;
+            game.up_border_x+=camera_move_right;
+            game.down_border_x+=camera_move_right;
+            camera_move_right = 0;
+            is_hod = true;
+        }
+        if (camera_move_left > 0){
+            camera.translate(-game.speed*delta, 0);
+            game.left_border_x-=game.speed*delta;
+            game.right_border_x-=game.speed*delta;
+            game.up_border_x-=game.speed*delta;
+            game.down_border_x-=game.speed*delta;
+            camera_move_left -= game.speed*delta;
+            if (camera_move_left == 0) is_hod = true;
+        }
+        if (game.speed > camera_move_left && camera_move_left > 0){
+            camera.translate(-camera_move_left, 0);
+            game.left_border_x-=camera_move_left;
+            game.right_border_x-=camera_move_left;
+            game.up_border_x-=camera_move_left;
+            game.down_border_x-=camera_move_left;
+            camera_move_left = 0;
+            is_hod = true;
+        }
+        if (camera_move_up > 0){
+            camera.translate(0, game.speed*delta);
+            game.left_border_y+=game.speed*delta;
+            game.right_border_y+=game.speed*delta;
+            game.up_border_y+=game.speed*delta;
+            game.down_border_y+=game.speed*delta;
+            camera_move_up -= game.speed*delta;
+            if (camera_move_up == 0) is_hod = true;
+        }
+        if (game.speed > camera_move_up && camera_move_up > 0){
+            camera.translate(0, camera_move_up);
+            game.left_border_y+=camera_move_up;
+            game.right_border_y+=camera_move_up;
+            game.up_border_y+=camera_move_up;
+            game.down_border_y+=camera_move_up;
+            camera_move_up = 0;
+            is_hod = true;
+        }
+        if (camera_move_down > 0){
+            camera.translate(0, -game.speed*delta);
+            game.left_border_y-=game.speed*delta;
+            game. right_border_y-=game.speed*delta;
+            game.up_border_y-=game.speed*delta;
+            game.down_border_y-=game.speed*delta;
+            camera_move_down -= game.speed*delta;
+            if (camera_move_down == 0) is_hod = true;
+        }
+        if (game.speed > camera_move_down && camera_move_down > 0){
+            camera.translate(0, -camera_move_down);
+            game.left_border_y-=camera_move_down;
+            game.right_border_y-=camera_move_down;
+            game.up_border_y-=camera_move_down;
+            game.down_border_y-=camera_move_down;
+            camera_move_down = 0;
+            is_hod = true;
         }
 
 
