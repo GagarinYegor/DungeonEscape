@@ -53,8 +53,6 @@ public class Player {
             else batch.draw(player_animation.getFrame(), real_x, real_y, size, size);
         }
         if (is_moving){
-            batch.draw(player_animation.getFrame(), real_x, real_y, size, size);
-            player_animation.update(dt);
             if (real_x<x*size+horizontal_otstup){
                 if (real_x+speed*dt<x*size+horizontal_otstup) {
                     real_x += speed*dt;
@@ -85,8 +83,8 @@ public class Player {
         if (real_x==x*size+horizontal_otstup&&real_y==y*size+vertical_otstup) {
             is_moving = false;
         }
-        batch.draw(player_animation.getFrame(), real_x, real_y, size, size);
-        player_animation.update(dt);
+        //batch.draw(player_animation.getFrame(), real_x, real_y, size, size);
+        //player_animation.update(dt);
         blast.draw(batch, size, dt);
     }
 

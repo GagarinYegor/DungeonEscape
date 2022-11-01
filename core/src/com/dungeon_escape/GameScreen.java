@@ -295,7 +295,6 @@ public class GameScreen extends ScreenAdapter {
             is_hod = true;
         }
 
-
         Gdx.gl.glClearColor(0.4f, 0.4f, 0.4f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.setProjectionMatrix(camera.combined);
