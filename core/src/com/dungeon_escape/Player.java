@@ -57,27 +57,29 @@ public class Player {
                 if (real_x+speed*dt<x*size+horizontal_otstup) {
                     real_x += speed*dt;
                 }
-                else real_x+=speed*dt-(real_x+speed*dt-(x*size+horizontal_otstup));
+                //else real_x+=speed*dt-(real_x+speed*dt-(x*size+horizontal_otstup));
+                else real_x = x*size+horizontal_otstup;
             }
             if (real_x>x*size+horizontal_otstup){
-                if (real_x+speed*dt>x*size+horizontal_otstup) {
+                if (real_x-speed*dt>x*size+horizontal_otstup) {
                     real_x -= speed*dt;
                 }
-                else real_x-=speed*dt-(real_x+speed*dt-(x*size+horizontal_otstup));
+                //else real_x-=speed*dt-(real_x+speed*dt-(x*size+horizontal_otstup));
+                else real_x = x*size+horizontal_otstup;
             }
             if (real_y<y*size+vertical_otstup){
                 if (real_y+speed*dt<y*size+vertical_otstup) {
                     real_y += speed*dt;
                 }
-                else {
-                    real_y+=speed*dt-(real_y+speed*dt-(y*size+vertical_otstup));
-                }
+                //else real_y+=speed*dt-(real_y+speed*dt-(y*size+vertical_otstup));
+                else real_y = y*size+vertical_otstup;
             }
             if (real_y>y*size+vertical_otstup){
-                if (real_y+speed*dt>y*size+vertical_otstup) {
+                if (real_y-speed*dt>y*size+vertical_otstup) {
                     real_y -= speed*dt;
                 }
-                else real_y-=speed*dt-(real_y+speed*dt-(y*size+vertical_otstup));
+                //else real_y-=speed*dt-(real_y+speed*dt-(y*size+vertical_otstup));
+                else real_y = y*size+vertical_otstup;
             }
         }
         if (real_x==x*size+horizontal_otstup&&real_y==y*size+vertical_otstup) {
@@ -111,6 +113,12 @@ public class Player {
     }
     public int getY(){
         return y;
+    }
+    public float get_real_X(){
+        return real_x;
+    }
+    public float get_real_Y(){
+        return real_y;
     }
     public boolean getMoving(){return is_moving;}
 }

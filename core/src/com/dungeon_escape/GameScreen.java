@@ -46,9 +46,10 @@ public class GameScreen extends ScreenAdapter {
     public GameScreen(DungeonEscape game) {
         camera = new OrthographicCamera(game.width, game.height);
         camera.setToOrtho(false, game.width, game.height);
+        camera.translate(-game.size, 0);
         camera_move_up = 0;
         camera_move_down = 0;
-        camera_move_left = game.size;
+        camera_move_left = 0;
         camera_move_right = 0;
         is_hod = true;
         is_attack = true;
@@ -99,7 +100,6 @@ public class GameScreen extends ScreenAdapter {
                 int touch_y;
                 if ((Gdx.input.getX()-game.horizontal_otstup) / game.size / camera.zoom>=0){
                     touch_x = (int) ((Gdx.input.getX()-game.horizontal_otstup) / (game.size + game.size * (camera.zoom-1)));
-                    System.out.println("cccccccccccc");
                 }
                 else{
                     touch_x = (int) ((Gdx.input.getX()-game.horizontal_otstup) / game.size / camera.zoom - 1);
@@ -222,75 +222,83 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+        game.left_border_x = player.get_real_X()- game.size*4-game.horizontal_otstup;
+        game.right_border_x = player.get_real_X()+ game.size*6;
+        game.up_border_x = player.get_real_X()- game.size*4-game.horizontal_otstup;
+        game.down_border_x = player.get_real_X()- game.size*4-game.horizontal_otstup;
+        game.left_border_y = player.get_real_Y()- game.size*3-game.vertical_otstup;
+        game.right_border_y = player.get_real_Y()- game.size*3-game.vertical_otstup;
+        game.up_border_y = player.get_real_Y()+ game.size*3;
+        game.down_border_y = player.get_real_Y()- game.size*3-game.vertical_otstup;
         if (camera_move_right > 0){
             camera.translate(game.speed*delta, 0);
-            game.left_border_x+=game.speed*delta;
-            game.right_border_x+=game.speed*delta;
-            game.up_border_x+=game.speed*delta;
-            game.down_border_x+=game.speed*delta;
+            //game.left_border_x+=game.speed*delta;
+            //game.right_border_x+=game.speed*delta;
+            //game.up_border_x+=game.speed*delta;
+            //game.down_border_x+=game.speed*delta;
             camera_move_right -= game.speed*delta;
             if (camera_move_right == 0) is_hod = true;
         }
         if (game.speed*delta > camera_move_right && camera_move_right > 0){
             camera.translate(camera_move_right, 0);
-            game.left_border_x+=camera_move_right;
-            game.right_border_x+=camera_move_right;
-            game.up_border_x+=camera_move_right;
-            game.down_border_x+=camera_move_right;
+            //game.left_border_x+=camera_move_right;
+            //game.right_border_x+=camera_move_right;
+            //game.up_border_x+=camera_move_right;
+            //game.down_border_x+=camera_move_right;
             camera_move_right = 0;
             is_hod = true;
         }
         if (camera_move_left > 0){
             camera.translate(-game.speed*delta, 0);
-            game.left_border_x-=game.speed*delta;
-            game.right_border_x-=game.speed*delta;
-            game.up_border_x-=game.speed*delta;
-            game.down_border_x-=game.speed*delta;
+            //game.left_border_x-=game.speed*delta;
+            //game.right_border_x-=game.speed*delta;
+            //game.up_border_x-=game.speed*delta;
+            //game.down_border_x-=game.speed*delta;
             camera_move_left -= game.speed*delta;
             if (camera_move_left == 0) is_hod = true;
         }
         if (game.speed*delta > camera_move_left && camera_move_left > 0){
             camera.translate(-camera_move_left, 0);
-            game.left_border_x-=camera_move_left;
-            game.right_border_x-=camera_move_left;
-            game.up_border_x-=camera_move_left;
-            game.down_border_x-=camera_move_left;
+            //game.left_border_x-=camera_move_left;
+            //game.right_border_x-=camera_move_left;
+            //game.up_border_x-=camera_move_left;
+            //game.down_border_x-=camera_move_left;
             camera_move_left = 0;
             is_hod = true;
         }
         if (camera_move_up > 0){
             camera.translate(0, game.speed*delta);
-            game.left_border_y+=game.speed*delta;
-            game.right_border_y+=game.speed*delta;
-            game.up_border_y+=game.speed*delta;
-            game.down_border_y+=game.speed*delta;
+            //game.left_border_y+=game.speed*delta;
+            //game.right_border_y+=game.speed*delta;
+            //game.up_border_y+=game.speed*delta;
+            //game.down_border_y+=game.speed*delta;
             camera_move_up -= game.speed*delta;
             if (camera_move_up == 0) is_hod = true;
         }
         if (game.speed*delta > camera_move_up && camera_move_up > 0){
             camera.translate(0, camera_move_up);
-            game.left_border_y+=camera_move_up;
-            game.right_border_y+=camera_move_up;
-            game.up_border_y+=camera_move_up;
-            game.down_border_y+=camera_move_up;
+            //game.left_border_y+=camera_move_up;
+            //game.right_border_y+=camera_move_up;
+            //game.up_border_y+=camera_move_up;
+            //game.down_border_y+=camera_move_up;
             camera_move_up = 0;
             is_hod = true;
         }
         if (camera_move_down > 0){
             camera.translate(0, -game.speed*delta);
-            game.left_border_y-=game.speed*delta;
-            game. right_border_y-=game.speed*delta;
-            game.up_border_y-=game.speed*delta;
-            game.down_border_y-=game.speed*delta;
+            //game.left_border_y-=game.speed*delta;
+            //game. right_border_y-=game.speed*delta;
+            //game.up_border_y-=game.speed*delta;
+            //game.down_border_y-=game.speed*delta;
             camera_move_down -= game.speed*delta;
             if (camera_move_down == 0) is_hod = true;
         }
         if (game.speed*delta > camera_move_down && camera_move_down > 0){
             camera.translate(0, -camera_move_down);
-            game.left_border_y-=camera_move_down;
-            game.right_border_y-=camera_move_down;
-            game.up_border_y-=camera_move_down;
-            game.down_border_y-=camera_move_down;
+            //game.left_border_y-=camera_move_down;
+            //game.right_border_y-=camera_move_down;
+            //game.up_border_y-=camera_move_down;
+            //game.down_border_y-=camera_move_down;
             camera_move_down = 0;
             is_hod = true;
         }
