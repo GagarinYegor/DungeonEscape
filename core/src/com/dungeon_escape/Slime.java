@@ -9,8 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Slime {
-    private boolean is_attack, is_attacked, is_moving;
-    private int x, y;
+    private boolean is_attack, is_attacked, is_moving, is_alive;
+    private int x, y, health, max_health;
     private float real_x, real_y, attacked_timer, speed, horizontal_otstup, vertical_otstup, size;
     private Animation slime_animation;
     private Texture attacking_slime, title_text_table, attacked_slime;
@@ -40,60 +40,66 @@ public class Slime {
         attacked_timer = 0;
         blast = new Blast(x, y, size, horizontal_otstup, vertical_otstup, slime_blast, 8, speed);
         this.size = size;
+        is_alive = true;
+        max_health = 100;
+        health = max_health;
     }
 
-    public void draw(SpriteBatch batch, float size, float dt){
-        batch.draw(title_text_table, real_x, real_y + size - size / 4, size, size / 4);
-        font.draw(batch, "Hp:100/100", real_x + size / 10, real_y + size - size / 20);
-        if (is_attacked) {
-            batch.draw(attacked_slime, real_x, real_y, size, size);
-            if (attacked_timer<0.5f) {
-                attacked_timer+=dt;
+    public void draw(SpriteBatch batch, float size, float dt) {
+        if (is_alive) {
+            if (health<=0){
+
+                is_alive = false;
             }
-            else is_attacked = false;
-        }
-        else {
-            batch.draw(slime_animation.getFrame(), real_x, real_y, size, size);
-            if (is_attack) {
-                batch.draw(attacking_slime, real_x, real_y, size, size);
-                if (!blast.get_activ()) is_attack = false;
+            batch.draw(title_text_table, real_x, real_y + size - size / 4, size, size / 4);
+            font.draw(batch, "Hp:"+health+"/"+max_health, real_x + size / 10, real_y + size - size / 20);
+            if (is_attacked) {
+                batch.draw(attacked_slime, real_x, real_y, size, size);
+                if (attacked_timer < 0.5f) {
+                    attacked_timer += dt;
+                } else is_attacked = false;
+            } else {
+                batch.draw(slime_animation.getFrame(), real_x, real_y, size, size);
+                if (is_attack) {
+                    batch.draw(attacking_slime, real_x, real_y, size, size);
+                    if (!blast.get_activ()) is_attack = false;
+                }
             }
-        }
-        if (is_moving){
-            batch.draw(slime_animation.getFrame(), real_x, real_y, size, size);
+            if (is_moving) {
+                batch.draw(slime_animation.getFrame(), real_x, real_y, size, size);
+                slime_animation.update(dt);
+                if (real_x < x * size + horizontal_otstup) {
+                    if (real_x + speed * dt < x * size + horizontal_otstup) {
+                        real_x += speed * dt;
+                    } else
+                        real_x += speed * dt - (real_x + speed * dt - (x * size + horizontal_otstup));
+                }
+                if (real_x > x * size + horizontal_otstup) {
+                    if (real_x + speed * dt > x * size + horizontal_otstup) {
+                        real_x -= speed * dt;
+                    } else
+                        real_x -= speed * dt - (real_x + speed * dt - (x * size + horizontal_otstup));
+                }
+                if (real_y < y * size + vertical_otstup) {
+                    if (real_y + speed * dt < y * size + vertical_otstup) {
+                        real_y += speed * dt;
+                    } else {
+                        real_y += speed * dt - (real_y + speed * dt - (y * size + vertical_otstup));
+                    }
+                }
+                if (real_y > y * size + vertical_otstup) {
+                    if (real_y + speed * dt > y * size + vertical_otstup) {
+                        real_y -= speed * dt;
+                    } else
+                        real_y -= speed * dt - (real_y + speed * dt - (y * size + vertical_otstup));
+                }
+            }
+            if (real_x == x * size + horizontal_otstup && real_y == y * size + vertical_otstup) {
+                is_moving = false;
+            }
             slime_animation.update(dt);
-            if (real_x<x*size+horizontal_otstup){
-                if (real_x+speed*dt<x*size+horizontal_otstup) {
-                    real_x += speed*dt;
-                }
-                else real_x+=speed*dt-(real_x+speed*dt-(x*size+horizontal_otstup));
-            }
-            if (real_x>x*size+horizontal_otstup){
-                if (real_x+speed*dt>x*size+horizontal_otstup) {
-                    real_x -= speed*dt;
-                }
-                else real_x-=speed*dt-(real_x+speed*dt-(x*size+horizontal_otstup));
-            }
-            if (real_y<y*size+vertical_otstup){
-                if (real_y+speed*dt<y*size+vertical_otstup) {
-                    real_y += speed*dt;
-                }
-                else {
-                    real_y+=speed*dt-(real_y+speed*dt-(y*size+vertical_otstup));
-                }
-            }
-            if (real_y>y*size+vertical_otstup){
-                if (real_y+speed*dt>y*size+vertical_otstup) {
-                    real_y -= speed*dt;
-                }
-                else real_y-=speed*dt-(real_y+speed*dt-(y*size+vertical_otstup));
-            }
+            blast.draw(batch, size, dt);
         }
-        if (real_x==x*size+horizontal_otstup&&real_y==y*size+vertical_otstup) {
-            is_moving = false;
-        }
-        slime_animation.update(dt);
-        blast.draw(batch, size, dt);
     }
     public void attacking(int x, int y){
         if (is_attack == false) {
@@ -102,10 +108,11 @@ public class Slime {
             blast.set_target(x, y, this.x, this.y);
         }
     }
-    public void attacked(){
+    public void attacked(int damage){
         if (is_attacked == false) {
             slime_attacked_sound.play();
             is_attacked = true;
+            health-=damage;
             attacked_timer = 0;
         }
     }

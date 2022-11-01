@@ -15,15 +15,18 @@ public class GameScreen extends ScreenAdapter {
     Lever [] levers;
     OrthographicCamera camera;
     float camera_move_up, camera_move_down, camera_move_left, camera_move_right;
-    boolean is_hod, is_attack;
+    boolean is_hod, is_attack, check_flag;
 
     public void check_hod(){
-        boolean flag = true;
-        for (Slime slime:slimes){
-            if (slime.getMoving()) flag = false;
+        if (player.getHealth()>0) {
+            check_flag = true;
+            for (Slime slime : slimes) {
+                if (slime.getMoving()) check_flag = false;
+            }
+            if (player.getMoving()) check_flag = false;
+            if (check_flag) is_hod = true;
         }
-        if (player.getMoving()) flag = false;
-        if (flag) is_hod = true;
+
     }
 
     public void Go(int x, int y){
@@ -52,7 +55,7 @@ public class GameScreen extends ScreenAdapter {
         camera_move_left = 0;
         camera_move_right = 0;
         is_hod = true;
-        is_attack = true;
+        is_attack = false;
         this.game = game;
         slimes = new Slime[10];
         cages = new Cage[game.cage_x][game.cage_y];
@@ -117,7 +120,7 @@ public class GameScreen extends ScreenAdapter {
                                 for (Slime slime : slimes){
                                     if (slime.getX() == player.getX() && slime.getY() == player.getY()+1) {
                                         player.attacking(player.getX(), player.getY()+1);
-                                        slime.attacked();
+                                        slime.attacked(player.getPower());
                                         is_attack = false;
                                     }
                                 }
@@ -126,7 +129,7 @@ public class GameScreen extends ScreenAdapter {
                                 for (Slime slime : slimes){
                                     if (slime.getX() == player.getX() && slime.getY() == player.getY()-1) {
                                         player.attacking(player.getX(), player.getY()-1);
-                                        slime.attacked();
+                                        slime.attacked(player.getPower());
                                         is_attack = false;
                                     }
                                 }
@@ -135,7 +138,7 @@ public class GameScreen extends ScreenAdapter {
                                 for (Slime slime : slimes){
                                     if (slime.getX() == player.getX()+1 && slime.getY() == player.getY()) {
                                         player.attacking(player.getX()+1, player.getY());
-                                        slime.attacked();
+                                        slime.attacked(player.getPower());
                                         is_attack = false;
                                     }
                                 }
@@ -144,7 +147,7 @@ public class GameScreen extends ScreenAdapter {
                                 for (Slime slime : slimes){
                                     if (slime.getX() == player.getX()-1 && slime.getY() == player.getY()) {
                                         player.attacking(player.getX()-1, player.getY());
-                                        slime.attacked();
+                                        slime.attacked(player.getPower());
                                         is_attack = false;
                                     }
                                 }
@@ -177,7 +180,7 @@ public class GameScreen extends ScreenAdapter {
                 }
                 if (button == Input.Buttons.RIGHT) {
                     for (Slime slime : slimes){
-                        if (slime.getX() == touch_x && slime.getY() == touch_y) slime.attacked();
+                        if (slime.getX() == touch_x && slime.getY() == touch_y) slime.attacked(player.getPower());
                         if (player.getX() == touch_x && player.getY() == touch_y) player.attacked();
                     }
                     return true;
