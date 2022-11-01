@@ -88,7 +88,7 @@ public class GameScreen extends ScreenAdapter {
         for (int i = 0; i < slimes.length; i++){
             System.out.println("Slime"+i+" coords "+game.revers_slime_mass[i][1]+":"+game.revers_slime_mass[i][0]);
             slimes[i] = new Slime(game.revers_slime_mass[i][1], game.revers_slime_mass[i][0], game.size, game.horizontal_otstup, game.vertical_otstup, game.green_slime_texture_region, 6, game.speed, game.slime_blast, game.green_slime_attacking, game.green_slime_attacked, game.slime_attacking_sound, game.slime_attacked_sound, game.title_text_table);
-            cages[game.revers_slime_mass[i][0]][game.revers_slime_mass[i][1]].change_movable();
+            cages[game.revers_slime_mass[i][1]][game.revers_slime_mass[i][0]].change_movable();
         }
         for (int i=0; i< levers.length; i++){
             levers[i] = new Lever(i+3, 1, i+3, 5, game.size, game.horizontal_otstup, game.vertical_otstup, game.activ_lever, game.passiv_lever, game.speed, game.uchd, game.uohd, game.slime_attacked_sound, game.open_doors_sound, game.closed_doors_sound);
