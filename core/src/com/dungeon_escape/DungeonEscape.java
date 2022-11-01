@@ -51,7 +51,7 @@ public class DungeonEscape extends Game {
 
 	@Override
 	public void create() {
-		speed = 200f;
+		speed = 250f;
 		batch = new SpriteBatch();
 
 		//slime res

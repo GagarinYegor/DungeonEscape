@@ -287,10 +287,14 @@ public class GameScreen extends ScreenAdapter {
         for (Lever lever: levers){
             lever.draw(game.batch, game.size);
         }
-        game.batch.draw(game.border, game.left_border_x-game.size, game.left_border_y-game.size, game.horizontal_otstup+game.size, game.height+2*game.size);
-        game.batch.draw(game.border, game.right_border_x, game.right_border_y-game.size, game.horizontal_otstup+game.size, game.height+2*game.size);
-        game.batch.draw(game.border, game.up_border_x-game.size, game.up_border_y, game.width+2*game.size, game.vertical_otstup+game.size);
-        game.batch.draw(game.border, game.down_border_x-game.size, game.down_border_y-game.size, game.width+2*game.size, game.vertical_otstup+game.size);
+        if (game.vertical_otstup!=0){
+            game.batch.draw(game.border, game.up_border_x-game.size, game.up_border_y, game.width+2*game.size, game.vertical_otstup+game.size);
+            game.batch.draw(game.border, game.down_border_x-game.size, game.down_border_y-game.size, game.width+2*game.size, game.vertical_otstup+game.size);
+        }
+        if (game.horizontal_otstup!=0) {
+            game.batch.draw(game.border, game.left_border_x - game.size, game.left_border_y - game.size, game.horizontal_otstup + game.size, game.height + 2 * game.size);
+            game.batch.draw(game.border, game.right_border_x, game.right_border_y - game.size, game.horizontal_otstup + game.size, game.height + 2 * game.size);
+        }
         camera.update();
         game.batch.end();
         check_hod();
