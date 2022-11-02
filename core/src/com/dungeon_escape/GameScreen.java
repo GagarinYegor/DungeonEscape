@@ -14,7 +14,7 @@ public class GameScreen extends ScreenAdapter {
     Player player;
     Lever [] levers;
     OrthographicCamera camera;
-    float camera_move_up, camera_move_down, camera_move_left, camera_move_right;
+    float start_timer, camera_move_up, camera_move_down, camera_move_left, camera_move_right;
     boolean is_hod, is_attack, check_flag;
 
     public void check_hod(){
@@ -47,6 +47,7 @@ public class GameScreen extends ScreenAdapter {
     }
 
     public GameScreen(DungeonEscape game) {
+        start_timer = 0.1f;
         camera = new OrthographicCamera(game.width, game.height);
         camera.setToOrtho(false, game.width, game.height);
         camera.translate(-game.size, 0);
@@ -343,6 +344,10 @@ public class GameScreen extends ScreenAdapter {
         if (is_attack) game.batch.draw(game.activ_attack_button, game.right_border_x - game.size, game.right_border_y+game.size, game.size, game.size);
         else game.batch.draw(game.passiv_attack_button, game.right_border_x - game.size, game.right_border_y+game.size, game.size, game.size);
         game.batch.draw(game.waiting_button, game.right_border_x - game.size, game.right_border_y, game.size, game.size);
+        if (start_timer>=0){
+            start_timer-=delta;
+            game.batch.draw(game.border, game.left_border_x, game.left_border_y, game.width+game.size*2, game.height+game.size*2);
+        }
         camera.update();
         game.batch.end();
         check_hod();
