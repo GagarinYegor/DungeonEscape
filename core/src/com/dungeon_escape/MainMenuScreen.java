@@ -51,8 +51,8 @@ public class MainMenuScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, .25f, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
-        game.batch.draw(game.begin_button, game.horizontal_otstup, game.vertical_otstup+game.size*2, game.size*10, game.size);
-        game.batch.draw(game.record_button, game.horizontal_otstup, game.vertical_otstup+game.size*1, game.size*10, game.size);
+        game.batch.draw(game.begin_button, game.right_border_x-10*game.size, game.up_border_y-game.size*5, game.size*10, game.size);
+        game.batch.draw(game.record_button, game.right_border_x-10*game.size, game.up_border_y-game.size*6, game.size*10, game.size);
         game.batch.end();
     }
 

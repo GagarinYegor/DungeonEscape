@@ -91,7 +91,7 @@ public class GameScreen extends ScreenAdapter {
         }
         for (int i=0; i< game.lever_mass_y; i++){
             if (game.levers_mass[i][0] == 1) {
-                levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontal_otstup, game.vertical_otstup, game.activ_lever, game.passiv_lever, game.speed, game.uchd, game.uohd, game.slime_attacked_sound, game.open_doors_sound, game.closed_doors_sound);
+                levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontal_otstup, game.vertical_otstup, game.activ_lever, game.passiv_lever, game.speed, game.chd, game.ohd, game.slime_attacked_sound, game.open_doors_sound, game.closed_doors_sound);
                 cages[game.levers_mass[i][0]][game.levers_mass[i][1]].change_movable();
                 cages[game.levers_mass[i][2]][game.levers_mass[i][3]].change_movable();
             }
@@ -121,6 +121,9 @@ public class GameScreen extends ScreenAdapter {
                     if (is_hod) {
                         if (touch_x == 9 && touch_y == 1) {
                             is_attack = !is_attack;
+                        }
+                        if (touch_x == 9 && touch_y == 6) {
+                            game.setScreen(new MainMenuScreen(game));
                         }
                         if (is_attack) {
                             if (touch_x == 4 && touch_y == 4) { // up
