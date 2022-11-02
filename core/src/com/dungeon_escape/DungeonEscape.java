@@ -20,7 +20,8 @@ public class DungeonEscape extends Game {
 	Texture green_slime_texture_region, slime_blast, green_slime_attacked, green_slime_attacking,
 			stone_floor_texture_region, clmn,
 			player_texture_region, player_blast, player_attacked, player_attacking,
-			begin_button, record_button, return_button, row, row_heading, arrow_next, title_text_table, border,
+			begin_button, record_button, return_button, row, row_heading, arrow_next,
+			title_text_table, border, activ_attack_button, passiv_attack_button, waiting_button,
 			wu__, wd__, wl__, wr__,
 			cwul, cwur, cwdl, cwdr,
 			cul_, cur_, cdl_, cdr_,
@@ -40,7 +41,8 @@ public class DungeonEscape extends Game {
 
 	String [][] map;
 	int[][] revers_slime_mass;
-	int cage_x, cage_y, slime_mass_x, slime_mass_y;
+	Integer[][] lever_mass;
+	int cage_x, cage_y, slime_mass_x, slime_mass_y, lever_mass_x, lever_mass_y;
 	HashMap<String, TextureRegion> font_map;
 
 
@@ -91,6 +93,9 @@ public class DungeonEscape extends Game {
 		font_region = new TextureRegion(new Texture("interface/font.png"));
 		title_text_table = new Texture("interface/title_text_table.png");
 		border = new Texture("interface/border.png");
+		passiv_attack_button = new Texture("interface/passiv_attack_button.png");
+		activ_attack_button = new Texture("interface/activ_attack_button.png");
+		waiting_button = new Texture("interface/waiting_button.png");
 
 		//walls res
 		wu__ = new Texture("walls/wu__.png");
@@ -154,6 +159,20 @@ public class DungeonEscape extends Game {
 			for (int j=0; j<2; j++){
 				revers_slime_mass[i][j] = Integer.parseInt(slime_text_x[j].trim());
 			}
+		}
+
+		FileHandle lever_file = Gdx.files.internal("text_resources/levers.txt");
+		lever_mass_x = 4;
+		lever_mass_y = 2;
+		lever_mass = new Integer[lever_mass_x][lever_mass_y];
+		String [] text = lever_file.readString().split("\n");
+		for (int i=0; i<lever_mass_y; i++){
+			String [] string = text[i].trim().split(" ");
+			for (int j=0; j<lever_mass_x; j++){
+				System.out.println(Integer.parseInt(string[j])+1-1);
+				//lever_mass[i][j] = Integer.parseInt(string[j])+1-1;
+			}
+			//System.out.println("");
 		}
 
 		font_map = new HashMap<>();

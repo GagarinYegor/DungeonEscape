@@ -117,6 +117,9 @@ public class GameScreen extends ScreenAdapter {
                 }
                 if (button == Input.Buttons.LEFT) {
                     if (is_hod) {
+                        if (touch_x == 9 && touch_y == 1) {
+                            is_attack = !is_attack;
+                        }
                         if (is_attack) {
                             if (touch_x == 4 && touch_y == 4) {
                                 for (Slime slime : slimes){
@@ -177,13 +180,6 @@ public class GameScreen extends ScreenAdapter {
                                 }
                             }
                         }
-                    }
-                    return true;
-                }
-                if (button == Input.Buttons.RIGHT) {
-                    for (Slime slime : slimes){
-                        if (slime.getX() == touch_x && slime.getY() == touch_y) slime.attacked(player.getPower());
-                        if (player.getX() == touch_x && player.getY() == touch_y) player.attacked();
                     }
                     return true;
                 }
@@ -306,6 +302,9 @@ public class GameScreen extends ScreenAdapter {
             game.batch.draw(game.border, game.left_border_x - game.size, game.left_border_y - game.size, game.horizontal_otstup + game.size, game.height + 2 * game.size);
             game.batch.draw(game.border, game.right_border_x, game.right_border_y - game.size, game.horizontal_otstup + game.size, game.height + 2 * game.size);
         }
+        if (is_attack) game.batch.draw(game.activ_attack_button, game.right_border_x - game.size, game.right_border_y+game.size, game.size, game.size);
+        else game.batch.draw(game.passiv_attack_button, game.right_border_x - game.size, game.right_border_y+game.size, game.size, game.size);
+        game.batch.draw(game.waiting_button, game.right_border_x - game.size, game.right_border_y, game.size, game.size);
         camera.update();
         game.batch.end();
         check_hod();
