@@ -163,7 +163,7 @@ public class DungeonEscape extends Game {
 
 		FileHandle lever_file = Gdx.files.internal("text_resources/levers.txt");
 		Scanner levers_scan = new Scanner(lever_file.read());
-		lever_mass_x = 4;
+		lever_mass_x = 5;
 		lever_mass_y = 2;
 		levers_mass = new int[lever_mass_y][lever_mass_x];
 		for (int i=0; i<lever_mass_y; i++){

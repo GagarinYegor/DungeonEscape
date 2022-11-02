@@ -90,9 +90,11 @@ public class GameScreen extends ScreenAdapter {
             cages[game.slimes_mass[i][1]][game.slimes_mass[i][0]].change_movable();
         }
         for (int i=0; i< game.lever_mass_y; i++){
-            levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontal_otstup, game.vertical_otstup, game.activ_lever, game.passiv_lever, game.speed, game.uchd, game.uohd, game.slime_attacked_sound, game.open_doors_sound, game.closed_doors_sound);
-            cages[game.levers_mass[i][0]][game.levers_mass[i][1]].change_movable();
-            cages[game.levers_mass[i][2]][game.levers_mass[i][3]].change_movable();
+            if (game.levers_mass[i][0] == 1) {
+                levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontal_otstup, game.vertical_otstup, game.activ_lever, game.passiv_lever, game.speed, game.uchd, game.uohd, game.slime_attacked_sound, game.open_doors_sound, game.closed_doors_sound);
+                cages[game.levers_mass[i][0]][game.levers_mass[i][1]].change_movable();
+                cages[game.levers_mass[i][2]][game.levers_mass[i][3]].change_movable();
+            }
         }
         player = new Player(3, 3, game.size, game.horizontal_otstup, game.vertical_otstup, game.player_texture_region, 12, game.speed, game.player_blast, game.player_attacking, game.player_attacked, game.player_attacking_sound, game.player_attacked_sound);
     }
