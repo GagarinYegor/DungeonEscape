@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class DungeonEscape extends Game {
 
@@ -40,8 +41,8 @@ public class DungeonEscape extends Game {
 	public static final int SCR_WIDTH = 960, SCR_HEIGHT = 540;
 
 	String [][] map;
-	int[][] revers_slime_mass;
-	Integer[][] lever_mass;
+	int[][] slimes_mass;
+	int[][] levers_mass;
 	int cage_x, cage_y, slime_mass_x, slime_mass_y, lever_mass_x, lever_mass_y;
 	HashMap<String, TextureRegion> font_map;
 
@@ -149,30 +150,26 @@ public class DungeonEscape extends Game {
 			}
 		}
 
-		revers_slime_mass = new int[4][2];
 		FileHandle slime_file = Gdx.files.internal("text_resources/slimes.txt");
-		String [] slime_text_y = slime_file.readString().split("\n");
-		slime_mass_y = slime_text_y.length;
+		Scanner slimes_scan = new Scanner(slime_file.read());
+		slime_mass_x = 2;
+		slime_mass_y = 4;
+		slimes_mass = new int[slime_mass_y][slime_mass_x];
 		for (int i=0; i<slime_mass_y; i++){
-			String [] slime_text_x = slime_text_y[i].split(" ");
-			slime_mass_x = 2;
-			for (int j=0; j<2; j++){
-				revers_slime_mass[i][j] = Integer.parseInt(slime_text_x[j].trim());
+			for (int j=0; j<slime_mass_x; j++){
+				slimes_mass[i][j] = slimes_scan.nextInt();
 			}
 		}
 
 		FileHandle lever_file = Gdx.files.internal("text_resources/levers.txt");
+		Scanner levers_scan = new Scanner(lever_file.read());
 		lever_mass_x = 4;
 		lever_mass_y = 2;
-		lever_mass = new Integer[lever_mass_x][lever_mass_y];
-		String [] text = lever_file.readString().split("\n");
+		levers_mass = new int[lever_mass_y][lever_mass_x];
 		for (int i=0; i<lever_mass_y; i++){
-			String [] string = text[i].trim().split(" ");
 			for (int j=0; j<lever_mass_x; j++){
-				System.out.println(Integer.parseInt(string[j])+1-1);
-				//lever_mass[i][j] = Integer.parseInt(string[j])+1-1;
+				levers_mass[i][j] = levers_scan.nextInt();
 			}
-			//System.out.println("");
 		}
 
 		font_map = new HashMap<>();

@@ -59,7 +59,7 @@ public class GameScreen extends ScreenAdapter {
         this.game = game;
         slimes = new Slime[game.slime_mass_y];
         cages = new Cage[game.cage_x][game.cage_y];
-        levers = new Lever[3];
+        levers = new Lever[game.lever_mass_y];
         for (int i = 0; i < game.cage_x; i++){
             for (int j = 0; j < game.cage_y; j++){
                 if (game.map[i][j].contains("sf__")) cages[i][j] = new Cage(i, j, true, game.size, game.horizontal_otstup, game.vertical_otstup, game.stone_floor_texture_region, 1);
@@ -86,12 +86,13 @@ public class GameScreen extends ScreenAdapter {
             }
         }
         for (int i = 0; i < slimes.length; i++){
-            System.out.println("Slime"+i+" coords "+game.revers_slime_mass[i][1]+":"+game.revers_slime_mass[i][0]);
-            slimes[i] = new Slime(game.revers_slime_mass[i][1], game.revers_slime_mass[i][0], game.size, game.horizontal_otstup, game.vertical_otstup, game.green_slime_texture_region, 6, game.speed, game.slime_blast, game.green_slime_attacking, game.green_slime_attacked, game.slime_attacking_sound, game.slime_attacked_sound, game.title_text_table);
-            cages[game.revers_slime_mass[i][1]][game.revers_slime_mass[i][0]].change_movable();
+            slimes[i] = new Slime(game.slimes_mass[i][1], game.slimes_mass[i][0], game.size, game.horizontal_otstup, game.vertical_otstup, game.green_slime_texture_region, 6, game.speed, game.slime_blast, game.green_slime_attacking, game.green_slime_attacked, game.slime_attacking_sound, game.slime_attacked_sound, game.title_text_table);
+            cages[game.slimes_mass[i][1]][game.slimes_mass[i][0]].change_movable();
         }
-        for (int i=0; i< levers.length; i++){
-            levers[i] = new Lever(i+3, 1, i+3, 5, game.size, game.horizontal_otstup, game.vertical_otstup, game.activ_lever, game.passiv_lever, game.speed, game.uchd, game.uohd, game.slime_attacked_sound, game.open_doors_sound, game.closed_doors_sound);
+        for (int i=0; i< game.lever_mass_y; i++){
+            levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontal_otstup, game.vertical_otstup, game.activ_lever, game.passiv_lever, game.speed, game.uchd, game.uohd, game.slime_attacked_sound, game.open_doors_sound, game.closed_doors_sound);
+            cages[game.levers_mass[i][0]][game.levers_mass[i][1]].change_movable();
+            cages[game.levers_mass[i][2]][game.levers_mass[i][3]].change_movable();
         }
         player = new Player(3, 3, game.size, game.horizontal_otstup, game.vertical_otstup, game.player_texture_region, 12, game.speed, game.player_blast, game.player_attacking, game.player_attacked, game.player_attacking_sound, game.player_attacked_sound);
     }
@@ -100,7 +101,6 @@ public class GameScreen extends ScreenAdapter {
     public void show() {
         Gdx.input.setInputProcessor(new InputAdapter() {
             public boolean touchDown (int x, int y, int pointer, int button) {
-                System.out.println(camera.zoom);
                 int touch_x;
                 int touch_y;
                 if ((Gdx.input.getX()-game.horizontal_otstup) / game.size / camera.zoom>=0){
@@ -121,7 +121,7 @@ public class GameScreen extends ScreenAdapter {
                             is_attack = !is_attack;
                         }
                         if (is_attack) {
-                            if (touch_x == 4 && touch_y == 4) {
+                            if (touch_x == 4 && touch_y == 4) { // up
                                 for (Slime slime : slimes){
                                     if (slime.getX() == player.getX() && slime.getY() == player.getY()+1) {
                                         player.attacking(player.getX(), player.getY()+1);
@@ -129,8 +129,15 @@ public class GameScreen extends ScreenAdapter {
                                         is_attack = false;
                                     }
                                 }
+                                for (Lever lever : levers){
+                                    if (lever.getX() == player.getX() && lever.getY() == player.getY()+1) {
+                                        player.attacking(player.getX(), player.getY()+1);
+                                        lever.click(cages);
+                                        is_attack = false;
+                                    }
+                                }
                             }
-                            if (touch_x == 4 && touch_y == 2) {
+                            if (touch_x == 4 && touch_y == 2) { // down
                                 for (Slime slime : slimes){
                                     if (slime.getX() == player.getX() && slime.getY() == player.getY()-1) {
                                         player.attacking(player.getX(), player.getY()-1);
@@ -138,8 +145,15 @@ public class GameScreen extends ScreenAdapter {
                                         is_attack = false;
                                     }
                                 }
+                                for (Lever lever : levers){
+                                    if (lever.getX() == player.getX() && lever.getY() == player.getY()-1) {
+                                        player.attacking(player.getX(), player.getY()-1);
+                                        lever.click(cages);
+                                        is_attack = false;
+                                    }
+                                }
                             }
-                            if (touch_x == 5 && touch_y == 3) {
+                            if (touch_x == 5 && touch_y == 3) { // right
                                 for (Slime slime : slimes){
                                     if (slime.getX() == player.getX()+1 && slime.getY() == player.getY()) {
                                         player.attacking(player.getX()+1, player.getY());
@@ -147,12 +161,26 @@ public class GameScreen extends ScreenAdapter {
                                         is_attack = false;
                                     }
                                 }
+                                for (Lever lever : levers){
+                                    if (lever.getX() == player.getX()+1 && lever.getY() == player.getY()) {
+                                        player.attacking(player.getX()+1, player.getY());
+                                        lever.click(cages);
+                                        is_attack = false;
+                                    }
+                                }
                             }
-                            if (touch_x == 2 && touch_y == 3) {
+                            if (touch_x == 3 && touch_y == 3) { //left
                                 for (Slime slime : slimes){
                                     if (slime.getX() == player.getX()-1 && slime.getY() == player.getY()) {
                                         player.attacking(player.getX()-1, player.getY());
                                         slime.attacked(player.getPower());
+                                        is_attack = false;
+                                    }
+                                }
+                                for (Lever lever : levers){
+                                    if (lever.getX() == player.getX()-1 && lever.getY() == player.getY()) {
+                                        player.attacking(player.getX()-1, player.getY());
+                                        lever.click(cages);
                                         is_attack = false;
                                     }
                                 }
