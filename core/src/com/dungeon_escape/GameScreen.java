@@ -90,7 +90,12 @@ public class GameScreen extends ScreenAdapter {
             cages[game.slimes_mass[i][1]][game.slimes_mass[i][0]].change_movable();
         }
         for (int i=0; i< game.lever_mass_y; i++){
-            if (game.levers_mass[i][0] == 1) {
+            if (game.levers_mass[i][4] == 0) {
+                levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontal_otstup, game.vertical_otstup, game.activ_lever, game.passiv_lever, game.speed, game.cvd, game.ovd, game.slime_attacked_sound, game.open_doors_sound, game.closed_doors_sound);
+                cages[game.levers_mass[i][0]][game.levers_mass[i][1]].change_movable();
+                cages[game.levers_mass[i][2]][game.levers_mass[i][3]].change_movable();
+            }
+            if (game.levers_mass[i][4] == 1) {
                 levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontal_otstup, game.vertical_otstup, game.activ_lever, game.passiv_lever, game.speed, game.chd, game.ohd, game.slime_attacked_sound, game.open_doors_sound, game.closed_doors_sound);
                 cages[game.levers_mass[i][0]][game.levers_mass[i][1]].change_movable();
                 cages[game.levers_mass[i][2]][game.levers_mass[i][3]].change_movable();

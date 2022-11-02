@@ -27,7 +27,7 @@ public class DungeonEscape extends Game {
 			cwul, cwur, cwdl, cwdr,
 			cul_, cur_, cdl_, cdr_,
 			activ_lever, passiv_lever,
-			chd, ohd;
+			chd, ohd, cvd, ovd;
 
 	Sound slime_attacked_sound, slime_attacking_sound,
 			player_attacking_sound, player_attacked_sound,
@@ -79,6 +79,8 @@ public class DungeonEscape extends Game {
 		//doors res
 		ohd = new Texture("doors/ohd.png");
 		chd = new Texture("doors/chd.png");
+		ovd = new Texture("doors/ovd.png");
+		cvd = new Texture("doors/cvd.png");
 		open_doors_sound = Gdx.audio.newSound(Gdx.files.internal("doors/open_doors_sound.ogg"));
 		closed_doors_sound = Gdx.audio.newSound(Gdx.files.internal("doors/closed_doors_sound.ogg"));
 

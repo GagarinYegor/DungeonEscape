@@ -38,11 +38,11 @@ public class Lever {
     public void draw(SpriteBatch batch, float size){
         if (is_activ) {
             batch.draw(activ_lever, real_x, real_y, size, size);
-            batch.draw(opened_door, door_real_x, door_real_y, size, size);
+            batch.draw(opened_door, door_real_x, door_real_y, size, size*2);
         }
         else {
             batch.draw(passiv_lever, real_x, real_y, size, size);
-            batch.draw(closed_door, door_real_x, door_real_y, size, size);
+            batch.draw(closed_door, door_real_x, door_real_y, size, size*2);
         }
     }
 
