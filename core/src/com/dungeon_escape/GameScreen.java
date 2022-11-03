@@ -15,7 +15,7 @@ public class GameScreen extends ScreenAdapter {
     Lever [] levers;
     OrthographicCamera camera;
     float start_timer, camera_move_up, camera_move_down, camera_move_left, camera_move_right;
-    boolean is_hod, is_attack, check_flag;
+    boolean is_hod, is_attack, check_flag, slime_hod;
 
     public void check_hod(){
         if (player.getHealth()>0) {
@@ -64,8 +64,123 @@ public class GameScreen extends ScreenAdapter {
                     player.attacked();
                     is_hod = false;
                 } else {
-                    if (Math.abs(slime.getX() - player.getX()) < 4 && Math.abs(slime.getY() - player.getY()) < 4) {
+                    if (Math.abs(slime.getX() - player.getX()) < 5 && Math.abs(slime.getY() - player.getY()) < 5) {
+                        slime_hod = true;
+                        cages[slime.getX()][slime.getY()].set_movable(true);
                         System.out.println("I see you!");
+                        if (slime_hod && slime.getX() == player.getX() && slime.getY() < player.getY()){
+                            //cages[slime.getX()][slime.getY()].set_movable(true);
+                            if (cages[slime.getX()][slime.getY()+1].get_movable()) slime.move(0, 1);
+                            else if (cages[slime.getX()+1][slime.getY()].get_movable()) slime.move(1, 0);
+                            else if (cages[slime.getX()-1][slime.getY()].get_movable()) slime.move(-1, 0);
+                            slime_hod = false;
+                            //cages[slime.getX()][slime.getY()].set_movable(false);
+                        }
+                        if (slime_hod && slime.getX() == player.getX() && slime.getY() > player.getY()){
+                            //cages[slime.getX()][slime.getY()].set_movable(true);
+                            if (cages[slime.getX()][slime.getY()-1].get_movable()) slime.move(0, -1);
+                            else if (cages[slime.getX()+1][slime.getY()].get_movable()) slime.move(1, 0);
+                            else if (cages[slime.getX()-1][slime.getY()].get_movable()) slime.move(-1, 0);
+                            slime_hod = false;
+                            //cages[slime.getX()][slime.getY()].set_movable(false);
+                        }
+                        if (slime_hod && slime.getX() > player.getX() && slime.getY() == player.getY()){
+                            //cages[slime.getX()][slime.getY()].set_movable(true);
+                            if (cages[slime.getX()-1][slime.getY()].get_movable()) slime.move(-1, 0);
+                            else if (cages[slime.getX()][slime.getY()+1].get_movable()) slime.move(0, 1);
+                            else if (cages[slime.getX()][slime.getY()-1].get_movable()) slime.move(0, -1);
+                            slime_hod = false;
+                            //cages[slime.getX()][slime.getY()].set_movable(false);
+                        }
+                        if (slime_hod && slime.getX() < player.getX() && slime.getY() == player.getY()){
+                            //cages[slime.getX()][slime.getY()].set_movable(true);
+                            if (cages[slime.getX()+1][slime.getY()].get_movable()) slime.move(+1, 0);
+                            else if (cages[slime.getX()][slime.getY()+1].get_movable()) slime.move(0, 1);
+                            else if (cages[slime.getX()][slime.getY()-1].get_movable()) slime.move(0, -1);
+                            slime_hod = false;
+                            //cages[slime.getX()][slime.getY()].set_movable(false);
+                        }
+                        if (slime_hod && slime.getX() < player.getX() && slime.getY() < player.getY()){
+                            //cages[slime.getX()][slime.getY()].set_movable(true);
+                            if (Math.abs(slime.getX() - player.getX()) < Math.abs(slime.getY()- player.getY())){
+                                if (cages[slime.getX()][slime.getY()+1].get_movable()) slime.move(0, 1);
+                                else if (cages[slime.getX()+1][slime.getY()].get_movable()) slime.move(1, 0);
+                                else if (cages[slime.getX()+1][slime.getY()+1].get_movable()) slime.move(1, 1);
+                            }
+                            else if (Math.abs(slime.getX() - player.getX()) > Math.abs(slime.getY()- player.getY())){
+                                if (cages[slime.getX()+1][slime.getY()].get_movable()) slime.move(1, 0);
+                                else if (cages[slime.getX()][slime.getY()+1].get_movable()) slime.move(0, 1);
+                                else if (cages[slime.getX()+1][slime.getY()+1].get_movable()) slime.move(1, 1);
+                            }
+                            else if (Math.abs(slime.getX() - player.getX()) == Math.abs(slime.getY()- player.getY())){
+                                if (cages[slime.getX()+1][slime.getY()+1].get_movable()) slime.move(1, 1);
+                                else if (cages[slime.getX()][slime.getY()+1].get_movable()) slime.move(0, 1);
+                                else if (cages[slime.getX()+1][slime.getY()].get_movable()) slime.move(1, 0);
+                            }
+                            slime_hod = false;
+                            //cages[slime.getX()][slime.getY()].set_movable(false);
+                        }
+                        if (slime_hod && slime.getX() > player.getX() && slime.getY() < player.getY()){
+                            //cages[slime.getX()][slime.getY()].set_movable(true);
+                            if (Math.abs(slime.getX() - player.getX()) < Math.abs(slime.getY()- player.getY())){
+                                if (cages[slime.getX()][slime.getY()+1].get_movable()) slime.move(0, 1);
+                                else if (cages[slime.getX()-1][slime.getY()].get_movable()) slime.move(-1, 0);
+                                else if (cages[slime.getX()-1][slime.getY()+1].get_movable()) slime.move(-1, 1);
+                            }
+                            else if (Math.abs(slime.getX() - player.getX()) > Math.abs(slime.getY()- player.getY())){
+                                if (cages[slime.getX()-1][slime.getY()].get_movable()) slime.move(-1, 0);
+                                else if (cages[slime.getX()][slime.getY()+1].get_movable()) slime.move(0, 1);
+                                else if (cages[slime.getX()-1][slime.getY()+1].get_movable()) slime.move(-1, 1);
+                            }
+                            else if (Math.abs(slime.getX() - player.getX()) == Math.abs(slime.getY()- player.getY())){
+                                if (cages[slime.getX()-1][slime.getY()+1].get_movable()) slime.move(-1, 1);
+                                else if (cages[slime.getX()][slime.getY()+1].get_movable()) slime.move(0, 1);
+                                else if (cages[slime.getX()-1][slime.getY()].get_movable()) slime.move(-1, 0);
+                            }
+                            slime_hod = false;
+                            //cages[slime.getX()][slime.getY()].set_movable(false);
+                        }
+                        if (slime_hod && slime.getX() < player.getX() && slime.getY() > player.getY()){
+                            //cages[slime.getX()][slime.getY()].set_movable(true);
+                            if (Math.abs(slime.getX() - player.getX()) < Math.abs(slime.getY()- player.getY())){
+                                if (cages[slime.getX()][slime.getY()-1].get_movable()) slime.move(0, -1);
+                                else if (cages[slime.getX()+1][slime.getY()].get_movable()) slime.move(1, 0);
+                                else if (cages[slime.getX()+1][slime.getY()-1].get_movable()) slime.move(1, -1);
+                            }
+                            else if (Math.abs(slime.getX() - player.getX()) > Math.abs(slime.getY()- player.getY())){
+                                if (cages[slime.getX()+1][slime.getY()].get_movable()) slime.move(1, 0);
+                                else if (cages[slime.getX()][slime.getY()-1].get_movable()) slime.move(0, -1);
+                                else if (cages[slime.getX()+1][slime.getY()-1].get_movable()) slime.move(1, -1);
+                            }
+                            else if (Math.abs(slime.getX() - player.getX()) == Math.abs(slime.getY()- player.getY())){
+                                if (cages[slime.getX()+1][slime.getY()-1].get_movable()) slime.move(1, -1);
+                                else if (cages[slime.getX()][slime.getY()-1].get_movable()) slime.move(0, -1);
+                                else if (cages[slime.getX()+1][slime.getY()].get_movable()) slime.move(1, 0);
+                            }
+                            slime_hod = false;
+                            //cages[slime.getX()][slime.getY()].set_movable(false);
+                        }
+                        if (slime_hod && slime.getX() > player.getX() && slime.getY() > player.getY()){
+                            //cages[slime.getX()][slime.getY()].set_movable(true);
+                            if (Math.abs(slime.getX() - player.getX()) < Math.abs(slime.getY() - player.getY())){
+                                if (cages[slime.getX()][slime.getY()-1].get_movable()) slime.move(0, -1);
+                                else if (cages[slime.getX()-1][slime.getY()].get_movable()) slime.move(-1, 0);
+                                else if (cages[slime.getX()-1][slime.getY()-1].get_movable()) slime.move(-1, -1);
+                            }
+                            else if (Math.abs(slime.getX() - player.getX()) > Math.abs(slime.getY()- player.getY())){
+                                if (cages[slime.getX()-1][slime.getY()].get_movable()) slime.move(-1, 0);
+                                else if (cages[slime.getX()][slime.getY()-1].get_movable()) slime.move(0, -1);
+                                else if (cages[slime.getX()-1][slime.getY()-1].get_movable()) slime.move(-1, -1);
+                            }
+                            else if (Math.abs(slime.getX() - player.getX()) == Math.abs(slime.getY()- player.getY())){
+                                if (cages[slime.getX()-1][slime.getY()-1].get_movable()) slime.move(-1, -1);
+                                else if (cages[slime.getX()][slime.getY()-1].get_movable()) slime.move(0, -1);
+                                else if (cages[slime.getX()-1][slime.getY()].get_movable()) slime.move(-1, 0);
+                            }
+                            slime_hod = false;
+                            //cages[slime.getX()][slime.getY()].set_movable(false);
+                        }
+                        cages[slime.getX()][slime.getY()].set_movable(false);
                     }
                 }
             }
@@ -114,18 +229,18 @@ public class GameScreen extends ScreenAdapter {
         }
         for (int i = 0; i < slimes.length; i++){
             slimes[i] = new Slime(game.slimes_mass[i][1], game.slimes_mass[i][0], game.size, game.horizontal_otstup, game.vertical_otstup, game.green_slime_texture_region, 6, game.speed, game.slime_blast, game.green_slime_attacking, game.green_slime_attacked, game.slime_attacking_sound, game.slime_attacked_sound, game.title_text_table);
-            cages[game.slimes_mass[i][1]][game.slimes_mass[i][0]].change_movable();
+            cages[game.slimes_mass[i][1]][game.slimes_mass[i][0]].set_movable(false);
         }
         for (int i=0; i< game.lever_mass_y; i++){
             if (game.levers_mass[i][4] == 0) {
                 levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontal_otstup, game.vertical_otstup, game.activ_lever, game.passiv_lever, game.speed, game.cvd, game.ovd, game.slime_attacked_sound, game.open_doors_sound, game.closed_doors_sound);
-                cages[game.levers_mass[i][0]][game.levers_mass[i][1]].change_movable();
-                cages[game.levers_mass[i][2]][game.levers_mass[i][3]].change_movable();
+                cages[game.levers_mass[i][0]][game.levers_mass[i][1]].set_movable(false);
+                cages[game.levers_mass[i][2]][game.levers_mass[i][3]].set_movable(false);
             }
             if (game.levers_mass[i][4] == 1) {
                 levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontal_otstup, game.vertical_otstup, game.activ_lever, game.passiv_lever, game.speed, game.chd, game.ohd, game.slime_attacked_sound, game.open_doors_sound, game.closed_doors_sound);
-                cages[game.levers_mass[i][0]][game.levers_mass[i][1]].change_movable();
-                cages[game.levers_mass[i][2]][game.levers_mass[i][3]].change_movable();
+                cages[game.levers_mass[i][0]][game.levers_mass[i][1]].set_movable(false);
+                cages[game.levers_mass[i][2]][game.levers_mass[i][3]].set_movable(false);
             }
         }
         player = new Player(3, 3, game.size, game.horizontal_otstup, game.vertical_otstup, game.player_texture_region, 12, game.speed, game.player_blast, game.player_attacking, game.player_attacked, game.player_attacking_sound, game.player_attacked_sound);
@@ -303,7 +418,7 @@ public class GameScreen extends ScreenAdapter {
         check_hod();
         for (Slime slime:slimes){
             if (slime.getHealth()<=0){
-                cages[slime.getX()][slime.getY()].change_movable();
+                cages[slime.getX()][slime.getY()].set_movable(true);
                 slime.death();
             }
         }

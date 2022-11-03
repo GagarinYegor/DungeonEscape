@@ -50,7 +50,7 @@ public class Lever {
         if (!is_activ) open_door_sound.play();
         else close_door_sound.play();
         is_activ = !is_activ;
-        cages[door_x][door_y].change_movable();
+        cages[door_x][door_y].set_movable(!cages[door_x][door_y].get_movable());
     }
 
     public int getX(){

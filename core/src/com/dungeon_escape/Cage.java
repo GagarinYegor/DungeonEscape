@@ -35,5 +35,5 @@ public class Cage {
         return moveable;
     }
 
-    public void change_movable(){moveable=!moveable;}
+    public void set_movable(boolean new_movable){moveable=new_movable;}
 }
