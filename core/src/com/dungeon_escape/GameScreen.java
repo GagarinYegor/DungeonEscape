@@ -21,9 +21,15 @@ public class GameScreen extends ScreenAdapter {
         if (player.getHealth()>0) {
             check_flag = true;
             for (Slime slime : slimes) {
-                if (slime.getMoving()) check_flag = false;
+                if (slime.getHealth()>0) {
+                    if (slime.getMoving()) check_flag = false;
+                    if (slime.getAttack()) check_flag = false;
+                    if (slime.getAttacked()) check_flag = false;
+                }
             }
             if (player.getMoving()) check_flag = false;
+            if (player.getAttack()) check_flag = false;
+            if (player.getAttacked()) check_flag = false;
             if (check_flag) is_hod = true;
         }
 
@@ -44,6 +50,26 @@ public class GameScreen extends ScreenAdapter {
             camera_move_left+= game.size;
         }
         player.move(x, y);
+    }
+
+    public void hod_end(){
+        slime_move();
+    }
+
+    public void slime_move(){
+        for (Slime slime:slimes){
+            if (slime.getHealth()>0) {
+                if (Math.abs(slime.getX() - player.getX()) < 3 && Math.abs(slime.getY() - player.getY()) < 3) {
+                    slime.attacking(player.getX(), player.getY());
+                    player.attacked();
+                    is_hod = false;
+                } else {
+                    if (Math.abs(slime.getX() - player.getX()) < 4 && Math.abs(slime.getY() - player.getY()) < 4) {
+                        System.out.println("I see you!");
+                    }
+                }
+            }
+        }
     }
 
     public GameScreen(DungeonEscape game) {
@@ -124,13 +150,13 @@ public class GameScreen extends ScreenAdapter {
                     touch_y = (int) ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size - 1);
                 }
                 if (button == Input.Buttons.LEFT) {
+                    if (touch_x == 9 && touch_y == 1) {
+                        is_attack = !is_attack;
+                    }
+                    if (touch_x == 9 && touch_y == 6) {
+                        game.setScreen(new MainMenuScreen(game));
+                    }
                     if (is_hod) {
-                        if (touch_x == 9 && touch_y == 1) {
-                            is_attack = !is_attack;
-                        }
-                        if (touch_x == 9 && touch_y == 6) {
-                            game.setScreen(new MainMenuScreen(game));
-                        }
                         if (is_attack) {
                             if (touch_x == 4 && touch_y == 4) { // up
                                 for (Slime slime : slimes){
@@ -138,6 +164,7 @@ public class GameScreen extends ScreenAdapter {
                                         player.attacking(player.getX(), player.getY()+1);
                                         slime.attacked(player.getPower());
                                         is_attack = false;
+                                        hod_end();
                                     }
                                 }
                                 for (Lever lever : levers){
@@ -145,6 +172,7 @@ public class GameScreen extends ScreenAdapter {
                                         player.attacking(player.getX(), player.getY()+1);
                                         lever.click(cages);
                                         is_attack = false;
+                                        hod_end();
                                     }
                                 }
                             }
@@ -154,6 +182,7 @@ public class GameScreen extends ScreenAdapter {
                                         player.attacking(player.getX(), player.getY()-1);
                                         slime.attacked(player.getPower());
                                         is_attack = false;
+                                        hod_end();
                                     }
                                 }
                                 for (Lever lever : levers){
@@ -161,6 +190,7 @@ public class GameScreen extends ScreenAdapter {
                                         player.attacking(player.getX(), player.getY()-1);
                                         lever.click(cages);
                                         is_attack = false;
+                                        hod_end();
                                     }
                                 }
                             }
@@ -170,6 +200,7 @@ public class GameScreen extends ScreenAdapter {
                                         player.attacking(player.getX()+1, player.getY());
                                         slime.attacked(player.getPower());
                                         is_attack = false;
+                                        hod_end();
                                     }
                                 }
                                 for (Lever lever : levers){
@@ -177,6 +208,7 @@ public class GameScreen extends ScreenAdapter {
                                         player.attacking(player.getX()+1, player.getY());
                                         lever.click(cages);
                                         is_attack = false;
+                                        hod_end();
                                     }
                                 }
                             }
@@ -186,6 +218,7 @@ public class GameScreen extends ScreenAdapter {
                                         player.attacking(player.getX()-1, player.getY());
                                         slime.attacked(player.getPower());
                                         is_attack = false;
+                                        hod_end();
                                     }
                                 }
                                 for (Lever lever : levers){
@@ -193,6 +226,7 @@ public class GameScreen extends ScreenAdapter {
                                         player.attacking(player.getX()-1, player.getY());
                                         lever.click(cages);
                                         is_attack = false;
+                                        hod_end();
                                     }
                                 }
                             }
@@ -201,21 +235,25 @@ public class GameScreen extends ScreenAdapter {
                             if (touch_x == 4 && touch_y == 4) {
                                 if (cages[player.getX()][player.getY()+1].get_movable()) {
                                     Go(0, 1);
+                                    hod_end();
                                 }
                             }
                             if (touch_x == 4 && touch_y == 2) {
                                 if (cages[player.getX()][player.getY()-1].get_movable()) {
                                     Go(0, -1);
+                                    hod_end();
                                 }
                             }
                             if (touch_x == 5 && touch_y == 3) {
                                 if (cages[player.getX()+1][player.getY()].get_movable()) {
                                     Go(1, 0);
+                                    hod_end();
                                 }
                             }
                             if (touch_x == 3 && touch_y == 3) {
                                 if (cages[player.getX()-1][player.getY()].get_movable()) {
                                     Go(-1, 0);
+                                    hod_end();
                                 }
                             }
                         }
@@ -262,6 +300,7 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+        check_hod();
         for (Slime slime:slimes){
             if (slime.getHealth()<=0){
                 cages[slime.getX()][slime.getY()].change_movable();
@@ -284,37 +323,37 @@ public class GameScreen extends ScreenAdapter {
         if (game.speed*delta > camera_move_right && camera_move_right > 0){
             camera.translate(camera_move_right, 0);
             camera_move_right = 0;
-            is_hod = true;
+            //is_hod = true;
         }
         if (camera_move_left > 0){
             camera.translate(-game.speed*delta, 0);
             camera_move_left -= game.speed*delta;
-            if (camera_move_left == 0) is_hod = true;
+            //if (camera_move_left == 0) is_hod = true;
         }
         if (game.speed*delta > camera_move_left && camera_move_left > 0){
             camera.translate(-camera_move_left, 0);
             camera_move_left = 0;
-            is_hod = true;
+            //is_hod = true;
         }
         if (camera_move_up > 0){
             camera.translate(0, game.speed*delta);
             camera_move_up -= game.speed*delta;
-            if (camera_move_up == 0) is_hod = true;
+            //if (camera_move_up == 0) is_hod = true;
         }
         if (game.speed*delta > camera_move_up && camera_move_up > 0){
             camera.translate(0, camera_move_up);
             camera_move_up = 0;
-            is_hod = true;
+            //is_hod = true;
         }
         if (camera_move_down > 0){
             camera.translate(0, -game.speed*delta);
             camera_move_down -= game.speed*delta;
-            if (camera_move_down == 0) is_hod = true;
+            //if (camera_move_down == 0) is_hod = true;
         }
         if (game.speed*delta > camera_move_down && camera_move_down > 0){
             camera.translate(0, -camera_move_down);
             camera_move_down = 0;
-            is_hod = true;
+            //is_hod = true;
         }
 
         Gdx.gl.glClearColor(0.4f, 0.4f, 0.4f, 1);
@@ -350,7 +389,6 @@ public class GameScreen extends ScreenAdapter {
         }
         camera.update();
         game.batch.end();
-        check_hod();
     }
 
     @Override

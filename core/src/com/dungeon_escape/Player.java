@@ -130,4 +130,6 @@ public class Player {
         return power;
     }
     public boolean getMoving(){return is_moving;}
+    public boolean getAttack(){return is_attack;}
+    public boolean getAttacked(){return is_attacked;}
 }

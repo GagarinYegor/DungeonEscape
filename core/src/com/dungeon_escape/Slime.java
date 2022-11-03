@@ -138,4 +138,6 @@ public class Slime {
         is_alive = false;
     }
     public boolean getMoving(){return is_moving;}
+    public boolean getAttack(){return is_attack;}
+    public boolean getAttacked(){return is_attacked;}
 }
