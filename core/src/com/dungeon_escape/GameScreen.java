@@ -272,6 +272,9 @@ public class GameScreen extends ScreenAdapter {
                         game.setScreen(new MainMenuScreen(game));
                     }
                     if (is_hod) {
+                        if (touch_x == 9 && touch_y == 0) {
+                            hod_end();
+                        }
                         if (is_attack) {
                             if (touch_x == 4 && touch_y == 4) { // up
                                 for (Slime slime : slimes){
