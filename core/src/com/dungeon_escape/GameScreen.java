@@ -16,6 +16,7 @@ public class GameScreen extends ScreenAdapter {
     OrthographicCamera camera;
     float start_timer, camera_move_up, camera_move_down, camera_move_left, camera_move_right;
     boolean is_hod, is_attack, check_flag, slime_hod;
+    int moves;
 
     public void check_hod(){
         if (player.getHealth()>0) {
@@ -54,6 +55,7 @@ public class GameScreen extends ScreenAdapter {
 
     public void hod_end(){
         slime_move();
+        moves+=1;
     }
 
     public void slime_move(){
@@ -188,6 +190,7 @@ public class GameScreen extends ScreenAdapter {
     }
 
     public GameScreen(DungeonEscape game) {
+        moves = 0;
         start_timer = 0.1f;
         camera = new OrthographicCamera(game.width, game.height);
         camera.setToOrtho(false, game.width, game.height);
@@ -243,7 +246,7 @@ public class GameScreen extends ScreenAdapter {
                 cages[game.levers_mass[i][2]][game.levers_mass[i][3]].set_movable(false);
             }
         }
-        player = new Player(3, 3, game.size, game.horizontal_otstup, game.vertical_otstup, game.player_texture_region, 12, game.speed, game.player_blast, game.player_attacking, game.player_attacked, game.player_attacking_sound, game.player_attacked_sound);
+        player = new Player(3, 3, game.size, game.horizontal_otstup, game.vertical_otstup, game.player_texture_region, 12, game.speed, game.player_blast, game.player_attacking, game.player_attacked, game.player_attacking_sound, game.player_attacked_sound, game.name);
     }
 
     @Override
@@ -479,13 +482,17 @@ public class GameScreen extends ScreenAdapter {
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         for (int i = 0; i < game.cage_x; i++){
-            for (int j = 0; j < game.cage_y; j++){
-                cages[i][j].draw(game.batch, game.size, delta);
+            for (int j = 0; j < game.cage_y; j++) {
+                if (Math.abs(i - player.getX()) < 6 && Math.abs(j - player.getY()) < 5) {
+                    cages[i][j].draw(game.batch, game.size, delta);
+                }
             }
         }
         player.draw(game.batch, game.size, delta);
         for (Slime slime: slimes){
-            slime.draw(game.batch, game.size, delta);
+            if (Math.abs(slime.getX() - player.getX()) < 6 && Math.abs(slime.getY() - player.getY()) < 5) {
+                slime.draw(game.batch, game.size, delta);
+            }
         }
         for (Lever lever: levers){
             lever.draw(game.batch, game.size);
@@ -496,11 +503,16 @@ public class GameScreen extends ScreenAdapter {
         }
         if (game.horizontal_otstup!=0) {
             game.batch.draw(game.border, game.left_border_x - game.size, game.left_border_y - game.size, game.horizontal_otstup + game.size, game.height + 2 * game.size);
-            game.batch.draw(game.border, game.right_border_x, game.right_border_y - game.size, game.horizontal_otstup + game.size, game.height + 2 * game.size);
+            game.batch.draw(game.border, game.right_border_x - game.size, game.right_border_y - game.size, game.horizontal_otstup + 2*game.size, game.height + 2 * game.size);
         }
         if (is_attack) game.batch.draw(game.activ_attack_button, game.right_border_x - game.size, game.right_border_y+game.size, game.size, game.size);
         else game.batch.draw(game.passiv_attack_button, game.right_border_x - game.size, game.right_border_y+game.size, game.size, game.size);
         game.batch.draw(game.waiting_button, game.right_border_x - game.size, game.right_border_y, game.size, game.size);
+        game.batch.draw(game.info_window, game.right_border_x - game.size, game.right_border_y+game.size*4, game.size, game.size*2);
+        game.info_font.draw(game.batch, "Name:", game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size / 20);
+        game.info_font.draw(game.batch, player.getName(), game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size *5 / 20);
+        game.info_font.draw(game.batch, "Hp:"+player.getHealth()+"/"+player.getMaxHealth(), game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 10 / 20);
+        game.info_font.draw(game.batch, "Moves:"+moves, game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 15 / 20);
         if (start_timer>=0){
             start_timer-=delta;
             game.batch.draw(game.border, game.left_border_x, game.left_border_y, game.width+game.size*2, game.height+game.size*2);

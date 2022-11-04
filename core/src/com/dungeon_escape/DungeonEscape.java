@@ -2,8 +2,10 @@ package com.dungeon_escape;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,12 +18,12 @@ public class DungeonEscape extends Game {
 
 	SpriteBatch batch;
 
-	BitmapFont font, record_font;
+	BitmapFont info_font, record_font;
 
 	Texture green_slime_texture_region, slime_blast, green_slime_attacked, green_slime_attacking,
 			stone_floor_texture_region, clmn,
 			player_texture_region, player_blast, player_attacked, player_attacking,
-			begin_button, record_button, return_button, row, row_heading, arrow_next,
+			begin_button, record_button, return_button, row, row_heading, arrow_next, info_window,
 			title_text_table, border, activ_attack_button, passiv_attack_button, waiting_button,
 			wu__, wd__, wl__, wr__,
 			cwul, cwur, cwdl, cwdr,
@@ -45,12 +47,16 @@ public class DungeonEscape extends Game {
 	int[][] levers_mass;
 	int cage_x, cage_y, slime_mass_x, slime_mass_y, lever_mass_x, lever_mass_y;
 	HashMap<String, TextureRegion> font_map;
+	Input.TextInputListener listener;
+	String name;
+	boolean is_correct_name;
 
 
 	@Override
 	public void create() {
 		speed = 250f;
 		batch = new SpriteBatch();
+		name = "";
 
 		//slime res
 		green_slime_texture_region = new Texture("slime/green_slime_texture_region.png");
@@ -97,6 +103,7 @@ public class DungeonEscape extends Game {
 		passiv_attack_button = new Texture("interface/passiv_attack_button.png");
 		activ_attack_button = new Texture("interface/activ_attack_button.png");
 		waiting_button = new Texture("interface/waiting_button.png");
+		info_window = new Texture("interface/info_window.png");
 
 		//walls res
 		wu__ = new Texture("walls/wu__.png");
@@ -113,11 +120,6 @@ public class DungeonEscape extends Game {
 		cwur = new Texture("corners_and_walls/cwur.png");
 		cwdl = new Texture("corners_and_walls/cwdl.png");
 		cwdr = new Texture("corners_and_walls/cwdr.png");
-
-		//fonts
-		font = new BitmapFont();
-		record_font = new BitmapFont();
-
 
 		width = Gdx.app.getGraphics().getWidth();
 		height = Gdx.app.getGraphics().getHeight();
@@ -172,6 +174,12 @@ public class DungeonEscape extends Game {
 			}
 		}
 
+		//fonts
+		info_font = new BitmapFont();
+		info_font.setColor(Color.RED);
+		info_font.getData().setScale(size/100, size/75);
+		record_font = new BitmapFont();
+
 		font_map = new HashMap<>();
 		int fontFrameCount = 32;
 		int frameWidth = font_region.getRegionWidth() / fontFrameCount;
@@ -218,6 +226,5 @@ public class DungeonEscape extends Game {
 		begin_button.dispose();
 		record_button.dispose();
 		stone_floor_texture_region.dispose();
-		font.dispose();
 	}
 }

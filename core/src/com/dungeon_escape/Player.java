@@ -15,9 +15,13 @@ public class Player {
     private Animation player_animation;
     private Texture attacking_player, attacked_player;
     private Blast blast;
+    private String name;
 
     Sound player_attacking_sound, player_attacked_sound;
-    Player(int x, int y, float size, float horizontal_otstup, float vertical_otstup, Texture player_texture_region, int frameCount, float speed, Texture player_blast, Texture attacking_player, Texture attacked_player, Sound player_attacking_sound, Sound player_attacked_sound){
+    Player(int x, int y, float size, float horizontal_otstup, float vertical_otstup,
+           Texture player_texture_region, int frameCount, float speed, Texture player_blast,
+           Texture attacking_player, Texture attacked_player, Sound player_attacking_sound,
+           Sound player_attacked_sound, String name){
         this.speed = speed;
         this.x = x;
         this.y = y;
@@ -38,6 +42,7 @@ public class Player {
         max_health = 100;
         health = max_health;
         power = 20;
+        this.name = name;
     }
 
     public void draw(SpriteBatch batch, float size, float dt){
@@ -94,7 +99,7 @@ public class Player {
 
     public void attacking(int x, int y){
         if (is_attack == false) {
-           player_attacking_sound.play();
+            player_attacking_sound.play();
             is_attack = true;
             blast.set_target(x, y, this.x, this.y);
         }
@@ -126,10 +131,14 @@ public class Player {
     public int getHealth(){
         return health;
     }
+    public int getMaxHealth(){
+        return max_health;
+    }
     public int getPower(){
         return power;
     }
     public boolean getMoving(){return is_moving;}
     public boolean getAttack(){return is_attack;}
     public boolean getAttacked(){return is_attacked;}
+    public String getName(){return name;}
 }

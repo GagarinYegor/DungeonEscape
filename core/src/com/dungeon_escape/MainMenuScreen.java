@@ -11,9 +11,26 @@ public class MainMenuScreen extends ScreenAdapter {
 
     DungeonEscape game;
 
-    public MainMenuScreen(DungeonEscape game) {
+    public MainMenuScreen(final DungeonEscape game) {
+        game.is_correct_name = false;
         this.game = game;
+        game.listener = new Input.TextInputListener() {
+            @Override
+            public void input(String s) {
+                if (s.length()<=11){
+                    game.name = s;
+                    game.is_correct_name = true;
+                }
+                else Gdx.input.getTextInput(game.listener, "Name shoud be 1-11 letters", game.name, "");
+            }
+
+            @Override
+            public void canceled() {
+                game.is_correct_name = false;
+            }
+        };
     }
+
 
     @Override
     public void show(){
@@ -34,7 +51,7 @@ public class MainMenuScreen extends ScreenAdapter {
                     touch_y = (int) ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size - 1);
                 }
                 if (button == Input.Buttons.LEFT && touch_y == 2 && touch_x >= 0 && touch_x <= 9) {
-                    game.setScreen(new GameScreen(game));
+                    Gdx.input.getTextInput(game.listener, "Enter your name:", game.name, "");
                     return true;
                 }
                 if (button == Input.Buttons.LEFT && touch_y == 1 && touch_x >= 0 && touch_x <= 9) {
@@ -48,7 +65,8 @@ public class MainMenuScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, .25f, 0, 1);
+        if (game.is_correct_name) game.setScreen(new GameScreen(game));
+        Gdx.gl.glClearColor(0, 0.25f, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
         game.batch.draw(game.begin_button, game.right_border_x-10*game.size, game.up_border_y-game.size*5, game.size*10, game.size);
