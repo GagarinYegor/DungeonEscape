@@ -15,23 +15,27 @@ public class MainMenuScreen extends ScreenAdapter {
     DungeonEscape game;
     Slime slime;
     Player player;
-    float right_moving, left_moving, up_moving, down_moving, buttons_real_x, buttons_real_y;
+    float right_moving, left_moving, up_moving, down_moving,
+            buttons_real_x, buttons_real_y, zamedlenie, start_timer;
     boolean is_correct_name, is_dialog_open;
     OrthographicCamera main_menu_camera;
 
     public MainMenuScreen(final DungeonEscape game) {
         this.game = game;
-
+        zamedlenie = 0.5f;
+        start_timer = 0.1f;
         game.main_menu_batch = new SpriteBatch();
 
-        right_moving = 0;
-        left_moving = game.size;
+        right_moving = game.size;
+        left_moving = 0;
         up_moving = 0;
-        down_moving = game.size;
+        down_moving = 0;
 
         main_menu_camera = new OrthographicCamera(game.width, game.height);
         main_menu_camera.setToOrtho(false, game.width, game.height);
-        //main_menu_camera.translate(0, game.size);
+        main_menu_camera.translate(game.size, game.size);
+        buttons_real_x= game.size;
+        buttons_real_y=game.size;
 
         slime = new Slime(7, 5, game.size, game.horizontal_otstup, game.vertical_otstup,
                 game.green_slime_texture_region, 6, game.speed, game.slime_blast,
@@ -107,12 +111,12 @@ public class MainMenuScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         if (right_moving > 0){
-            main_menu_camera.translate(game.speed*delta, 0);
-            right_moving -= game.speed*delta;
-            buttons_real_x+=game.speed*delta;
+            main_menu_camera.translate(game.speed*delta*zamedlenie, 0);
+            right_moving -= game.speed*delta*zamedlenie;
+            buttons_real_x+=game.speed*delta*zamedlenie;
             //if (right_moving == 0) is_hod = true;
         }
-        if (game.speed*delta > right_moving && right_moving > 0){
+        if (game.speed*delta*zamedlenie > right_moving && right_moving > 0){
             main_menu_camera.translate(right_moving, 0);
             right_moving = 0;
             down_moving = game.size*4;
@@ -120,12 +124,12 @@ public class MainMenuScreen extends ScreenAdapter {
             //is_hod = true;
         }
         if (left_moving > 0){
-            main_menu_camera.translate(-game.speed*delta, 0);
-            left_moving -= game.speed*delta;
-            buttons_real_x -=game.speed*delta;
+            main_menu_camera.translate(-game.speed*delta*zamedlenie, 0);
+            left_moving -= game.speed*delta*zamedlenie;
+            buttons_real_x -=game.speed*delta*zamedlenie;
             //if (camera_move_left == 0) is_hod = true;
         }
-        if (game.speed*delta > left_moving && left_moving > 0){
+        if (game.speed*delta*zamedlenie > left_moving && left_moving > 0){
             main_menu_camera.translate(-left_moving, 0);
             left_moving = 0;
             up_moving = game.size*4;
@@ -133,12 +137,12 @@ public class MainMenuScreen extends ScreenAdapter {
             //is_hod = true;
         }
         if (up_moving > 0){
-            main_menu_camera.translate(0, game.speed*delta);
-            up_moving -= game.speed*delta;
-            buttons_real_y+=game.speed*delta;
+            main_menu_camera.translate(0, game.speed*delta*zamedlenie);
+            up_moving -= game.speed*delta*zamedlenie;
+            buttons_real_y+=game.speed*delta*zamedlenie;
             //if (camera_move_up == 0) is_hod = true;
         }
-        if (game.speed*delta > up_moving && up_moving > 0){
+        if (game.speed*delta*zamedlenie > up_moving && up_moving > 0){
             main_menu_camera.translate(0, up_moving);
             up_moving = 0;
             right_moving = game.size*4;
@@ -146,12 +150,12 @@ public class MainMenuScreen extends ScreenAdapter {
             //is_hod = true;
         }
         if (down_moving > 0){
-            main_menu_camera.translate(0, -game.speed*delta);
-            down_moving -= game.speed*delta;
-            buttons_real_y-=game.speed*delta;
+            main_menu_camera.translate(0, -game.speed*delta*zamedlenie);
+            down_moving -= game.speed*delta*zamedlenie;
+            buttons_real_y-=game.speed*delta*zamedlenie;
             //if (camera_move_down == 0) is_hod = true;
         }
-        if (game.speed*delta > down_moving && down_moving > 0){
+        if (game.speed*delta*zamedlenie > down_moving && down_moving > 0){
             main_menu_camera.translate(0, -down_moving);
             down_moving = 0;
             left_moving = game.size*4;
@@ -168,6 +172,10 @@ public class MainMenuScreen extends ScreenAdapter {
         player.draw(game.main_menu_batch, game.size, delta);
         game.main_menu_batch.draw(game.begin_button, game.horizontal_otstup+buttons_real_x, game.vertical_otstup+buttons_real_y+game.size*2, game.size*10, game.size);
         game.main_menu_batch.draw(game.record_button, game.horizontal_otstup+buttons_real_x, game.vertical_otstup+buttons_real_y+game.size, game.size*10, game.size);
+        if (start_timer>=0){
+            start_timer-=delta;
+            game.main_menu_batch.draw(game.border, game.left_border_x, game.left_border_y, game.width+game.size*2, game.height+game.size*2);
+        }
         main_menu_camera.update();
         game.main_menu_batch.end();
     }

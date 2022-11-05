@@ -56,7 +56,6 @@ public class DungeonEscape extends Game {
 
 	@Override
 	public void create() {
-		speed = 250f;
 		batch = new SpriteBatch();
 		name = "";
 
@@ -145,6 +144,8 @@ public class DungeonEscape extends Game {
 		up_border_y = height-vertical_otstup;
 		down_border_x = 0;
 		down_border_y = 0;
+
+		speed = size*3;
 
 		map = new String[41][41];
 		FileHandle file = Gdx.files.internal("text_resources/map.txt");
