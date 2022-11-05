@@ -22,7 +22,10 @@ public class DungeonEscape extends Game {
 
 	Texture green_slime_texture_region, slime_blast, green_slime_attacked, green_slime_attacking,
 			stone_floor_texture_region, clmn,
-			player_texture_region, player_blast, player_attacked, player_attacking,
+			player_texture_region_right, player_texture_region_left,
+			player_blast,
+			player_attacked_right, player_attacking_right,
+			player_attacked_left, player_attacking_left,
 			begin_button, record_button, return_button, row, row_heading, arrow_next, info_window,
 			title_text_table, border, activ_attack_button, passiv_attack_button, waiting_button,
 			wu__, wd__, wl__, wr__,
@@ -71,9 +74,12 @@ public class DungeonEscape extends Game {
 		clmn = new Texture("floor/clmn.png");
 
 		//player res
-		player_texture_region = new Texture("player/player_texture_region.png");
-		player_attacked = new Texture("player/player_attacked.png");
-		player_attacking = new Texture("player/player_attacking.png");
+		player_texture_region_right = new Texture("player/player_texture_region_right.png");
+		player_texture_region_left = new Texture("player/player_texture_region_left.png");
+		player_attacked_right = new Texture("player/player_attacked_right.png");
+		player_attacking_right = new Texture("player/player_attacking_right.png");
+		player_attacked_left = new Texture("player/player_attacked_left.png");
+		player_attacking_left = new Texture("player/player_attacking_left.png");
 		player_blast = new Texture("interface/nothing.png");
 		player_attacked_sound = Gdx.audio.newSound(Gdx.files.internal("player/attacked_player_sound.wav"));
 		player_attacking_sound = Gdx.audio.newSound(Gdx.files.internal("player/attacking_player_sound.wav"));

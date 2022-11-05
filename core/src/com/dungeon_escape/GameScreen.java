@@ -246,7 +246,12 @@ public class GameScreen extends ScreenAdapter {
                 cages[game.levers_mass[i][2]][game.levers_mass[i][3]].set_movable(false);
             }
         }
-        player = new Player(3, 3, game.size, game.horizontal_otstup, game.vertical_otstup, game.player_texture_region, 12, game.speed, game.player_blast, game.player_attacking, game.player_attacked, game.player_attacking_sound, game.player_attacked_sound, game.name);
+        player = new Player(3, 3, game.size, game.horizontal_otstup, game.vertical_otstup,
+                game.player_texture_region_right, game.player_texture_region_left,
+                12, game.speed, game.player_blast,
+                game.player_attacking_right, game.player_attacked_right,
+                game.player_attacking_left, game.player_attacked_left,
+                game.player_attacking_sound, game.player_attacked_sound, game.name);
     }
 
     @Override
