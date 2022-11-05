@@ -513,6 +513,7 @@ public class GameScreen extends ScreenAdapter {
         game.info_font.draw(game.batch, player.getName(), game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size *5 / 20);
         game.info_font.draw(game.batch, "Hp:"+player.getHealth()+"/"+player.getMaxHealth(), game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 10 / 20);
         game.info_font.draw(game.batch, "Moves:"+moves, game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 15 / 20);
+        game.info_font.draw(game.batch, "Power:"+player.getPower(), game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 20 / 20);
         if (start_timer>=0){
             start_timer-=delta;
             game.batch.draw(game.border, game.left_border_x, game.left_border_y, game.width+game.size*2, game.height+game.size*2);
