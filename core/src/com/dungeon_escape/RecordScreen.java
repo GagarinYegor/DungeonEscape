@@ -64,7 +64,9 @@ public class RecordScreen extends ScreenAdapter {
         game.records_batch.draw(game.row_heading, game.horizontal_otstup, game.vertical_otstup+game.size*6, game.size*10, game.size);
         for (int i = 0; i<strings.size(); i++){
             game.records_batch.draw(game.row, game.horizontal_otstup, game.vertical_otstup+game.size*(5-i), game.size*10, game.size);
-            //game.record_font.draw(game.batch, string[0], game.right_border_x-10*game.size+ game.size*0+game.size/10, game.vertical_otstup+game.size*(6-i)- game.size/4);
+            game.record_font.draw(game.records_batch, strings.get(i).split(" ")[0], game.horizontal_otstup+game.size/10, game.vertical_otstup+game.size*(6-i)- game.size/4);
+            game.record_font.draw(game.records_batch, strings.get(i).split(" ")[1], game.horizontal_otstup+game.size/10+ game.size*5, game.vertical_otstup+game.size*(6-i)- game.size/4);
+            game.record_font.draw(game.records_batch, strings.get(i).split(" ")[2], game.horizontal_otstup+game.size/10+ game.size*7, game.vertical_otstup+game.size*(6-i)- game.size/4);
         }
         game.records_batch.end();
     }

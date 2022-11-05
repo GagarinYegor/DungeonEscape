@@ -179,6 +179,8 @@ public class DungeonEscape extends Game {
 		info_font.setColor(Color.RED);
 		info_font.getData().setScale(size/100, size/75);
 		record_font = new BitmapFont();
+		record_font.setColor(Color.DARK_GRAY);
+		record_font.getData().setScale(size/50, size/50);
 
 		font_map = new HashMap<>();
 		int fontFrameCount = 32;
