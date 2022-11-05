@@ -6,27 +6,33 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MainMenuScreen extends ScreenAdapter {
 
     DungeonEscape game;
 
     public MainMenuScreen(final DungeonEscape game) {
+        game.is_dialog_open = false;
+        game.main_menu_batch = new SpriteBatch();
         game.is_correct_name = false;
         this.game = game;
         game.listener = new Input.TextInputListener() {
             @Override
             public void input(String s) {
-                if (s.length()<=11){
+                if (s.length()<=11&&s.length()>=1){
                     game.name = s;
                     game.is_correct_name = true;
                 }
-                else Gdx.input.getTextInput(game.listener, "Name shoud be 1-11 letters", game.name, "");
+                else {
+                    Gdx.input.getTextInput(game.listener, "Name shoud be 1-11 letters", game.name, "");
+                }
             }
 
             @Override
             public void canceled() {
                 game.is_correct_name = false;
+                game.is_dialog_open = false;
             }
         };
     }
@@ -51,7 +57,10 @@ public class MainMenuScreen extends ScreenAdapter {
                     touch_y = (int) ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size - 1);
                 }
                 if (button == Input.Buttons.LEFT && touch_y == 2 && touch_x >= 0 && touch_x <= 9) {
-                    Gdx.input.getTextInput(game.listener, "Enter your name:", game.name, "");
+                    if (!game.is_dialog_open) {
+                        game.is_dialog_open = true;
+                        Gdx.input.getTextInput(game.listener, "Enter your name:", game.name, "");
+                    }
                     return true;
                 }
                 if (button == Input.Buttons.LEFT && touch_y == 1 && touch_x >= 0 && touch_x <= 9) {
@@ -68,10 +77,10 @@ public class MainMenuScreen extends ScreenAdapter {
         if (game.is_correct_name) game.setScreen(new GameScreen(game));
         Gdx.gl.glClearColor(0, 0.25f, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        game.batch.begin();
-        game.batch.draw(game.begin_button, game.right_border_x-10*game.size, game.up_border_y-game.size*5, game.size*10, game.size);
-        game.batch.draw(game.record_button, game.right_border_x-10*game.size, game.up_border_y-game.size*6, game.size*10, game.size);
-        game.batch.end();
+        game.main_menu_batch.begin();
+        game.main_menu_batch.draw(game.begin_button, game.horizontal_otstup, game.vertical_otstup+game.size*2, game.size*10, game.size);
+        game.main_menu_batch.draw(game.record_button, game.horizontal_otstup, game.vertical_otstup+game.size, game.size*10, game.size);
+        game.main_menu_batch.end();
     }
 
     @Override

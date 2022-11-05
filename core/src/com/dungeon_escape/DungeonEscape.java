@@ -52,7 +52,7 @@ public class DungeonEscape extends Game {
 	HashMap<String, TextureRegion> font_map;
 	Input.TextInputListener listener;
 	String name;
-	boolean is_correct_name;
+	boolean is_correct_name, is_dialog_open;
 
 
 	@Override
