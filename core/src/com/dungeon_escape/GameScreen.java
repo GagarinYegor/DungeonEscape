@@ -444,7 +444,7 @@ public class GameScreen extends ScreenAdapter {
         if (camera_move_right > 0){
             camera.translate(game.speed*delta, 0);
             camera_move_right -= game.speed*delta;
-            if (camera_move_right == 0) is_hod = true;
+            //if (camera_move_right == 0) is_hod = true;
         }
         if (game.speed*delta > camera_move_right && camera_move_right > 0){
             camera.translate(camera_move_right, 0);

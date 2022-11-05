@@ -23,7 +23,7 @@ public class DungeonEscape extends Game {
 	Texture green_slime_texture_region, slime_blast, green_slime_attacked, green_slime_attacking,
 			stone_floor_texture_region, clmn,
 			player_texture_region_right, player_texture_region_left,
-			player_blast,
+			player_blast, screensaver,
 			player_attacked_right, player_attacking_right,
 			player_attacked_left, player_attacking_left,
 			begin_button, record_button, return_button, row, row_heading, arrow_next, info_window,
@@ -52,7 +52,6 @@ public class DungeonEscape extends Game {
 	HashMap<String, TextureRegion> font_map;
 	Input.TextInputListener listener;
 	String name;
-	boolean is_correct_name, is_dialog_open;
 
 
 	@Override
@@ -110,6 +109,7 @@ public class DungeonEscape extends Game {
 		activ_attack_button = new Texture("interface/activ_attack_button.png");
 		waiting_button = new Texture("interface/waiting_button.png");
 		info_window = new Texture("interface/info_window.png");
+		screensaver = new Texture("interface/screensaver.png");
 
 		//walls res
 		wu__ = new Texture("walls/wu__.png");
