@@ -10,9 +10,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class DeathScreen extends ScreenAdapter {
 
     DungeonEscape game;
+    Slime [] slimes;
 
     public DeathScreen(DungeonEscape game) {
         game.death_screen_batch = new SpriteBatch();
+        slimes = new Slime[10];
+        for (int i = 0; i< 10; i++){
+            slimes[i] =  new Slime(i, 1, game.size, game.horizontal_otstup, game.vertical_otstup, game.green_slime_texture_region, 6, game.speed, game.slime_blast, game.green_slime_attacking, game.green_slime_attacked, game.slime_attacking_sound, game.slime_attacked_sound, game.title_text_table);
+        }
         this.game = game;
     }
 
@@ -50,6 +55,9 @@ public class DeathScreen extends ScreenAdapter {
         game.death_screen_batch.begin();
         game.death_screen_batch.draw(game.death_screen_img, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size*7);
         game.death_screen_batch.draw(game.return_button, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size);
+        for (Slime slime: slimes){
+            slime.draw(game.death_screen_batch, game.size, delta);
+        }
         game.death_screen_batch.end();
     }
 
