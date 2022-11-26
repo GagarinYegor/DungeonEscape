@@ -33,6 +33,7 @@ public class GameScreen extends ScreenAdapter {
             if (player.getAttacked()) check_flag = false;
             if (check_flag) is_hod = true;
         }
+        else game.setScreen(new DeathScreen(game));
 
     }
 
@@ -63,7 +64,7 @@ public class GameScreen extends ScreenAdapter {
             if (slime.getHealth()>0) {
                 if (Math.abs(slime.getX() - player.getX()) < 3 && Math.abs(slime.getY() - player.getY()) < 3) {
                     slime.attacking(player.getX(), player.getY());
-                    player.attacked();
+                    player.attacked(slime.getPower());
                     is_hod = false;
                 } else {
                     if (Math.abs(slime.getX() - player.getX()) < 5 && Math.abs(slime.getY() - player.getY()) < 5) {

@@ -119,8 +119,9 @@ public class Player {
             blast.set_target(x, y, this.x, this.y);
         }
     }
-    public void attacked(){
+    public void attacked(int damage){
         if (is_attacked == false) {
+            health -= damage;
             player_attacked_sound.play();
             is_attacked = true;
             attacked_timer = 0;

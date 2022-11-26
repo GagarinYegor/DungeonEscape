@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 public class DungeonEscape extends Game {
 
-	SpriteBatch batch, records_batch, main_menu_batch;
+	SpriteBatch batch, records_batch, main_menu_batch, death_screen_batch;
 
 	BitmapFont info_font, record_font;
 
@@ -28,6 +28,7 @@ public class DungeonEscape extends Game {
 			player_attacked_left, player_attacking_left,
 			begin_button, record_button, return_button, row, row_heading, arrow_next, info_window,
 			title_text_table, border, activ_attack_button, passiv_attack_button, waiting_button,
+			death_screen_img,
 			wu__, wd__, wl__, wr__,
 			cwul, cwur, cwdl, cwdr,
 			cul_, cur_, cdl_, cdr_,
@@ -109,6 +110,7 @@ public class DungeonEscape extends Game {
 		waiting_button = new Texture("interface/waiting_button.png");
 		info_window = new Texture("interface/info_window.png");
 		screensaver = new Texture("interface/screensaver.png");
+		death_screen_img = new Texture("interface/death_screen_img.png");
 
 		//walls res
 		wu__ = new Texture("walls/wu__.png");
