@@ -18,7 +18,7 @@ public class GameScreen extends ScreenAdapter {
     boolean is_hod, is_attack, check_flag, slime_hod;
 
     public void check_hod(){
-        if (player.getX() == 20 && player.getY() == 1){
+        if (player.getX() == 20 && player.getY() == 0){
             game.player_lvl = player.getLvl();
             game.setScreen(new WinScreen(game));
         }
@@ -214,7 +214,8 @@ public class GameScreen extends ScreenAdapter {
                 if (game.map[i][j].contains("sf__")) cages[i][j] = new Cage(i, j, true, game.size, game.horizontal_otstup, game.vertical_otstup, game.stone_floor_texture_region, 1);
                 else if (game.map[i][j].contains("nthi")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontal_otstup, game.vertical_otstup, game.player_blast, 1);
                 else if (game.map[i][j].contains("clmn")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontal_otstup, game.vertical_otstup, game.clmn, 1);
-
+                else if (game.map[i][j].contains("exit")) cages[i][j] = new Cage(i, j, true, game.size, game.horizontal_otstup, game.vertical_otstup, game.exit_img, 1);
+                else if (game.map[i][j].contains("sfsc")) cages[i][j] = new Cage(i, j, true, game.size, game.horizontal_otstup, game.vertical_otstup, game.stone_floor_sc, 1);
 
                 else if (game.map[i][j].contains("wd__")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontal_otstup, game.vertical_otstup, game.wd__, 1);
                 else if (game.map[i][j].contains("wu__")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontal_otstup, game.vertical_otstup, game.wu__, 1);
@@ -248,6 +249,11 @@ public class GameScreen extends ScreenAdapter {
                 levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontal_otstup, game.vertical_otstup, game.activ_lever, game.passiv_lever, game.speed, game.chd, game.ohd, game.slime_attacked_sound, game.open_doors_sound, game.closed_doors_sound);
                 cages[game.levers_mass[i][0]][game.levers_mass[i][1]].set_movable(false);
                 cages[game.levers_mass[i][2]][game.levers_mass[i][3]].set_movable(false);
+            }
+            if (game.levers_mass[i][4] == 2) {
+                levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontal_otstup, game.vertical_otstup, game.player_blast, game.player_blast, game.speed, game.exit_door, game.exit_door, game.slime_attacked_sound, game.open_doors_sound, game.closed_doors_sound);
+                cages[game.levers_mass[i][0]][game.levers_mass[i][1]].set_movable(false);
+                cages[game.levers_mass[i][2]][game.levers_mass[i][3]].set_movable(true);
             }
         }
         player = new Player(3, 3, game.size, game.horizontal_otstup, game.vertical_otstup,

@@ -28,7 +28,7 @@ public class DungeonEscape extends Game {
 			player_attacked_left, player_attacking_left,
 			begin_button, record_button, return_button, row, row_heading, arrow_next, info_window,
 			title_text_table, border, activ_attack_button, passiv_attack_button, waiting_button,
-			death_screen_img, arrow_up, arrow_down, arrow_no,
+			death_screen_img, arrow_up, arrow_down, arrow_no, exit_img, exit_door, stone_floor_sc,
 			wu__, wd__, wl__, wr__,
 			cwul, cwur, cwdl, cwdr,
 			cul_, cur_, cdl_, cdr_,
@@ -71,6 +71,7 @@ public class DungeonEscape extends Game {
 		//floor res
 		stone_floor_texture_region = new Texture("floor/stone_floor.png");
 		clmn = new Texture("floor/clmn.png");
+		stone_floor_sc = new Texture("floor/stone_floor_sc.png");
 
 		//player res
 		player_texture_region_right = new Texture("player/player_texture_region_right.png");
@@ -94,6 +95,8 @@ public class DungeonEscape extends Game {
 		cvd = new Texture("doors/cvd.png");
 		open_doors_sound = Gdx.audio.newSound(Gdx.files.internal("doors/open_doors_sound.ogg"));
 		closed_doors_sound = Gdx.audio.newSound(Gdx.files.internal("doors/closed_doors_sound.ogg"));
+		exit_img = new Texture("doors/exit.png");
+		exit_door = new Texture("doors/exit_door.png");
 
 		//interface res
 		begin_button = new Texture("interface/begin_button.png");
@@ -178,7 +181,7 @@ public class DungeonEscape extends Game {
 		FileHandle lever_file = Gdx.files.internal("text_resources/levers.txt");
 		Scanner levers_scan = new Scanner(lever_file.read());
 		lever_mass_x = 5;
-		lever_mass_y = 2;
+		lever_mass_y = 3;
 		levers_mass = new int[lever_mass_y][lever_mass_x];
 		for (int i=0; i<lever_mass_y; i++){
 			for (int j=0; j<lever_mass_x; j++){
@@ -196,6 +199,7 @@ public class DungeonEscape extends Game {
 
 		FileHandle rec_file = Gdx.files.local("text_resources/records.txt");
 		if (rec_file.length()==0) rec_file.writeString("Test 0 0", false);
+		//rec_file.writeString("Test 0 0", false);
 
 		font_map = new HashMap<>();
 		int fontFrameCount = 32;
