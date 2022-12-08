@@ -86,6 +86,14 @@ public class RecordScreen extends ScreenAdapter {
             game.record_font.draw(game.records_batch, strings.get(i+1).split(" ")[1], game.horizontal_otstup+game.size/10+ game.size*5, game.vertical_otstup+game.size*(6-i)- game.size/4);
             game.record_font.draw(game.records_batch, strings.get(i+1).split(" ")[2], game.horizontal_otstup+game.size/10+ game.size*7, game.vertical_otstup+game.size*(6-i)- game.size/4);
         }
+        if (sdvig != strings.size()-6 && strings.size()>6) {
+            game.records_batch.draw(game.arrow_down, game.horizontal_otstup+game.size*9, game.vertical_otstup-game.size*sdvig, game.size, game.size);
+        }
+        else game.records_batch.draw(game.arrow_no, game.horizontal_otstup+game.size*9, game.vertical_otstup-game.size*sdvig, game.size, game.size);
+        if (sdvig !=0) {
+            game.records_batch.draw(game.arrow_up, game.horizontal_otstup, game.vertical_otstup-game.size*sdvig, game.size, game.size);
+        }
+        else game.records_batch.draw(game.arrow_no, game.horizontal_otstup, game.vertical_otstup-game.size*sdvig, game.size, game.size);
         game.records_batch.draw(game.return_button, game.horizontal_otstup+game.size, game.vertical_otstup-game.size*sdvig, game.size*8, game.size);
         game.records_batch.draw(game.row_heading, game.horizontal_otstup, game.vertical_otstup+game.size*6-game.size*sdvig, game.size*10, game.size);
         record_screen_camera.update();

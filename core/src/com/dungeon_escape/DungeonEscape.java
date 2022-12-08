@@ -28,7 +28,7 @@ public class DungeonEscape extends Game {
 			player_attacked_left, player_attacking_left,
 			begin_button, record_button, return_button, row, row_heading, arrow_next, info_window,
 			title_text_table, border, activ_attack_button, passiv_attack_button, waiting_button,
-			death_screen_img,
+			death_screen_img, arrow_up, arrow_down, arrow_no,
 			wu__, wd__, wl__, wr__,
 			cwul, cwur, cwdl, cwdr,
 			cul_, cur_, cdl_, cdr_,
@@ -111,6 +111,9 @@ public class DungeonEscape extends Game {
 		info_window = new Texture("interface/info_window.png");
 		screensaver = new Texture("interface/screensaver.png");
 		death_screen_img = new Texture("interface/death_screen_img.png");
+		arrow_up = new Texture("interface/arrow_up.png");
+		arrow_down = new Texture("interface/arrow_down.png");
+		arrow_no = new Texture("interface/arrow_no.png");
 
 		//walls res
 		wu__ = new Texture("walls/wu__.png");
