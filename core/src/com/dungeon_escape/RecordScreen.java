@@ -19,8 +19,10 @@ public class RecordScreen extends ScreenAdapter {
     Vector <String> strings;
     OrthographicCamera record_screen_camera;
     int sdvig;
+    float start_timer;
 
     public RecordScreen(DungeonEscape game) {
+        start_timer = 0.1f;
         sdvig = 0;
         game.records_batch = new SpriteBatch();
         this.game = game;
@@ -61,11 +63,13 @@ public class RecordScreen extends ScreenAdapter {
                     if (button == Input.Buttons.LEFT && touch_y == 0 && touch_x == 9 && sdvig != strings.size()-6) {
                         record_screen_camera.translate(0, -game.size);
                         sdvig+=1;
+                        start_timer = 0.05f;
                         return true;
                     }
                     if (button == Input.Buttons.LEFT && touch_y == 0 && touch_x == 0 && sdvig !=0) {
                         record_screen_camera.translate(0, game.size);
                         sdvig-=1;
+                        start_timer = 0.05f;
                         return true;
                     }
                 }
@@ -96,6 +100,10 @@ public class RecordScreen extends ScreenAdapter {
         else game.records_batch.draw(game.arrow_no, game.horizontal_otstup, game.vertical_otstup-game.size*sdvig, game.size, game.size);
         game.records_batch.draw(game.return_button, game.horizontal_otstup+game.size, game.vertical_otstup-game.size*sdvig, game.size*8, game.size);
         game.records_batch.draw(game.row_heading, game.horizontal_otstup, game.vertical_otstup+game.size*6-game.size*sdvig, game.size*10, game.size);
+        if (start_timer>=0){
+            start_timer-=delta;
+            game.records_batch.draw(game.border, -game.size, -game.size-game.size*sdvig, game.width+game.size*2, game.height+game.size*2);
+        }
         record_screen_camera.update();
         game.records_batch.end();
     }
