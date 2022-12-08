@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 public class DungeonEscape extends Game {
 
-	SpriteBatch batch, records_batch, main_menu_batch, death_screen_batch;
+	SpriteBatch batch, records_batch, main_menu_batch, death_screen_batch, win_screen_batch;
 
 	BitmapFont info_font, record_font;
 
@@ -49,7 +49,7 @@ public class DungeonEscape extends Game {
 	String [][] map;
 	int[][] slimes_mass;
 	int[][] levers_mass;
-	int cage_x, cage_y, slime_mass_x, slime_mass_y, lever_mass_x, lever_mass_y;
+	int cage_x, cage_y, slime_mass_x, slime_mass_y, lever_mass_x, lever_mass_y, moves, player_lvl;
 	HashMap<String, TextureRegion> font_map;
 	Input.TextInputListener listener;
 	String name;

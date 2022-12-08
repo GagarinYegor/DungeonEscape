@@ -5,27 +5,21 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.util.Scanner;
-import java.util.Vector;
+import java.io.IOException;
+import java.io.Writer;
 
-public class RecordScreen extends ScreenAdapter {
+public class WinScreen extends ScreenAdapter {
 
     DungeonEscape game;
-    Vector <String> strings;
 
-    public RecordScreen(DungeonEscape game) {
-        game.records_batch = new SpriteBatch();
+    public WinScreen(DungeonEscape game) {
+        game.win_screen_batch = new SpriteBatch();
         this.game = game;
-        FileHandle record_file = Gdx.files.internal("text_resources/records.txt");
-        Scanner records_scan = new Scanner(record_file.read());
-        strings = new Vector<>();
-        while (records_scan.hasNextLine()){
-            strings.add(records_scan.nextLine());
-        }
+        FileHandle win_file = Gdx.files.local("text_resources/records.txt");
+        win_file.writeString("\n"+game.name+" "+game.player_lvl+" "+game.moves, true);
     }
 
     @Override
@@ -57,18 +51,12 @@ public class RecordScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, .25f, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        game.records_batch.begin();
-        game.records_batch.draw(game.return_button, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size);
-        game.records_batch.draw(game.row_heading, game.horizontal_otstup, game.vertical_otstup+game.size*6, game.size*10, game.size);
-        for (int i = 0; i<strings.size(); i++){
-            game.records_batch.draw(game.row, game.horizontal_otstup, game.vertical_otstup+game.size*(5-i), game.size*10, game.size);
-            game.record_font.draw(game.records_batch, strings.get(i).split(" ")[0], game.horizontal_otstup+game.size/10, game.vertical_otstup+game.size*(6-i)- game.size/4);
-            game.record_font.draw(game.records_batch, strings.get(i).split(" ")[1], game.horizontal_otstup+game.size/10+ game.size*5, game.vertical_otstup+game.size*(6-i)- game.size/4);
-            game.record_font.draw(game.records_batch, strings.get(i).split(" ")[2], game.horizontal_otstup+game.size/10+ game.size*7, game.vertical_otstup+game.size*(6-i)- game.size/4);
-        }
-        game.records_batch.end();
+        game.win_screen_batch.begin();
+        game.win_screen_batch.draw(game.death_screen_img, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size*7);
+        game.win_screen_batch.draw(game.return_button, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size);
+        game.win_screen_batch.end();
     }
 
     @Override

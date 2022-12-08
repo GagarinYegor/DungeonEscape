@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Player {
     private boolean is_attack, is_attacked, is_moving, is_right;
-    private int x, y, health, max_health, power;
+    private int x, y, health, max_health, power, lvl;
     private float real_x, real_y, attacked_timer, speed, horizontal_otstup, vertical_otstup, size;
     private Animation player_animation_right, player_animation_left;
     private Texture attacking_player_right, attacked_player_right, attacking_player_left, attacked_player_left;
@@ -49,6 +49,7 @@ public class Player {
         power = 20;
         this.name = name;
         is_right = true;
+        lvl = 0;
     }
 
     public void draw(SpriteBatch batch, float size, float dt){
@@ -157,4 +158,5 @@ public class Player {
     public boolean getAttack(){return is_attack;}
     public boolean getAttacked(){return is_attacked;}
     public String getName(){return name;}
+    public int getLvl(){return lvl;}
 }

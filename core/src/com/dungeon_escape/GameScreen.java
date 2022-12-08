@@ -16,9 +16,12 @@ public class GameScreen extends ScreenAdapter {
     OrthographicCamera camera;
     float start_timer, camera_move_up, camera_move_down, camera_move_left, camera_move_right;
     boolean is_hod, is_attack, check_flag, slime_hod;
-    int moves;
 
     public void check_hod(){
+        if (player.getX() == 20 && player.getY() == 1){
+            game.player_lvl = player.getLvl();
+            game.setScreen(new WinScreen(game));
+        }
         if (player.getHealth()>0) {
             check_flag = true;
             for (Slime slime : slimes) {
@@ -56,7 +59,7 @@ public class GameScreen extends ScreenAdapter {
 
     public void hod_end(){
         slime_move();
-        moves+=1;
+        game.moves+=1;
     }
 
     public void slime_move(){
@@ -191,7 +194,7 @@ public class GameScreen extends ScreenAdapter {
     }
 
     public GameScreen(DungeonEscape game) {
-        moves = 0;
+        game.moves = 0;
         start_timer = 0.1f;
         camera = new OrthographicCamera(game.width, game.height);
         camera.setToOrtho(false, game.width, game.height);
@@ -518,7 +521,7 @@ public class GameScreen extends ScreenAdapter {
         game.info_font.draw(game.batch, "Name:", game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size / 20);
         game.info_font.draw(game.batch, player.getName(), game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size *5 / 20);
         game.info_font.draw(game.batch, "Hp:"+player.getHealth()+"/"+player.getMaxHealth(), game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 10 / 20);
-        game.info_font.draw(game.batch, "Moves:"+moves, game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 15 / 20);
+        game.info_font.draw(game.batch, "Moves:"+game.moves, game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 15 / 20);
         game.info_font.draw(game.batch, "Power:"+player.getPower(), game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 20 / 20);
         if (start_timer>=0){
             start_timer-=delta;
