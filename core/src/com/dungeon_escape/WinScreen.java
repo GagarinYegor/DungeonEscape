@@ -20,6 +20,7 @@ public class WinScreen extends ScreenAdapter {
         this.game = game;
         FileHandle win_file = Gdx.files.local("text_resources/records.txt");
         win_file.writeString("\n"+game.name+" "+game.player_lvl+" "+game.moves, true);
+        //win_file.writeString(game.name+" "+game.player_lvl+" "+game.moves, false);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class WinScreen extends ScreenAdapter {
                 else {
                     touch_y = (int) ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size - 1);
                 }
-                if (button == Input.Buttons.LEFT && touch_y == 0 && touch_x >= 0 && touch_x <= 9) {
+                if (button == Input.Buttons.LEFT && touch_y == 0 && touch_x >= 1 && touch_x <= 8) {
                     game.setScreen(new MainMenuScreen(game));
                     return true;
                 }
@@ -55,7 +56,7 @@ public class WinScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.win_screen_batch.begin();
         game.win_screen_batch.draw(game.death_screen_img, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size*7);
-        game.win_screen_batch.draw(game.return_button, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size);
+        game.win_screen_batch.draw(game.return_button, game.horizontal_otstup+game.size, game.vertical_otstup, game.size*8, game.size);
         game.win_screen_batch.end();
     }
 

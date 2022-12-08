@@ -1,4 +1,0 @@
-Name lvl moves
-Yegor 5 100
-Dima 5 110
-ttt 4 111
