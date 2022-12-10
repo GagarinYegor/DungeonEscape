@@ -34,7 +34,8 @@ public class DungeonEscape extends Game {
 			cwul, cwur, cwdl, cwdr,
 			cul_, cur_, cdl_, cdr_,
 			activ_lever, passiv_lever,
-			chd, ohd, cvd, ovd;
+			chd, ohd, cvd, ovd,
+			wdwt;
 
 	Sound slime_attacked_sound, slime_attacking_sound,
 			player_attacking_sound, player_attacked_sound,
@@ -137,6 +138,8 @@ public class DungeonEscape extends Game {
 		cwur = new Texture("corners_and_walls/cwur.png");
 		cwdl = new Texture("corners_and_walls/cwdl.png");
 		cwdr = new Texture("corners_and_walls/cwdr.png");
+
+		wdwt = new Texture("walls/wdwt_texture_region.png");
 
 		width = Gdx.app.getGraphics().getWidth();
 		height = Gdx.app.getGraphics().getHeight();
