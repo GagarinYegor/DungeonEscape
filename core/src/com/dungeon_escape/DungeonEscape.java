@@ -3,6 +3,7 @@ package com.dungeon_escape;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
@@ -38,6 +39,8 @@ public class DungeonEscape extends Game {
 	Sound slime_attacked_sound, slime_attacking_sound,
 			player_attacking_sound, player_attacked_sound,
 			lever_sound, open_doors_sound, closed_doors_sound;
+
+	Music theme;
 
 	TextureRegion font_region;
 
@@ -117,6 +120,7 @@ public class DungeonEscape extends Game {
 		arrow_up = new Texture("interface/arrow_up.png");
 		arrow_down = new Texture("interface/arrow_down.png");
 		arrow_no = new Texture("interface/arrow_no.png");
+		theme = Gdx.audio.newMusic(Gdx.files.internal("interface/theme.mp3"));
 
 		//walls res
 		wu__ = new Texture("walls/wu__.png");

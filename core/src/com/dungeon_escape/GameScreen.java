@@ -19,6 +19,7 @@ public class GameScreen extends ScreenAdapter {
 
     public void check_hod(){
         if (player.getX() == 20 && player.getY() == 0){
+            game.theme.stop();
             game.player_lvl = player.getLvl();
             game.setScreen(new WinScreen(game));
         }
@@ -36,7 +37,10 @@ public class GameScreen extends ScreenAdapter {
             if (player.getAttacked()) check_flag = false;
             if (check_flag) is_hod = true;
         }
-        else game.setScreen(new DeathScreen(game));
+        else{
+            game.theme.stop();
+            game.setScreen(new DeathScreen(game));
+        }
 
     }
 
@@ -194,6 +198,9 @@ public class GameScreen extends ScreenAdapter {
     }
 
     public GameScreen(DungeonEscape game) {
+        game.theme.setLooping(true);
+        game.theme.play();
+        game.theme.setVolume(0.5f);
         game.moves = 0;
         start_timer = 0.1f;
         camera = new OrthographicCamera(game.width, game.height);
