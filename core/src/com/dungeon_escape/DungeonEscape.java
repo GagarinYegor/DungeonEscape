@@ -27,6 +27,7 @@ public class DungeonEscape extends Game {
 			player_blast, screensaver,
 			player_attacked_right, player_attacking_right,
 			player_attacked_left, player_attacking_left,
+			player_texture_region_mowing_right, player_texture_region_mowing_left,
 			begin_button, record_button, return_button, row, row_heading, arrow_next, info_window,
 			title_text_table, border, activ_attack_button, passiv_attack_button, waiting_button,
 			death_screen_img, arrow_up, arrow_down, arrow_no, exit_img, exit_door, stone_floor_sc,
@@ -87,6 +88,8 @@ public class DungeonEscape extends Game {
 		player_blast = new Texture("interface/nothing.png");
 		player_attacked_sound = Gdx.audio.newSound(Gdx.files.internal("player/attacked_player_sound.wav"));
 		player_attacking_sound = Gdx.audio.newSound(Gdx.files.internal("player/attacking_player_sound.wav"));
+		player_texture_region_mowing_right = new Texture("player/player_right_moving_texture_region.png");
+		player_texture_region_mowing_left = new Texture("player/player_left_moving_texture_region.png");
 
 		//lever res
 		activ_lever = new Texture("levers/al__.png");

@@ -12,7 +12,7 @@ public class Player {
     private boolean is_attack, is_attacked, is_moving, is_right;
     private int x, y, health, max_health, power, lvl;
     private float real_x, real_y, attacked_timer, speed, horizontal_otstup, vertical_otstup, size;
-    private Animation player_animation_right, player_animation_left;
+    private Animation player_animation_right, player_animation_left, player_mowing_right, player_mowing_left;
     private Texture attacking_player_right, attacked_player_right, attacking_player_left, attacked_player_left;
     private Blast blast;
     private String name;
@@ -20,7 +20,10 @@ public class Player {
     Sound player_attacking_sound, player_attacked_sound;
     Player(int x, int y, float size, float horizontal_otstup, float vertical_otstup,
            Texture player_texture_region_right, Texture player_texture_region_left,
-           int frameCount, float speed, Texture player_blast,
+           int frameCount, float speed,
+           Texture player_texture_region_mowing_right, Texture player_texture_region_mowing_left,
+           int MovingframeCount, float Movingspeed,
+           Texture player_blast,
            Texture attacking_player_right, Texture attacked_player_right,
            Texture attacking_player_left, Texture attacked_player_left, Sound player_attacking_sound,
            Sound player_attacked_sound, String name){
