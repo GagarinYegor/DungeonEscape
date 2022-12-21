@@ -114,7 +114,7 @@ public class MainMenuScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        if (game.speed*delta*zamedlenie >= up_moving && up_moving > 0){
+        if (game.speed*delta*zamedlenie > up_moving && up_moving > 0){
             main_menu_camera.translate(0, up_moving);
             up_moving = 0;
             right_moving = game.size*4;
@@ -127,7 +127,7 @@ public class MainMenuScreen extends ScreenAdapter {
             buttons_real_y+=game.speed*delta*zamedlenie;
             //if (camera_move_up == 0) is_hod = true;
         }
-        if (game.speed*delta*zamedlenie >= right_moving && right_moving > 0){
+        if (game.speed*delta*zamedlenie > right_moving && right_moving > 0){
             main_menu_camera.translate(right_moving, 0);
             right_moving = 0;
             down_moving = game.size*4;
@@ -140,7 +140,7 @@ public class MainMenuScreen extends ScreenAdapter {
             buttons_real_x+=game.speed*delta*zamedlenie;
             //if (right_moving == 0) is_hod = true;
         }
-        if (game.speed*delta*zamedlenie >= down_moving && down_moving > 0){
+        if (game.speed*delta*zamedlenie > down_moving && down_moving > 0){
             main_menu_camera.translate(0, -down_moving);
             down_moving = 0;
             left_moving = game.size*4;
@@ -153,7 +153,7 @@ public class MainMenuScreen extends ScreenAdapter {
             buttons_real_y-=game.speed*delta*zamedlenie;
             //if (camera_move_down == 0) is_hod = true;
         }
-        if (game.speed*delta*zamedlenie >= left_moving && left_moving > 0){
+        if (game.speed*delta*zamedlenie > left_moving && left_moving > 0){
             main_menu_camera.translate(-left_moving, 0);
             left_moving = 0;
             up_moving = game.size*4;
