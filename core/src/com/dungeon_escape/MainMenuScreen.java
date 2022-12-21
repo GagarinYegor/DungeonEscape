@@ -44,11 +44,12 @@ public class MainMenuScreen extends ScreenAdapter {
 
         player = new Player(2, 5, game.size, game.horizontal_otstup, game.vertical_otstup,
                 game.player_texture_region_right, game.player_texture_region_left,
-                12, game.speed,
+                12,
                 game.player_texture_region_mowing_right, game.player_texture_region_mowing_left,
-                14, game.speed,
-                game.player_blast, game.player_attacking_right,
-                game.player_attacked_right, game.player_attacking_left, game.player_attacked_left,
+                14,
+                game.speed, game.player_blast,
+                game.player_attacking_right, game.player_attacked_right,
+                game.player_attacking_left, game.player_attacked_left,
                 game.player_attacking_sound, game.player_attacked_sound, "");
 
         is_dialog_open = false;

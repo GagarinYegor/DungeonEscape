@@ -20,13 +20,13 @@ public class Player {
     Sound player_attacking_sound, player_attacked_sound;
     Player(int x, int y, float size, float horizontal_otstup, float vertical_otstup,
            Texture player_texture_region_right, Texture player_texture_region_left,
-           int frameCount, float speed,
+           int frameCount,
            Texture player_texture_region_mowing_right, Texture player_texture_region_mowing_left,
-           int MovingframeCount, float Movingspeed,
-           Texture player_blast,
+           int MovingframeCount,
+           float speed, Texture player_blast,
            Texture attacking_player_right, Texture attacked_player_right,
-           Texture attacking_player_left, Texture attacked_player_left, Sound player_attacking_sound,
-           Sound player_attacked_sound, String name){
+           Texture attacking_player_left, Texture attacked_player_left,
+           Sound player_attacking_sound, Sound player_attacked_sound, String name){
         this.speed = speed;
         this.x = x;
         this.y = y;
@@ -40,6 +40,8 @@ public class Player {
         this.attacked_player_left = attacked_player_left;
         player_animation_right = new Animation(new TextureRegion(player_texture_region_right), frameCount, 0.5f);
         player_animation_left = new Animation(new TextureRegion(player_texture_region_left), frameCount, 0.5f);
+        player_mowing_right = new Animation(new TextureRegion(player_texture_region_mowing_right), MovingframeCount, 0.3f);
+        player_mowing_left = new Animation(new TextureRegion(player_texture_region_mowing_left), MovingframeCount, 0.3f);
         this.player_attacking_sound = player_attacking_sound;
         this.player_attacked_sound = player_attacked_sound;
         is_attack = false;
@@ -75,8 +77,14 @@ public class Player {
             }
         }
         else {
-            if (is_right) batch.draw(player_animation_right.getFrame(), real_x, real_y, size, size);
-            else batch.draw(player_animation_left.getFrame(), real_x, real_y, size, size);
+            if (is_right) {
+                batch.draw(player_mowing_right.getFrame(), real_x, real_y, size, size);
+                player_mowing_right.update(dt);
+            }
+            else {
+                batch.draw(player_mowing_left.getFrame(), real_x, real_y, size, size);
+                player_mowing_left.update(dt);
+            }
             if (real_x<x*size+horizontal_otstup){
                 is_right = true;
                 if (real_x+speed*dt<x*size+horizontal_otstup) {
