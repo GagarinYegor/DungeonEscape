@@ -210,8 +210,8 @@ public class DungeonEscape extends Game {
 		record_font.setColor(Color.DARK_GRAY);
 		record_font.getData().setScale(size/50, size/50);
 
-		FileHandle rec_file = Gdx.files.local("text_resources/records.txt");
-		if (rec_file.length()==0) rec_file.writeString("Test 0 0", false);
+		//FileHandle rec_file = Gdx.files.local("text_resources/records.txt");
+		//if (rec_file.length()==0) rec_file.writeString("Test 0 0", false);
 		//rec_file.writeString("Test 0 0", false);
 
 		font_map = new HashMap<>();
