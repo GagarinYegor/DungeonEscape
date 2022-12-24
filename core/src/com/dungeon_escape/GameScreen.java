@@ -15,9 +15,14 @@ public class GameScreen extends ScreenAdapter {
     Lever [] levers;
     OrthographicCamera camera;
     float start_timer, camera_move_up, camera_move_down, camera_move_left, camera_move_right;
-    boolean is_hod, is_attack, check_flag, slime_hod, flag_stop;
+    boolean is_hod, is_attack, check_flag, slime_hod;
 
     public void check_hod(){
+        if (player.getX() == 20 && player.getY() == 0){
+            game.theme.stop();
+            game.player_lvl = player.getLvl();
+            game.setScreen(new WinScreen(game));
+        }
         if (player.getHealth()>0) {
             check_flag = true;
             for (Slime slime : slimes) {
@@ -57,12 +62,6 @@ public class GameScreen extends ScreenAdapter {
     }
 
     public void hod_end(){
-        if (player.getX() == 20 && player.getY() == 0 && !flag_stop){
-            flag_stop = true;
-            game.theme.stop();
-            game.player_lvl = player.getLvl();
-            game.setScreen(new WinScreen(game));
-        }
         slime_move();
         game.moves+=1;
     }
@@ -199,7 +198,6 @@ public class GameScreen extends ScreenAdapter {
     }
 
     public GameScreen(DungeonEscape game) {
-        flag_stop = false;
         game.theme.setLooping(true);
         game.theme.play();
         game.theme.setVolume(0.5f);
@@ -295,7 +293,7 @@ public class GameScreen extends ScreenAdapter {
                 else {
                     touch_y = (int) ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size - 1);
                 }
-                if (button == Input.Buttons.LEFT && !flag_stop) {
+                if (button == Input.Buttons.LEFT) {
                     if (touch_x == 9 && touch_y == 1) {
                         is_attack = !is_attack;
                     }

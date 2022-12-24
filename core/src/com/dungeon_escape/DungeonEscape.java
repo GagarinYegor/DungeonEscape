@@ -17,7 +17,8 @@ import java.util.Scanner;
 
 public class DungeonEscape extends Game {
 
-	SpriteBatch batch, records_batch, main_menu_batch, death_screen_batch, win_screen_batch;
+	SpriteBatch batch, records_batch, main_menu_batch,
+			death_screen_batch, win_screen_batch, settings_batch;
 
 	BitmapFont info_font, record_font;
 
