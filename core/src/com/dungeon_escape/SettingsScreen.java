@@ -11,8 +11,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class SettingsScreen extends ScreenAdapter {
 
     DungeonEscape game;
+    float start_timer;
 
     public SettingsScreen(DungeonEscape game) {
+        start_timer = 0.1f;
         game.win_screen_batch = new SpriteBatch();
         this.game = game;
         FileHandle win_file = Gdx.files.local("text_resources/records.txt");
@@ -42,6 +44,11 @@ public class SettingsScreen extends ScreenAdapter {
                     game.setScreen(new MainMenuScreen(game));
                     return true;
                 }
+                if (button == Input.Buttons.LEFT && touch_y == 1 && touch_x >= 0 && touch_x <= 9) {
+                    FileHandle win_file = Gdx.files.local("text_resources/records.txt");
+                    win_file.writeString("", false);
+                    return true;
+                }
                 return false;
             }
         });
@@ -54,6 +61,11 @@ public class SettingsScreen extends ScreenAdapter {
         game.win_screen_batch.begin();
         game.win_screen_batch.draw(game.death_screen_img, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size*7);
         game.win_screen_batch.draw(game.return_button, game.horizontal_otstup+game.size, game.vertical_otstup, game.size*8, game.size);
+        game.win_screen_batch.draw(game.delete_button, game.horizontal_otstup, game.vertical_otstup+game.size*1, game.size*10, game.size);
+        if (start_timer>=0){
+            start_timer-=delta;
+            game.win_screen_batch.draw(game.border, -game.size, -game.size, game.width+game.size*2, game.height+game.size*2);
+        }
         game.win_screen_batch.end();
     }
 

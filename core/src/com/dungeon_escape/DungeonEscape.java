@@ -30,7 +30,7 @@ public class DungeonEscape extends Game {
 			player_texture_region_mowing_right, player_texture_region_mowing_left,
 			begin_button, record_button, return_button, row, row_heading, arrow_next, info_window,
 			title_text_table, border, activ_attack_button, passiv_attack_button, waiting_button,
-			death_screen_img, win_screen_img, settings_screen_button,
+			death_screen_img, win_screen_img, settings_screen_button, delete_button,
 			arrow_up, arrow_down, arrow_no, exit_img, exit_door, stone_floor_sc,
 			wu__, wd__, wl__, wr__,
 			cwul, cwur, cwdl, cwdr,
@@ -111,6 +111,7 @@ public class DungeonEscape extends Game {
 		record_button = new Texture("interface/record_button.png");
 		return_button = new Texture("interface/return_button.png");
 		settings_screen_button = new Texture("interface/settings_button.png");
+		delete_button = new Texture("interface/delete_button.png");
 		passiv_attack_button = new Texture("interface/passiv_attack_button.png");
 		activ_attack_button = new Texture("interface/activ_attack_button.png");
 		waiting_button = new Texture("interface/waiting_button.png");
