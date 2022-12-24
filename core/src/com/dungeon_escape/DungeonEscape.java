@@ -30,7 +30,7 @@ public class DungeonEscape extends Game {
 			player_texture_region_mowing_right, player_texture_region_mowing_left,
 			begin_button, record_button, return_button, row, row_heading, arrow_next, info_window,
 			title_text_table, border, activ_attack_button, passiv_attack_button, waiting_button,
-			death_screen_img, win_screen_img,
+			death_screen_img, win_screen_img, settings_screen_button,
 			arrow_up, arrow_down, arrow_no, exit_img, exit_door, stone_floor_sc,
 			wu__, wd__, wl__, wr__,
 			cwul, cwur, cwdl, cwdr,
@@ -110,15 +110,16 @@ public class DungeonEscape extends Game {
 		begin_button = new Texture("interface/begin_button.png");
 		record_button = new Texture("interface/record_button.png");
 		return_button = new Texture("interface/return_button.png");
+		settings_screen_button = new Texture("interface/settings_button.png");
+		passiv_attack_button = new Texture("interface/passiv_attack_button.png");
+		activ_attack_button = new Texture("interface/activ_attack_button.png");
+		waiting_button = new Texture("interface/waiting_button.png");
 		row = new Texture("interface/row.png");
 		row_heading = new Texture("interface/row_heading.png");
 		arrow_next = new Texture("interface/arrow_next.png");
 		font_region = new TextureRegion(new Texture("interface/font.png"));
 		title_text_table = new Texture("interface/title_text_table.png");
 		border = new Texture("interface/border.png");
-		passiv_attack_button = new Texture("interface/passiv_attack_button.png");
-		activ_attack_button = new Texture("interface/activ_attack_button.png");
-		waiting_button = new Texture("interface/waiting_button.png");
 		info_window = new Texture("interface/info_window.png");
 		screensaver = new Texture("interface/screensaver.png");
 		death_screen_img = new Texture("interface/death_screen_img.png");
