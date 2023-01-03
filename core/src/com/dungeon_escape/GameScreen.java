@@ -433,11 +433,11 @@ public class GameScreen extends ScreenAdapter {
                     return true;
                 }
                 if (keycode == Input.Keys.Q){
-                    camera.zoom+=game.size/10;
+                    camera.zoom+=game.size/500;
                     return true;
                 }
                 if (keycode == Input.Keys.A){
-                    camera.zoom-=game.size/10;
+                    camera.zoom-=game.size/500;
                     return true;
                 }
                 return false;
@@ -509,8 +509,10 @@ public class GameScreen extends ScreenAdapter {
         game.batch.begin();
         for (int i = 0; i < game.cage_x; i++){
             for (int j = 0; j < game.cage_y; j++) {
+                cages[i][j].draw(game.batch, game.size, delta);
                 if (Math.abs(i - player.getX()) < 6 && Math.abs(j - player.getY()) < 5) {
                     cages[i][j].draw(game.batch, game.size, delta);
+
                 }
             }
         }
@@ -533,6 +535,7 @@ public class GameScreen extends ScreenAdapter {
         }
         if (is_attack) game.batch.draw(game.activ_attack_button, game.right_border_x - game.size, game.right_border_y+game.size, game.size, game.size);
         else game.batch.draw(game.passiv_attack_button, game.right_border_x - game.size, game.right_border_y+game.size, game.size, game.size);
+        game.info_font.draw(game.batch, player.getX()+":"+player.getY(), player.get_real_X(), player.get_real_Y());
         game.batch.draw(game.waiting_button, game.right_border_x - game.size, game.right_border_y, game.size, game.size);
         game.batch.draw(game.info_window, game.right_border_x - game.size, game.right_border_y+game.size*4, game.size, game.size*2);
         game.info_font.draw(game.batch, "Name:", game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size / 20);
