@@ -132,7 +132,7 @@ public class Slime {
     }
     public void death(){
         x = 24;
-        y = 15;
+        y = 24;
         real_x = x*size+horizontal_otstup;
         real_y = y*size+vertical_otstup;
         is_alive = false;

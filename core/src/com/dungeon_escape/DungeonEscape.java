@@ -185,7 +185,7 @@ public class DungeonEscape extends Game {
 		FileHandle slime_file = Gdx.files.internal("text_resources/slimes.txt");
 		Scanner slimes_scan = new Scanner(slime_file.read());
 		slime_mass_x = 2;
-		slime_mass_y = 23;
+		slime_mass_y = 28;
 		slimes_mass = new int[slime_mass_y][slime_mass_x];
 		for (int i=0; i<slime_mass_y; i++){
 			for (int j=0; j<slime_mass_x; j++){
