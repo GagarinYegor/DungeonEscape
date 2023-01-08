@@ -43,7 +43,7 @@ public class Slime {
         is_alive = true;
         max_health = 100;
         health = max_health;
-        power = 20;
+        power = 15;
     }
 
     public void draw(SpriteBatch batch, float size, float dt) {

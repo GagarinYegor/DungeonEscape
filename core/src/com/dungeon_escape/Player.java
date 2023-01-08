@@ -170,4 +170,5 @@ public class Player {
     public boolean getAttacked(){return is_attacked;}
     public String getName(){return name;}
     public int getLvl(){return lvl;}
+    public void setHealth(int newHealth){health = newHealth;}
 }

@@ -62,6 +62,12 @@ public class GameScreen extends ScreenAdapter {
     }
 
     public void hod_end(){
+        if (player.getHealth()< player.getMaxHealth()) {
+            player.setHealth(player.getHealth() + 5);
+            if (player.getHealth()> player.getMaxHealth()){
+                player.setHealth(player.getMaxHealth());
+            }
+        }
         slime_move();
         game.moves+=1;
     }
@@ -535,7 +541,7 @@ public class GameScreen extends ScreenAdapter {
         }
         if (is_attack) game.batch.draw(game.activ_attack_button, game.right_border_x - game.size, game.right_border_y+game.size, game.size, game.size);
         else game.batch.draw(game.passiv_attack_button, game.right_border_x - game.size, game.right_border_y+game.size, game.size, game.size);
-        game.info_font.draw(game.batch, player.getX()+":"+player.getY(), player.get_real_X(), player.get_real_Y());
+        //game.info_font.draw(game.batch, player.getX()+":"+player.getY(), player.get_real_X(), player.get_real_Y());
         game.batch.draw(game.waiting_button, game.right_border_x - game.size, game.right_border_y, game.size, game.size);
         game.batch.draw(game.info_window, game.right_border_x - game.size, game.right_border_y+game.size*4, game.size, game.size*2);
         game.info_font.draw(game.batch, "Name:", game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size / 20);
