@@ -210,7 +210,7 @@ public class DungeonEscape extends Game {
 
 		//fonts
 		info_font = new BitmapFont();
-		info_font.setColor(Color.RED);
+		info_font.setColor(Color.DARK_GRAY);
 		info_font.getData().setScale(size/100, size/75);
 		record_font = new BitmapFont();
 		record_font.setColor(Color.DARK_GRAY);
