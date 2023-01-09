@@ -15,13 +15,17 @@ public class GameScreen extends ScreenAdapter {
     Lever [] levers;
     OrthographicCamera camera;
     float start_timer, camera_move_up, camera_move_down, camera_move_left, camera_move_right;
-    boolean is_hod, is_attack, check_flag, slime_hod;
+    boolean is_hod, is_attack, check_flag, slime_hod, is_map_find, is_map_activ;
 
     public void check_hod(){
         if (player.getX() == 20 && player.getY() == 0){
             game.theme.stop();
             game.player_lvl = player.getLvl();
             game.setScreen(new WinScreen(game));
+        }
+        if (player.getX() == 37 && player.getY() == 3 && !is_map_find){
+            is_map_find = true;
+            cages[37][3].change_Animation(game.stone_floor_texture_region, 1);
         }
         if (player.getHealth()>0) {
             check_flag = true;
@@ -209,6 +213,8 @@ public class GameScreen extends ScreenAdapter {
         game.theme.setVolume(0.5f);
         game.moves = 0;
         start_timer = 0.1f;
+        is_map_find = false;
+        is_map_activ = false;
         camera = new OrthographicCamera(game.width, game.height);
         camera.setToOrtho(false, game.width, game.height);
         camera.translate(-game.size, 0);
@@ -225,6 +231,7 @@ public class GameScreen extends ScreenAdapter {
         for (int i = 0; i < game.cage_x; i++){
             for (int j = 0; j < game.cage_y; j++){
                 if (game.map[i][j].contains("sf__")) cages[i][j] = new Cage(i, j, true, game.size, game.horizontal_otstup, game.vertical_otstup, game.stone_floor_texture_region, 1);
+                else if (game.map[i][j].contains("sfwm")) cages[i][j] = new Cage(i, j, true, game.size, game.horizontal_otstup, game.vertical_otstup, game.sfwm, 1);
                 else if (game.map[i][j].contains("nthi")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontal_otstup, game.vertical_otstup, game.player_blast, 1);
                 else if (game.map[i][j].contains("clmn")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontal_otstup, game.vertical_otstup, game.clmn, 1);
                 else if (game.map[i][j].contains("exit")) cages[i][j] = new Cage(i, j, true, game.size, game.horizontal_otstup, game.vertical_otstup, game.exit_img, 1);
@@ -300,118 +307,119 @@ public class GameScreen extends ScreenAdapter {
                     touch_y = (int) ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size - 1);
                 }
                 if (button == Input.Buttons.LEFT) {
+                    if (touch_x == 9 && touch_y == 2 && is_map_find) {
+                        is_map_activ = !is_map_activ;
+                    }
                     if (touch_x == 9 && touch_y == 1) {
                         is_attack = !is_attack;
                     }
-                    if (touch_x == 9 && touch_y == 6) {
-                        game.setScreen(new MainMenuScreen(game));
+                    if(!is_map_activ) {
+                        if (is_hod) {
+                            if (touch_x == 9 && touch_y == 0) {
+                                hod_end();
+                            }
+                            if (is_attack) {
+                                if (touch_x == 4 && touch_y == 4) { // up
+                                    for (Slime slime : slimes) {
+                                        if (slime.getX() == player.getX() && slime.getY() == player.getY() + 1) {
+                                            player.attacking(player.getX(), player.getY() + 1);
+                                            slime.attacked(player.getPower());
+                                            is_attack = false;
+                                            hod_end();
+                                        }
+                                    }
+                                    for (Lever lever : levers) {
+                                        if (lever.getX() == player.getX() && lever.getY() == player.getY() + 1) {
+                                            player.attacking(player.getX(), player.getY() + 1);
+                                            lever.click(cages);
+                                            is_attack = false;
+                                            hod_end();
+                                        }
+                                    }
+                                }
+                                if (touch_x == 4 && touch_y == 2) { // down
+                                    for (Slime slime : slimes) {
+                                        if (slime.getX() == player.getX() && slime.getY() == player.getY() - 1) {
+                                            player.attacking(player.getX(), player.getY() - 1);
+                                            slime.attacked(player.getPower());
+                                            is_attack = false;
+                                            hod_end();
+                                        }
+                                    }
+                                    for (Lever lever : levers) {
+                                        if (lever.getX() == player.getX() && lever.getY() == player.getY() - 1) {
+                                            player.attacking(player.getX(), player.getY() - 1);
+                                            lever.click(cages);
+                                            is_attack = false;
+                                            hod_end();
+                                        }
+                                    }
+                                }
+                                if (touch_x == 5 && touch_y == 3) { // right
+                                    for (Slime slime : slimes) {
+                                        if (slime.getX() == player.getX() + 1 && slime.getY() == player.getY()) {
+                                            player.attacking(player.getX() + 1, player.getY());
+                                            slime.attacked(player.getPower());
+                                            is_attack = false;
+                                            hod_end();
+                                        }
+                                    }
+                                    for (Lever lever : levers) {
+                                        if (lever.getX() == player.getX() + 1 && lever.getY() == player.getY()) {
+                                            player.attacking(player.getX() + 1, player.getY());
+                                            lever.click(cages);
+                                            is_attack = false;
+                                            hod_end();
+                                        }
+                                    }
+                                }
+                                if (touch_x == 3 && touch_y == 3) { //left
+                                    for (Slime slime : slimes) {
+                                        if (slime.getX() == player.getX() - 1 && slime.getY() == player.getY()) {
+                                            player.attacking(player.getX() - 1, player.getY());
+                                            slime.attacked(player.getPower());
+                                            is_attack = false;
+                                            hod_end();
+                                        }
+                                    }
+                                    for (Lever lever : levers) {
+                                        if (lever.getX() == player.getX() - 1 && lever.getY() == player.getY()) {
+                                            player.attacking(player.getX() - 1, player.getY());
+                                            lever.click(cages);
+                                            is_attack = false;
+                                            hod_end();
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (touch_x == 4 && touch_y == 4) {
+                                    if (cages[player.getX()][player.getY() + 1].get_movable()) {
+                                        Go(0, 1);
+                                        hod_end();
+                                    }
+                                }
+                                if (touch_x == 4 && touch_y == 2) {
+                                    if (cages[player.getX()][player.getY() - 1].get_movable()) {
+                                        Go(0, -1);
+                                        hod_end();
+                                    }
+                                }
+                                if (touch_x == 5 && touch_y == 3) {
+                                    if (cages[player.getX() + 1][player.getY()].get_movable()) {
+                                        Go(1, 0);
+                                        hod_end();
+                                    }
+                                }
+                                if (touch_x == 3 && touch_y == 3) {
+                                    if (cages[player.getX() - 1][player.getY()].get_movable()) {
+                                        Go(-1, 0);
+                                        hod_end();
+                                    }
+                                }
+                            }
+                        }
+                        return true;
                     }
-                    if (is_hod) {
-                        if (touch_x == 9 && touch_y == 0) {
-                            hod_end();
-                        }
-                        if (is_attack) {
-                            if (touch_x == 4 && touch_y == 4) { // up
-                                for (Slime slime : slimes){
-                                    if (slime.getX() == player.getX() && slime.getY() == player.getY()+1) {
-                                        player.attacking(player.getX(), player.getY()+1);
-                                        slime.attacked(player.getPower());
-                                        is_attack = false;
-                                        hod_end();
-                                    }
-                                }
-                                for (Lever lever : levers){
-                                    if (lever.getX() == player.getX() && lever.getY() == player.getY()+1) {
-                                        player.attacking(player.getX(), player.getY()+1);
-                                        lever.click(cages);
-                                        is_attack = false;
-                                        hod_end();
-                                    }
-                                }
-                            }
-                            if (touch_x == 4 && touch_y == 2) { // down
-                                for (Slime slime : slimes){
-                                    if (slime.getX() == player.getX() && slime.getY() == player.getY()-1) {
-                                        player.attacking(player.getX(), player.getY()-1);
-                                        slime.attacked(player.getPower());
-                                        is_attack = false;
-                                        hod_end();
-                                    }
-                                }
-                                for (Lever lever : levers){
-                                    if (lever.getX() == player.getX() && lever.getY() == player.getY()-1) {
-                                        player.attacking(player.getX(), player.getY()-1);
-                                        lever.click(cages);
-                                        is_attack = false;
-                                        hod_end();
-                                    }
-                                }
-                            }
-                            if (touch_x == 5 && touch_y == 3) { // right
-                                for (Slime slime : slimes){
-                                    if (slime.getX() == player.getX()+1 && slime.getY() == player.getY()) {
-                                        player.attacking(player.getX()+1, player.getY());
-                                        slime.attacked(player.getPower());
-                                        is_attack = false;
-                                        hod_end();
-                                    }
-                                }
-                                for (Lever lever : levers){
-                                    if (lever.getX() == player.getX()+1 && lever.getY() == player.getY()) {
-                                        player.attacking(player.getX()+1, player.getY());
-                                        lever.click(cages);
-                                        is_attack = false;
-                                        hod_end();
-                                    }
-                                }
-                            }
-                            if (touch_x == 3 && touch_y == 3) { //left
-                                for (Slime slime : slimes){
-                                    if (slime.getX() == player.getX()-1 && slime.getY() == player.getY()) {
-                                        player.attacking(player.getX()-1, player.getY());
-                                        slime.attacked(player.getPower());
-                                        is_attack = false;
-                                        hod_end();
-                                    }
-                                }
-                                for (Lever lever : levers){
-                                    if (lever.getX() == player.getX()-1 && lever.getY() == player.getY()) {
-                                        player.attacking(player.getX()-1, player.getY());
-                                        lever.click(cages);
-                                        is_attack = false;
-                                        hod_end();
-                                    }
-                                }
-                            }
-                        }
-                        else{
-                            if (touch_x == 4 && touch_y == 4) {
-                                if (cages[player.getX()][player.getY()+1].get_movable()) {
-                                    Go(0, 1);
-                                    hod_end();
-                                }
-                            }
-                            if (touch_x == 4 && touch_y == 2) {
-                                if (cages[player.getX()][player.getY()-1].get_movable()) {
-                                    Go(0, -1);
-                                    hod_end();
-                                }
-                            }
-                            if (touch_x == 5 && touch_y == 3) {
-                                if (cages[player.getX()+1][player.getY()].get_movable()) {
-                                    Go(1, 0);
-                                    hod_end();
-                                }
-                            }
-                            if (touch_x == 3 && touch_y == 3) {
-                                if (cages[player.getX()-1][player.getY()].get_movable()) {
-                                    Go(-1, 0);
-                                    hod_end();
-                                }
-                            }
-                        }
-                    }
-                    return true;
                 }
                 return false;
             }
@@ -549,6 +557,18 @@ public class GameScreen extends ScreenAdapter {
         game.info_font.draw(game.batch, "Hp:"+player.getHealth()+"/"+player.getMaxHealth(), game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 10 / 20);
         game.info_font.draw(game.batch, "Moves:"+game.moves, game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 15 / 20);
         game.info_font.draw(game.batch, "Power:"+player.getPower(), game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 20 / 20);
+        //game.batch.draw(game.map_img, game.left_border_x+game.horizontal_otstup, game.left_border_y+game.vertical_otstup, game.size*7, game.size*7);
+        if (is_map_find){
+            if (!is_map_activ) {
+                game.batch.draw(game.passiv_map_button, game.right_border_x - game.size, game.right_border_y+game.size*2, game.size, game.size);
+            }
+            else {
+                game.batch.draw(game.activ_map_button, game.right_border_x - game.size, game.right_border_y+game.size*2, game.size, game.size);
+            }
+        }
+        if (is_map_activ){
+            game.batch.draw(game.map_img, game.left_border_x+game.horizontal_otstup+game.size, game.left_border_y+game.vertical_otstup, game.size*7, game.size*7);
+        }
         if (start_timer>=0){
             start_timer-=delta;
             game.batch.draw(game.border, game.left_border_x, game.left_border_y, game.width+game.size*2, game.height+game.size*2);

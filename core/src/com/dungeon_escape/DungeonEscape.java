@@ -38,7 +38,7 @@ public class DungeonEscape extends Game {
 			cul_, cur_, cdl_, cdr_,
 			activ_lever, passiv_lever,
 			chd, ohd, cvd, ovd,
-			wdwt;
+			wdwt, sfwm, map_img, passiv_map_button, activ_map_button;
 
 	Sound slime_attacked_sound, slime_attacking_sound,
 			player_attacking_sound, player_attacked_sound,
@@ -79,6 +79,7 @@ public class DungeonEscape extends Game {
 		stone_floor_texture_region = new Texture("floor/stone_floor.png");
 		clmn = new Texture("floor/clmn.png");
 		stone_floor_sc = new Texture("floor/stone_floor_sc.png");
+		sfwm = new Texture("floor/stone_floor_with_map.png");
 
 		//player res
 		player_texture_region_right = new Texture("player/player_texture_region_right.png");
@@ -129,6 +130,9 @@ public class DungeonEscape extends Game {
 		arrow_up = new Texture("interface/arrow_up.png");
 		arrow_down = new Texture("interface/arrow_down.png");
 		arrow_no = new Texture("interface/arrow_no.png");
+		map_img = new Texture("interface/map.png");
+		passiv_map_button = new Texture("interface/passiv_map_button.png");
+		activ_map_button = new Texture("interface/activ_map_button.png");
 		theme = Gdx.audio.newMusic(Gdx.files.internal("interface/theme.mp3"));
 
 		//walls res
