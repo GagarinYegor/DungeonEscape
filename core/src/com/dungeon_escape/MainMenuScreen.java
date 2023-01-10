@@ -181,9 +181,17 @@ public class MainMenuScreen extends ScreenAdapter {
         game.main_menu_batch.draw(game.screensaver, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size*7);
         slime.draw(game.main_menu_batch, game.size, delta);
         player.draw(game.main_menu_batch, game.size, delta);
-        game.main_menu_batch.draw(game.begin_button, game.horizontal_otstup+buttons_real_x, game.vertical_otstup+buttons_real_y+game.size*2, game.size*10, game.size);
-        game.main_menu_batch.draw(game.record_button, game.horizontal_otstup+buttons_real_x, game.vertical_otstup+buttons_real_y+game.size, game.size*10, game.size);
-        game.main_menu_batch.draw(game.settings_screen_button, game.horizontal_otstup+buttons_real_x, game.vertical_otstup+buttons_real_y+game.size*0, game.size*10, game.size);
+        //game.is_english = true;
+        if(!game.is_english) {
+            game.main_menu_batch.draw(game.begin_button, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size * 2, game.size * 10, game.size);
+            game.main_menu_batch.draw(game.record_button, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size, game.size * 10, game.size);
+            game.main_menu_batch.draw(game.settings_screen_button, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size * 0, game.size * 10, game.size);
+        }
+        else {
+            game.main_menu_batch.draw(game.begin_button_eng, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size * 2, game.size * 10, game.size);
+            game.main_menu_batch.draw(game.record_button_eng, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size, game.size * 10, game.size);
+            game.main_menu_batch.draw(game.settings_screen_button_eng, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size * 0, game.size * 10, game.size);
+        }
         if (start_timer>=0){
             start_timer-=delta;
             game.main_menu_batch.draw(game.border, buttons_real_x-game.size, buttons_real_y-game.size, game.width+game.size*2, game.height+game.size*2);

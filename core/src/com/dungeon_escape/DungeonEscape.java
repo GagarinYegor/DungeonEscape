@@ -24,22 +24,25 @@ public class DungeonEscape extends Game {
 	BitmapFont info_font, record_font, death_screen_font, win_screen_font;
 
 	Texture green_slime_texture_region, slime_blast, green_slime_attacked, green_slime_attacking,
-			stone_floor_texture_region, clmn,
-			player_texture_region_right, player_texture_region_left,
-			player_blast, screensaver,
+			player_texture_region_right, player_texture_region_left, player_blast,
 			player_attacked_right, player_attacking_right,
 			player_attacked_left, player_attacking_left,
 			player_texture_region_mowing_right, player_texture_region_mowing_left,
-			begin_button, record_button, return_button, row, row_heading, arrow_next, info_window,
+			begin_button, record_button, return_button, row_heading,
+			return_button_large, settings_screen_button, delete_button,
+			begin_button_eng, record_button_eng, return_button_eng,  row_heading_eng,
+			return_button_large_eng, settings_screen_button_eng, delete_button_eng,
+			row, info_window,
 			title_text_table, border, activ_attack_button, passiv_attack_button, waiting_button,
-			death_screen_img, win_screen_img, settings_screen_button, delete_button,
-			arrow_up, arrow_down, arrow_no, exit_img, exit_door, stone_floor_sc,
+			death_screen_img, win_screen_img,
+			arrow_up, arrow_down, arrow_no, arrow_next,
 			wu__, wd__, wl__, wr__,
 			cwul, cwur, cwdl, cwdr,
 			cul_, cur_, cdl_, cdr_,
 			activ_lever, passiv_lever,
 			chd, ohd, cvd, ovd,
-			wdwt, sfwm, map_img, passiv_map_button, activ_map_button, death_img, return_button_large;
+			screensaver, stone_floor_texture_region, exit_img, exit_door, stone_floor_sc,
+			wdwt, sfwm, clmn, map_img, passiv_map_button, activ_map_button, death_img;
 
 	Sound slime_attacked_sound, slime_attacking_sound,
 			player_attacking_sound, player_attacked_sound,
@@ -59,10 +62,12 @@ public class DungeonEscape extends Game {
 	int cage_x, cage_y, slime_mass_x, slime_mass_y, lever_mass_x, lever_mass_y, moves, player_lvl;
 	Input.TextInputListener listener;
 	String name;
+	boolean is_english;
 
 
 	@Override
 	public void create() {
+		is_english = false;
 		batch = new SpriteBatch();
 		name = "";
 
@@ -108,16 +113,24 @@ public class DungeonEscape extends Game {
 		exit_door = new Texture("doors/exit_door.png");
 
 		//interface res
-		begin_button = new Texture("interface/begin_button.png");
-		record_button = new Texture("interface/record_button.png");
-		return_button = new Texture("interface/return_button.png");
-		settings_screen_button = new Texture("interface/settings_button.png");
-		delete_button = new Texture("interface/delete_button.png");
-		passiv_attack_button = new Texture("interface/passiv_attack_button.png");
-		activ_attack_button = new Texture("interface/activ_attack_button.png");
-		waiting_button = new Texture("interface/waiting_button.png");
-		row = new Texture("interface/row.png");
+		begin_button = new Texture("interface/buttons/begin_button.png");
+		begin_button_eng = new Texture("interface/buttons/begin_button_eng.png");
+		record_button = new Texture("interface/buttons/record_button.png");
+		record_button_eng = new Texture("interface/buttons/record_button_eng.png");
+		return_button = new Texture("interface/buttons/return_button.png");
+		delete_button = new Texture("interface/buttons/delete_button.png");
+		settings_screen_button = new Texture("interface/buttons/settings_button.png");
+		settings_screen_button_eng = new Texture("interface/buttons/settings_button_eng.png");
 		row_heading = new Texture("interface/row_heading.png");
+		return_button_large = new Texture("interface/buttons/return_button_large.png");
+
+		passiv_map_button = new Texture("interface/buttons/passiv_map_button.png");
+		activ_map_button = new Texture("interface/buttons/activ_map_button.png");
+		passiv_attack_button = new Texture("interface/buttons/passiv_attack_button.png");
+		activ_attack_button = new Texture("interface/buttons/activ_attack_button.png");
+		waiting_button = new Texture("interface/buttons/waiting_button.png");
+
+		row = new Texture("interface/row.png");
 		arrow_next = new Texture("interface/arrow_next.png");
 		title_text_table = new Texture("interface/title_text_table.png");
 		border = new Texture("interface/border.png");
@@ -129,11 +142,8 @@ public class DungeonEscape extends Game {
 		arrow_down = new Texture("interface/arrow_down.png");
 		arrow_no = new Texture("interface/arrow_no.png");
 		map_img = new Texture("interface/map.png");
-		passiv_map_button = new Texture("interface/passiv_map_button.png");
-		activ_map_button = new Texture("interface/activ_map_button.png");
-		theme = Gdx.audio.newMusic(Gdx.files.internal("interface/theme.mp3"));
 		death_img = new Texture("interface/death_img.png");
-		return_button_large = new Texture("interface/return_button_large.png");
+		theme = Gdx.audio.newMusic(Gdx.files.internal("interface/theme.mp3"));
 
 		//walls res
 		wu__ = new Texture("walls/wu__.png");
