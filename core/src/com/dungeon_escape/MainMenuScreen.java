@@ -63,7 +63,12 @@ public class MainMenuScreen extends ScreenAdapter {
                     is_correct_name = true;
                 }
                 else {
-                    Gdx.input.getTextInput(game.listener, "Name shoud be 1-10 letters", game.name, "");
+                    if (!game.is_english){
+                        Gdx.input.getTextInput(game.listener, "Имя должно состоять из 1-10 букв", game.name, "");
+                    }
+                    else {
+                        Gdx.input.getTextInput(game.listener, "Name shoud be 1-10 letters", game.name, "");
+                    }
                 }
             }
 
@@ -97,7 +102,12 @@ public class MainMenuScreen extends ScreenAdapter {
                 if (button == Input.Buttons.LEFT && touch_y == 2 && touch_x >= 0 && touch_x <= 9) {
                     if (!is_dialog_open) {
                         is_dialog_open = true;
-                        Gdx.input.getTextInput(game.listener, "Enter your name:", game.name, "");
+                        if (!game.is_english) {
+                            Gdx.input.getTextInput(game.listener, "Введите имя:", game.name, "");
+                        }
+                        else {
+                            Gdx.input.getTextInput(game.listener, "Enter your name:", game.name, "");
+                        }
                     }
                     return true;
                 }

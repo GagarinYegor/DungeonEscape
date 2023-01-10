@@ -232,7 +232,7 @@ public class DungeonEscape extends Game {
 		parameter.color = Color.WHITE;
 		death_screen_font = generator.generateFont(parameter);
 
-		parameter.size = (int)size/6;
+		parameter.size = (int)(size/5.5f);
 		parameter.color = Color.BLACK;
 		info_font = generator.generateFont(parameter);
 
