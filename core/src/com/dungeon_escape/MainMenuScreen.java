@@ -58,12 +58,12 @@ public class MainMenuScreen extends ScreenAdapter {
         game.listener = new Input.TextInputListener() {
             @Override
             public void input(String s) {
-                if (s.length()<=11&&s.length()>=1){
+                if (s.length()<=10&&s.length()>=1){
                     game.name = s;
                     is_correct_name = true;
                 }
                 else {
-                    Gdx.input.getTextInput(game.listener, "Name shoud be 1-11 letters", game.name, "");
+                    Gdx.input.getTextInput(game.listener, "Name shoud be 1-10 letters", game.name, "");
                 }
             }
 

@@ -80,24 +80,24 @@ public class RecordScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, .25f, 0, 1);
+        Gdx.gl.glClearColor(0.25f, .25f, 0.25f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.records_batch.setProjectionMatrix(record_screen_camera.combined);
         game.records_batch.begin();
         if (strings.size()>6) {
             for (int i = sdvig; i < sdvig + 5; i++) {
                 game.records_batch.draw(game.row, game.horizontal_otstup, game.vertical_otstup + game.size * (5 - i), game.size * 10, game.size);
-                game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[0], game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * (6 - i) - game.size / 4);
-                game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[1], game.horizontal_otstup + game.size / 10 + game.size * 5, game.vertical_otstup + game.size * (6 - i) - game.size / 4);
-                game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[2], game.horizontal_otstup + game.size / 10 + game.size * 7, game.vertical_otstup + game.size * (6 - i) - game.size / 4);
+                game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[0], game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * (6 - i) - game.size / 5);
+                game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[1], game.horizontal_otstup + game.size / 10 + game.size * 5, game.vertical_otstup + game.size * (6 - i) - game.size / 5);
+                game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[2], game.horizontal_otstup + game.size / 10 + game.size * 7, game.vertical_otstup + game.size * (6 - i) - game.size / 5);
             }
         }
         else {
             for (int i = 0; i < strings.size() - 1; i++) {
                 game.records_batch.draw(game.row, game.horizontal_otstup, game.vertical_otstup + game.size * (5 - i), game.size * 10, game.size);
-                game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[0], game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * (6 - i) - game.size / 4);
-                game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[1], game.horizontal_otstup + game.size / 10 + game.size * 5, game.vertical_otstup + game.size * (6 - i) - game.size / 4);
-                game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[2], game.horizontal_otstup + game.size / 10 + game.size * 7, game.vertical_otstup + game.size * (6 - i) - game.size / 4);
+                game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[0], game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * (6 - i) - game.size / 5);
+                game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[1], game.horizontal_otstup + game.size / 10 + game.size * 5, game.vertical_otstup + game.size * (6 - i) - game.size / 5);
+                game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[2], game.horizontal_otstup + game.size / 10 + game.size * 7, game.vertical_otstup + game.size * (6 - i) - game.size / 5);
             }
         }
         if (sdvig != strings.size()-6 && strings.size()>6) {
