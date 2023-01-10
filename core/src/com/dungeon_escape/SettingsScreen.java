@@ -76,6 +76,14 @@ public class SettingsScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0.25f, 0.25f, 0.25f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.settings_batch.begin();
+        if (!game.is_english){
+            game.settings_batch.draw(game.english_button, game.horizontal_otstup, game.vertical_otstup+game.size*3, game.size*5, game.size);
+            game.settings_batch.draw(game.russian_button_activ, game.horizontal_otstup+game.size*5, game.vertical_otstup+game.size*3, game.size*5, game.size);
+        }
+        else {
+            game.settings_batch.draw(game.english_button_activ, game.horizontal_otstup, game.vertical_otstup+game.size*3, game.size*5, game.size);
+            game.settings_batch.draw(game.russian_button, game.horizontal_otstup+game.size*5, game.vertical_otstup+game.size*3, game.size*5, game.size);
+        }
         game.settings_batch.draw(game.english_button, game.horizontal_otstup, game.vertical_otstup+game.size*3, game.size*5, game.size);
         game.settings_batch.draw(game.russian_button, game.horizontal_otstup+game.size*5, game.vertical_otstup+game.size*3, game.size*5, game.size);
         game.settings_batch.draw(game.empty_button, game.horizontal_otstup, game.vertical_otstup+game.size*4, game.size*10, game.size);
