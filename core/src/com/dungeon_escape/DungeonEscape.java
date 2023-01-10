@@ -208,23 +208,22 @@ public class DungeonEscape extends Game {
 		}
 
 		//fonts
-		info_font = new BitmapFont();
-		info_font.setColor(Color.DARK_GRAY);
-		info_font.getData().setScale(size/100, size/75);
-		record_font = new BitmapFont();
-		record_font.setColor(Color.DARK_GRAY);
-		record_font.getData().setScale(size/50, size/50);
-
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("text_resources/Comfortaa.ttf"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.characters = FONT_CHARS;
+
 		parameter.size = 35;
 		parameter.color = Color.WHITE;
 		death_screen_font = generator.generateFont(parameter);
-		parameter.characters = FONT_CHARS;
+
 		parameter.size = 12;
 		parameter.color = Color.DARK_GRAY;
 		info_font = generator.generateFont(parameter);
+
+		parameter.size = 40;
+		parameter.color = Color.DARK_GRAY;
+		record_font = generator.generateFont(parameter);
+
 		generator.dispose();
 
 		//FileHandle rec_file = Gdx.files.local("text_resources/records.txt");
