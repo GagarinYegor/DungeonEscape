@@ -181,7 +181,7 @@ public class MainMenuScreen extends ScreenAdapter {
         game.main_menu_batch.draw(game.screensaver, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size*7);
         slime.draw(game.main_menu_batch, game.size, delta);
         player.draw(game.main_menu_batch, game.size, delta);
-        //game.is_english = true;
+        game.is_english = true;
         if(!game.is_english) {
             game.main_menu_batch.draw(game.begin_button, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size * 2, game.size * 10, game.size);
             game.main_menu_batch.draw(game.record_button, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size, game.size * 10, game.size);

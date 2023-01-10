@@ -118,11 +118,14 @@ public class DungeonEscape extends Game {
 		record_button = new Texture("interface/buttons/record_button.png");
 		record_button_eng = new Texture("interface/buttons/record_button_eng.png");
 		return_button = new Texture("interface/buttons/return_button.png");
+		return_button_eng = new Texture("interface/buttons/return_button_eng.png");
+		return_button_large = new Texture("interface/buttons/return_button_large.png");
+		return_button_large_eng = new Texture("interface/buttons/return_button_large_eng.png");
 		delete_button = new Texture("interface/buttons/delete_button.png");
+		delete_button_eng = new Texture("interface/buttons/delete_button_eng.png");
 		settings_screen_button = new Texture("interface/buttons/settings_button.png");
 		settings_screen_button_eng = new Texture("interface/buttons/settings_button_eng.png");
 		row_heading = new Texture("interface/row_heading.png");
-		return_button_large = new Texture("interface/buttons/return_button_large.png");
 
 		passiv_map_button = new Texture("interface/buttons/passiv_map_button.png");
 		activ_map_button = new Texture("interface/buttons/activ_map_button.png");
