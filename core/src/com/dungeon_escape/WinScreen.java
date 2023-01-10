@@ -56,7 +56,12 @@ public class WinScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.win_screen_batch.begin();
         game.win_screen_batch.draw(game.win_screen_img, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size*7);
-        game.win_screen_batch.draw(game.return_button_large, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size);
+        if (!game.is_english) {
+            game.win_screen_batch.draw(game.return_button_large, game.horizontal_otstup, game.vertical_otstup, game.size * 10, game.size);
+        }
+        else {
+            game.win_screen_batch.draw(game.return_button_large_eng, game.horizontal_otstup, game.vertical_otstup, game.size * 10, game.size);
+        }
         game.win_screen_batch.end();
     }
 
