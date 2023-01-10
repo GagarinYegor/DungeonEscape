@@ -54,12 +54,18 @@ public class DeathScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.death_screen_batch.begin();
         game.death_screen_batch.draw(game.death_screen_img, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size*7);
-        game.death_screen_batch.draw(game.return_button_large, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size);
         for (Slime slime: slimes){
             slime.draw(game.death_screen_batch, game.size, delta);
         }
         game.death_screen_batch.draw(game.death_img, game.horizontal_otstup+game.size*4, game.vertical_otstup+game.size*3, game.size*2, game.size*2);
-        game.death_screen_font.draw(game.death_screen_batch, "Игрок "+game.name+" был расплавлен слаймами", game.horizontal_otstup+game.size/10, game.vertical_otstup+game.size*6+game.size/2);
+        if (!game.is_english) {
+            game.death_screen_font.draw(game.death_screen_batch, "Игрок " + game.name + " был расплавлен слаймами", game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * 6 + game.size / 2);
+            game.death_screen_batch.draw(game.return_button_large, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size);
+        }
+        else {
+            game.death_screen_font.draw(game.death_screen_batch, "Player  " + game.name + " was melted by slimes", game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * 6 + game.size / 2);
+            game.death_screen_batch.draw(game.return_button_large_eng, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size);
+        }
         game.death_screen_batch.end();
     }
 

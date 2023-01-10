@@ -37,8 +37,18 @@ public class SettingsScreen extends ScreenAdapter {
                 else {
                     touch_y = (int) ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size - 1);
                 }
-                if (button == Input.Buttons.LEFT && touch_y == 0 && touch_x >= 1 && touch_x <= 8) {
+                if (button == Input.Buttons.LEFT && touch_y == 0 && touch_x >= 0 && touch_x <= 9) {
                     game.setScreen(new MainMenuScreen(game));
+                    return true;
+                }
+                if (button == Input.Buttons.LEFT && touch_y == 3 && touch_x >= 1 && touch_x <= 4 && !game.is_english) {
+                    start_timer = 0.1f;
+                    game.is_english = true;
+                    return true;
+                }
+                if (button == Input.Buttons.LEFT && touch_y == 3 && touch_x >= 5 && touch_x <= 9 && game.is_english) {
+                    start_timer = 0.1f;
+                    game.is_english = false;
                     return true;
                 }
                 if (button == Input.Buttons.LEFT && touch_y == 1 && touch_x >= 0 && touch_x <= 9) {
@@ -56,6 +66,8 @@ public class SettingsScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0.25f, 0.25f, 0.25f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.settings_batch.begin();
+        game.settings_batch.draw(game.english_button, game.horizontal_otstup, game.vertical_otstup+game.size*3, game.size*5, game.size);
+        game.settings_batch.draw(game.russian_button, game.horizontal_otstup+game.size*5, game.vertical_otstup+game.size*3, game.size*5, game.size);
         if (!game.is_english) {
             game.settings_batch.draw(game.return_button_large, game.horizontal_otstup, game.vertical_otstup, game.size * 10, game.size);
             game.settings_batch.draw(game.delete_button, game.horizontal_otstup, game.vertical_otstup + game.size * 1, game.size * 10, game.size);
