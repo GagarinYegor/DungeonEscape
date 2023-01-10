@@ -21,7 +21,7 @@ public class DungeonEscape extends Game {
 	SpriteBatch batch, records_batch, main_menu_batch,
 			death_screen_batch, win_screen_batch, settings_batch;
 
-	BitmapFont info_font, record_font, death_screen_font, win_screen_font;
+	BitmapFont info_font, record_font, death_screen_font, win_screen_font, info_name_font;
 
 	Texture green_slime_texture_region, slime_blast, green_slime_attacked, green_slime_attacking,
 			player_texture_region_right, player_texture_region_left, player_blast,
@@ -52,7 +52,7 @@ public class DungeonEscape extends Game {
 
 	float size, horizontal_otstup, vertical_otstup, left_border_x, left_border_y, right_border_x, right_border_y,
 			up_border_x, up_border_y, down_border_x, down_border_y, width, height, speed;
-	final String FONT_CHARS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;:,{}\"´`'<>";
+	final String FONT_CHARS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?№-+=()*&.;:,{}\"´`'<>";
 
 	public static final int SCR_WIDTH = 960, SCR_HEIGHT = 540;
 
@@ -233,8 +233,12 @@ public class DungeonEscape extends Game {
 		death_screen_font = generator.generateFont(parameter);
 
 		parameter.size = (int)size/6;
-		parameter.color = Color.DARK_GRAY;
+		parameter.color = Color.BLACK;
 		info_font = generator.generateFont(parameter);
+
+		parameter.size = (int)(size/7.6f);
+		parameter.color = Color.BLACK;
+		info_name_font = generator.generateFont(parameter);
 
 		parameter.size = (int)size/2;
 		parameter.color = Color.DARK_GRAY;
