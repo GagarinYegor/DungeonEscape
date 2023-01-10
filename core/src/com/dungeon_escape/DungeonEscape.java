@@ -212,15 +212,15 @@ public class DungeonEscape extends Game {
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.characters = FONT_CHARS;
 
-		parameter.size = 35;
+		parameter.size = (int)size/2;
 		parameter.color = Color.WHITE;
 		death_screen_font = generator.generateFont(parameter);
 
-		parameter.size = 12;
+		parameter.size = (int)size/6;
 		parameter.color = Color.DARK_GRAY;
 		info_font = generator.generateFont(parameter);
 
-		parameter.size = 40;
+		parameter.size = (int)size/2;
 		parameter.color = Color.DARK_GRAY;
 		record_font = generator.generateFont(parameter);
 
