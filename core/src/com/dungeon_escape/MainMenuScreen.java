@@ -193,7 +193,7 @@ public class MainMenuScreen extends ScreenAdapter {
         }
         if (start_timer>=0){
             start_timer-=delta;
-            game.main_menu_batch.draw(game.border, buttons_real_x-game.size, buttons_real_y-game.size, game.width+game.size*2, game.height+game.size*2);
+            game.main_menu_batch.draw(game.border, buttons_real_x-game.size*2, buttons_real_y-game.size*2, game.width+game.size*4, game.height+game.size*4);
         }
         main_menu_camera.update();
         game.main_menu_batch.end();

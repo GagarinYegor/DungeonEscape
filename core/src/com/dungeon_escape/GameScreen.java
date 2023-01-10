@@ -324,7 +324,7 @@ public class GameScreen extends ScreenAdapter {
                                         if (slime.getX() == player.getX() && slime.getY() == player.getY() + 1) {
                                             player.attacking(player.getX(), player.getY() + 1);
                                             slime.attacked(player.getPower());
-                                            is_attack = false;
+                                            //is_attack = false;
                                             hod_end();
                                         }
                                     }
@@ -332,7 +332,7 @@ public class GameScreen extends ScreenAdapter {
                                         if (lever.getX() == player.getX() && lever.getY() == player.getY() + 1) {
                                             player.attacking(player.getX(), player.getY() + 1);
                                             lever.click(cages);
-                                            is_attack = false;
+                                            //is_attack = false;
                                             hod_end();
                                         }
                                     }
@@ -342,7 +342,7 @@ public class GameScreen extends ScreenAdapter {
                                         if (slime.getX() == player.getX() && slime.getY() == player.getY() - 1) {
                                             player.attacking(player.getX(), player.getY() - 1);
                                             slime.attacked(player.getPower());
-                                            is_attack = false;
+                                            //is_attack = false;
                                             hod_end();
                                         }
                                     }
@@ -350,7 +350,7 @@ public class GameScreen extends ScreenAdapter {
                                         if (lever.getX() == player.getX() && lever.getY() == player.getY() - 1) {
                                             player.attacking(player.getX(), player.getY() - 1);
                                             lever.click(cages);
-                                            is_attack = false;
+                                            //is_attack = false;
                                             hod_end();
                                         }
                                     }
@@ -360,7 +360,7 @@ public class GameScreen extends ScreenAdapter {
                                         if (slime.getX() == player.getX() + 1 && slime.getY() == player.getY()) {
                                             player.attacking(player.getX() + 1, player.getY());
                                             slime.attacked(player.getPower());
-                                            is_attack = false;
+                                            //is_attack = false;
                                             hod_end();
                                         }
                                     }
@@ -368,7 +368,7 @@ public class GameScreen extends ScreenAdapter {
                                         if (lever.getX() == player.getX() + 1 && lever.getY() == player.getY()) {
                                             player.attacking(player.getX() + 1, player.getY());
                                             lever.click(cages);
-                                            is_attack = false;
+                                            //is_attack = false;
                                             hod_end();
                                         }
                                     }
@@ -378,7 +378,7 @@ public class GameScreen extends ScreenAdapter {
                                         if (slime.getX() == player.getX() - 1 && slime.getY() == player.getY()) {
                                             player.attacking(player.getX() - 1, player.getY());
                                             slime.attacked(player.getPower());
-                                            is_attack = false;
+                                            //is_attack = false;
                                             hod_end();
                                         }
                                     }
@@ -386,7 +386,7 @@ public class GameScreen extends ScreenAdapter {
                                         if (lever.getX() == player.getX() - 1 && lever.getY() == player.getY()) {
                                             player.attacking(player.getX() - 1, player.getY());
                                             lever.click(cages);
-                                            is_attack = false;
+                                            //is_attack = false;
                                             hod_end();
                                         }
                                     }
