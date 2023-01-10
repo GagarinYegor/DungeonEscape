@@ -55,11 +55,13 @@ public class DeathScreen extends ScreenAdapter {
         game.death_screen_batch.begin();
         game.death_screen_batch.draw(game.death_screen_img, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size*7);
         game.death_screen_batch.draw(game.return_button, game.horizontal_otstup+game.size, game.vertical_otstup, game.size*8, game.size);
+        game.death_screen_batch.draw(game.arrow_no, game.horizontal_otstup, game.vertical_otstup, game.size, game.size);
+        game.death_screen_batch.draw(game.arrow_no, game.horizontal_otstup+game.size*9, game.vertical_otstup, game.size, game.size);
         for (Slime slime: slimes){
             slime.draw(game.death_screen_batch, game.size, delta);
         }
         game.death_screen_batch.draw(game.death_img, game.horizontal_otstup+game.size*4, game.vertical_otstup+game.size*3, game.size*2, game.size*2);
-        game.death_screen_font.draw(game.death_screen_batch, "Игрок "+game.name+" был расплавлен слаймами", game.horizontal_otstup+game.size, game.vertical_otstup+game.size*6);
+        game.death_screen_font.draw(game.death_screen_batch, "Игрок "+game.name+" был расплавлен слаймами", game.horizontal_otstup, game.vertical_otstup+game.size*6);
         game.death_screen_batch.end();
     }
 
