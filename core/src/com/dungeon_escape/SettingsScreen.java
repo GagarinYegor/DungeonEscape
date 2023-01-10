@@ -52,6 +52,7 @@ public class SettingsScreen extends ScreenAdapter {
                     return true;
                 }
                 if (button == Input.Buttons.LEFT && touch_y == 1 && touch_x >= 0 && touch_x <= 9) {
+                    start_timer = 0.1f;
                     FileHandle win_file = Gdx.files.local("text_resources/records.txt");
                     win_file.writeString("", false);
                     return true;
@@ -87,6 +88,7 @@ public class SettingsScreen extends ScreenAdapter {
         game.settings_batch.draw(game.empty_button, game.horizontal_otstup, game.vertical_otstup+game.size*4, game.size*10, game.size);
         game.settings_batch.draw(game.empty_button, game.horizontal_otstup, game.vertical_otstup+game.size*6, game.size*10, game.size);
         if (!game.is_english) {
+            game.setting_font.draw(game.settings_batch, "Язык интерфейса:", game.horizontal_otstup+game.size/10, game.vertical_otstup+game.size*5-game.size/3);
             game.setting_font.draw(game.settings_batch, "Автоотключение кнопки атаки:", game.horizontal_otstup+game.size/10, game.vertical_otstup+game.size*7-game.size/3);
             game.settings_batch.draw(game.return_button_large, game.horizontal_otstup, game.vertical_otstup, game.size * 10, game.size);
             game.settings_batch.draw(game.delete_button, game.horizontal_otstup, game.vertical_otstup + game.size * 1, game.size * 10, game.size);
@@ -100,6 +102,7 @@ public class SettingsScreen extends ScreenAdapter {
             }
         }
         else {
+            game.setting_font.draw(game.settings_batch, "Interface language:", game.horizontal_otstup+game.size/10, game.vertical_otstup+game.size*5-game.size/3);
             game.setting_font.draw(game.settings_batch, "Auto restart attack button:", game.horizontal_otstup+game.size/10, game.vertical_otstup+game.size*7-game.size/3);
             game.settings_batch.draw(game.return_button_large_eng, game.horizontal_otstup, game.vertical_otstup, game.size * 10, game.size);
             game.settings_batch.draw(game.delete_button_eng, game.horizontal_otstup, game.vertical_otstup + game.size * 1, game.size * 10, game.size);
