@@ -21,7 +21,7 @@ public class DungeonEscape extends Game {
 	SpriteBatch batch, records_batch, main_menu_batch,
 			death_screen_batch, win_screen_batch, settings_batch;
 
-	BitmapFont info_font, record_font, death_screen_font, win_screen_font, info_name_font;
+	BitmapFont info_font, record_font, death_screen_font, win_screen_font, info_name_font, setting_font;
 
 	Texture green_slime_texture_region, slime_blast, green_slime_attacked, green_slime_attacking,
 			player_texture_region_right, player_texture_region_left, player_blast,
@@ -43,7 +43,8 @@ public class DungeonEscape extends Game {
 			chd, ohd, cvd, ovd,
 			screensaver, stone_floor_texture_region, exit_img, exit_door, stone_floor_sc,
 			wdwt, sfwm, clmn, map_img, passiv_map_button, activ_map_button, death_img, empty_button,
-			yes_button, no_button, yes_button_eng, no_button_eng;
+			yes_button, no_button, yes_button_eng, no_button_eng,
+			yes_button_activ, no_button_activ, yes_button_eng_activ, no_button_eng_activ;
 
 	Sound slime_attacked_sound, slime_attacking_sound,
 			player_attacking_sound, player_attacked_sound,
@@ -129,9 +130,13 @@ public class DungeonEscape extends Game {
 		row_heading = new Texture("interface/row_heading.png");
 		empty_button = new Texture("interface/buttons/empty_button.png");
 		yes_button = new Texture("interface/buttons/yes_button.png");
+		yes_button_activ = new Texture("interface/buttons/yes_button_activ.png");
 		yes_button_eng = new Texture("interface/buttons/yes_button_eng.png");
+		yes_button_eng_activ = new Texture("interface/buttons/yes_button_eng_activ.png");
 		no_button = new Texture("interface/buttons/no_button.png");
+		no_button_activ = new Texture("interface/buttons/no_button_activ.png");
 		no_button_eng = new Texture("interface/buttons/no_button_eng.png");
+		no_button_eng_activ = new Texture("interface/buttons/no_button_eng_activ.png");
 
 		passiv_map_button = new Texture("interface/buttons/passiv_map_button.png");
 		activ_map_button = new Texture("interface/buttons/activ_map_button.png");
@@ -246,9 +251,13 @@ public class DungeonEscape extends Game {
 		parameter.color = Color.BLACK;
 		info_name_font = generator.generateFont(parameter);
 
-		parameter.size = (int)size/2;
+		parameter.size = (int)(size/2.1f);
 		parameter.color = Color.DARK_GRAY;
 		record_font = generator.generateFont(parameter);
+
+		parameter.size = (int)(size/2.1f);
+		parameter.color = Color.DARK_GRAY;
+		setting_font = generator.generateFont(parameter);
 
 		generator.dispose();
 
