@@ -68,6 +68,8 @@ public class SettingsScreen extends ScreenAdapter {
         game.settings_batch.begin();
         game.settings_batch.draw(game.english_button, game.horizontal_otstup, game.vertical_otstup+game.size*3, game.size*5, game.size);
         game.settings_batch.draw(game.russian_button, game.horizontal_otstup+game.size*5, game.vertical_otstup+game.size*3, game.size*5, game.size);
+        game.settings_batch.draw(game.empty_button, game.horizontal_otstup, game.vertical_otstup+game.size*4, game.size*10, game.size);
+        game.settings_batch.draw(game.empty_button, game.horizontal_otstup, game.vertical_otstup+game.size*6, game.size*10, game.size);
         if (!game.is_english) {
             game.settings_batch.draw(game.return_button_large, game.horizontal_otstup, game.vertical_otstup, game.size * 10, game.size);
             game.settings_batch.draw(game.delete_button, game.horizontal_otstup, game.vertical_otstup + game.size * 1, game.size * 10, game.size);

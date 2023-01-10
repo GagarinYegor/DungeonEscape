@@ -42,7 +42,7 @@ public class DungeonEscape extends Game {
 			activ_lever, passiv_lever,
 			chd, ohd, cvd, ovd,
 			screensaver, stone_floor_texture_region, exit_img, exit_door, stone_floor_sc,
-			wdwt, sfwm, clmn, map_img, passiv_map_button, activ_map_button, death_img;
+			wdwt, sfwm, clmn, map_img, passiv_map_button, activ_map_button, death_img, empty_button;
 
 	Sound slime_attacked_sound, slime_attacking_sound,
 			player_attacking_sound, player_attacked_sound,
@@ -62,12 +62,12 @@ public class DungeonEscape extends Game {
 	int cage_x, cage_y, slime_mass_x, slime_mass_y, lever_mass_x, lever_mass_y, moves, player_lvl;
 	Input.TextInputListener listener;
 	String name;
-	boolean is_english;
-
+	boolean is_english, attack_button_auto_reset;
 
 	@Override
 	public void create() {
 		is_english = false;
+		attack_button_auto_reset = false;
 		batch = new SpriteBatch();
 		name = "";
 
@@ -126,6 +126,7 @@ public class DungeonEscape extends Game {
 		settings_screen_button = new Texture("interface/buttons/settings_button.png");
 		settings_screen_button_eng = new Texture("interface/buttons/settings_button_eng.png");
 		row_heading = new Texture("interface/row_heading.png");
+		empty_button = new Texture("interface/buttons/empty_button.png");
 
 		passiv_map_button = new Texture("interface/buttons/passiv_map_button.png");
 		activ_map_button = new Texture("interface/buttons/activ_map_button.png");
