@@ -39,7 +39,7 @@ public class DeathScreen extends ScreenAdapter {
                 else {
                     touch_y = (int) ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size - 1);
                 }
-                if (button == Input.Buttons.LEFT && touch_y == 0 && touch_x >= 1 && touch_x <= 8) {
+                if (button == Input.Buttons.LEFT && touch_y == 0 && touch_x >= 0 && touch_x <= 9) {
                     game.setScreen(new MainMenuScreen(game));
                     return true;
                 }

@@ -56,6 +56,16 @@ public class SettingsScreen extends ScreenAdapter {
                     win_file.writeString("", false);
                     return true;
                 }
+                if (button == Input.Buttons.LEFT && touch_y == 5 && touch_x >= 0 && touch_x <= 1 && !game.attack_button_auto_reset) {
+                    start_timer = 0.1f;
+                    game.attack_button_auto_reset = true;
+                    return true;
+                }
+                if (button == Input.Buttons.LEFT && touch_y == 5 && touch_x >= 8 && touch_x <= 9 && game.attack_button_auto_reset) {
+                    start_timer = 0.1f;
+                    game.attack_button_auto_reset = false;
+                    return true;
+                }
                 return false;
             }
         });
@@ -73,10 +83,14 @@ public class SettingsScreen extends ScreenAdapter {
         if (!game.is_english) {
             game.settings_batch.draw(game.return_button_large, game.horizontal_otstup, game.vertical_otstup, game.size * 10, game.size);
             game.settings_batch.draw(game.delete_button, game.horizontal_otstup, game.vertical_otstup + game.size * 1, game.size * 10, game.size);
+            game.settings_batch.draw(game.yes_button, game.horizontal_otstup, game.vertical_otstup+game.size*5, game.size*2, game.size);
+            game.settings_batch.draw(game.no_button, game.horizontal_otstup+game.size*8, game.vertical_otstup+game.size*5, game.size*2, game.size);
         }
         else {
             game.settings_batch.draw(game.return_button_large_eng, game.horizontal_otstup, game.vertical_otstup, game.size * 10, game.size);
             game.settings_batch.draw(game.delete_button_eng, game.horizontal_otstup, game.vertical_otstup + game.size * 1, game.size * 10, game.size);
+            game.settings_batch.draw(game.yes_button_eng, game.horizontal_otstup, game.vertical_otstup+game.size*5, game.size*2, game.size);
+            game.settings_batch.draw(game.no_button_eng, game.horizontal_otstup+game.size*8, game.vertical_otstup+game.size*5, game.size*2, game.size);
         }
         if (start_timer>=0){
             start_timer-=delta;

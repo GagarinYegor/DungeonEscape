@@ -42,7 +42,8 @@ public class DungeonEscape extends Game {
 			activ_lever, passiv_lever,
 			chd, ohd, cvd, ovd,
 			screensaver, stone_floor_texture_region, exit_img, exit_door, stone_floor_sc,
-			wdwt, sfwm, clmn, map_img, passiv_map_button, activ_map_button, death_img, empty_button;
+			wdwt, sfwm, clmn, map_img, passiv_map_button, activ_map_button, death_img, empty_button,
+			yes_button, no_button, yes_button_eng, no_button_eng;
 
 	Sound slime_attacked_sound, slime_attacking_sound,
 			player_attacking_sound, player_attacked_sound,
@@ -127,6 +128,10 @@ public class DungeonEscape extends Game {
 		settings_screen_button_eng = new Texture("interface/buttons/settings_button_eng.png");
 		row_heading = new Texture("interface/row_heading.png");
 		empty_button = new Texture("interface/buttons/empty_button.png");
+		yes_button = new Texture("interface/buttons/yes_button.png");
+		yes_button_eng = new Texture("interface/buttons/yes_button_eng.png");
+		no_button = new Texture("interface/buttons/no_button.png");
+		no_button_eng = new Texture("interface/buttons/no_button_eng.png");
 
 		passiv_map_button = new Texture("interface/buttons/passiv_map_button.png");
 		activ_map_button = new Texture("interface/buttons/activ_map_button.png");
