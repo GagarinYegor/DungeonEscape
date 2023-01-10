@@ -57,10 +57,12 @@ public class WinScreen extends ScreenAdapter {
         game.win_screen_batch.begin();
         game.win_screen_batch.draw(game.win_screen_img, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size*7);
         if (!game.is_english) {
-            game.win_screen_batch.draw(game.return_button_large, game.horizontal_otstup, game.vertical_otstup, game.size * 10, game.size);
+            game.win_screen_font.draw(game.win_screen_batch, "Игрок " + game.name + " успешно покинул подземелье!", game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * 6 + game.size / 2);
+            game.win_screen_batch.draw(game.return_button_large, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size);
         }
         else {
-            game.win_screen_batch.draw(game.return_button_large_eng, game.horizontal_otstup, game.vertical_otstup, game.size * 10, game.size);
+            game.win_screen_font.draw(game.win_screen_batch, "Player  " + game.name + " is finally escaped the dungeon!", game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * 6 + game.size / 2);
+            game.win_screen_batch.draw(game.return_button_large_eng, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size);
         }
         game.win_screen_batch.end();
     }
