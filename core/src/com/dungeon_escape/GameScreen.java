@@ -523,10 +523,9 @@ public class GameScreen extends ScreenAdapter {
         game.batch.begin();
         for (int i = 0; i < game.cage_x; i++){
             for (int j = 0; j < game.cage_y; j++) {
-                cages[i][j].draw(game.batch, game.size, delta);
+                //cages[i][j].draw(game.batch, game.size, delta);
                 if (Math.abs(i - player.getX()) < 6 && Math.abs(j - player.getY()) < 5) {
                     cages[i][j].draw(game.batch, game.size, delta);
-
                 }
             }
         }
@@ -551,11 +550,11 @@ public class GameScreen extends ScreenAdapter {
         else game.batch.draw(game.passiv_attack_button, game.right_border_x - game.size, game.right_border_y+game.size, game.size, game.size);
         game.batch.draw(game.waiting_button, game.right_border_x - game.size, game.right_border_y, game.size, game.size);
         game.batch.draw(game.info_window, game.right_border_x - game.size, game.right_border_y+game.size*4, game.size, game.size * 2);
-        game.info_font.draw(game.batch, "Name:", game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 2 / 20);
+        game.info_font.draw(game.batch, "Имя:", game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 2 / 20);
         game.info_font.draw(game.batch, player.getName(), game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 7 / 20);
-        game.info_font.draw(game.batch, "Hp:"+player.getHealth()+"/"+player.getMaxHealth(), game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 13 / 20);
-        game.info_font.draw(game.batch, "Moves:"+game.moves, game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 18 / 20);
-        game.info_font.draw(game.batch, "Power:"+player.getPower(), game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 23 / 20);
+        game.info_font.draw(game.batch, "Здоровье:"+player.getHealth()+"/"+player.getMaxHealth(), game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 13 / 20);
+        game.info_font.draw(game.batch, "Номер хода: "+game.moves, game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 18 / 20);
+        game.info_font.draw(game.batch, "Сила: "+player.getPower(), game.right_border_x - game.size + game.size/10, game.right_border_y+game.size*6 - game.size * 23 / 20);
         //game.batch.draw(game.map_img, game.left_border_x+game.horizontal_otstup, game.left_border_y+game.vertical_otstup, game.size*7, game.size*7);
         if (is_map_find){
             if (!is_map_activ) {

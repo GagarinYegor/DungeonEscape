@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -20,7 +21,7 @@ public class DungeonEscape extends Game {
 	SpriteBatch batch, records_batch, main_menu_batch,
 			death_screen_batch, win_screen_batch, settings_batch;
 
-	BitmapFont info_font, record_font;
+	BitmapFont info_font, record_font, death_screen_font, win_screen_font;
 
 	Texture green_slime_texture_region, slime_blast, green_slime_attacked, green_slime_attacking,
 			stone_floor_texture_region, clmn,
@@ -38,7 +39,7 @@ public class DungeonEscape extends Game {
 			cul_, cur_, cdl_, cdr_,
 			activ_lever, passiv_lever,
 			chd, ohd, cvd, ovd,
-			wdwt, sfwm, map_img, passiv_map_button, activ_map_button;
+			wdwt, sfwm, map_img, passiv_map_button, activ_map_button, death_img;
 
 	Sound slime_attacked_sound, slime_attacking_sound,
 			player_attacking_sound, player_attacked_sound,
@@ -46,10 +47,9 @@ public class DungeonEscape extends Game {
 
 	Music theme;
 
-	TextureRegion font_region;
-
 	float size, horizontal_otstup, vertical_otstup, left_border_x, left_border_y, right_border_x, right_border_y,
 			up_border_x, up_border_y, down_border_x, down_border_y, width, height, speed;
+	final String FONT_CHARS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;:,{}\"´`'<>";
 
 	public static final int SCR_WIDTH = 960, SCR_HEIGHT = 540;
 
@@ -57,7 +57,6 @@ public class DungeonEscape extends Game {
 	int[][] slimes_mass;
 	int[][] levers_mass;
 	int cage_x, cage_y, slime_mass_x, slime_mass_y, lever_mass_x, lever_mass_y, moves, player_lvl;
-	HashMap<String, TextureRegion> font_map;
 	Input.TextInputListener listener;
 	String name;
 
@@ -120,7 +119,6 @@ public class DungeonEscape extends Game {
 		row = new Texture("interface/row.png");
 		row_heading = new Texture("interface/row_heading.png");
 		arrow_next = new Texture("interface/arrow_next.png");
-		font_region = new TextureRegion(new Texture("interface/font.png"));
 		title_text_table = new Texture("interface/title_text_table.png");
 		border = new Texture("interface/border.png");
 		info_window = new Texture("interface/info_window.png");
@@ -134,6 +132,7 @@ public class DungeonEscape extends Game {
 		passiv_map_button = new Texture("interface/passiv_map_button.png");
 		activ_map_button = new Texture("interface/activ_map_button.png");
 		theme = Gdx.audio.newMusic(Gdx.files.internal("interface/theme.mp3"));
+		death_img = new Texture("interface/death_img.png");
 
 		//walls res
 		wu__ = new Texture("walls/wu__.png");
@@ -216,45 +215,21 @@ public class DungeonEscape extends Game {
 		record_font.setColor(Color.DARK_GRAY);
 		record_font.getData().setScale(size/50, size/50);
 
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("text_resources/Comfortaa.ttf"));
+		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter.characters = FONT_CHARS;
+		parameter.size = 35;
+		parameter.color = Color.WHITE;
+		death_screen_font = generator.generateFont(parameter);
+		parameter.characters = FONT_CHARS;
+		parameter.size = 12;
+		parameter.color = Color.DARK_GRAY;
+		info_font = generator.generateFont(parameter);
+		generator.dispose();
+
 		//FileHandle rec_file = Gdx.files.local("text_resources/records.txt");
 		//if (rec_file.length()==0) rec_file.writeString("Test 0 0", false);
 		//rec_file.writeString("Test 0 0", false);
-
-		font_map = new HashMap<>();
-		int fontFrameCount = 32;
-		int frameWidth = font_region.getRegionWidth() / fontFrameCount;
-		font_map.put("А", new TextureRegion(font_region, 0 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Б", new TextureRegion(font_region, 1 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("В", new TextureRegion(font_region, 2 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Г", new TextureRegion(font_region, 3 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Д", new TextureRegion(font_region, 4 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Е", new TextureRegion(font_region, 5 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Ж", new TextureRegion(font_region, 6 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("З", new TextureRegion(font_region, 7 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("И", new TextureRegion(font_region, 8 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Й", new TextureRegion(font_region, 9 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("К", new TextureRegion(font_region, 10 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Л", new TextureRegion(font_region, 11 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("М", new TextureRegion(font_region, 12 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Н", new TextureRegion(font_region, 13 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("О", new TextureRegion(font_region, 14 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("П", new TextureRegion(font_region, 15 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Р", new TextureRegion(font_region, 16 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("С", new TextureRegion(font_region, 17 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Т", new TextureRegion(font_region, 18 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("У", new TextureRegion(font_region, 19 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Ф", new TextureRegion(font_region, 20 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Х", new TextureRegion(font_region, 21 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Ц", new TextureRegion(font_region, 22 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Ч", new TextureRegion(font_region, 23 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Ш", new TextureRegion(font_region, 24 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Щ", new TextureRegion(font_region, 25 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Ъ", new TextureRegion(font_region, 26 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Ы", new TextureRegion(font_region, 27 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Ь", new TextureRegion(font_region, 28 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Э", new TextureRegion(font_region, 29 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Ю", new TextureRegion(font_region, 30 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
-		font_map.put("Я", new TextureRegion(font_region, 31 * frameWidth, 0, frameWidth, font_region.getRegionHeight()));
 
 		setScreen(new MainMenuScreen(this));
 	}
