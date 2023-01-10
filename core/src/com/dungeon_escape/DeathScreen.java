@@ -54,9 +54,7 @@ public class DeathScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.death_screen_batch.begin();
         game.death_screen_batch.draw(game.death_screen_img, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size*7);
-        game.death_screen_batch.draw(game.return_button, game.horizontal_otstup+game.size, game.vertical_otstup, game.size*8, game.size);
-        game.death_screen_batch.draw(game.arrow_no, game.horizontal_otstup, game.vertical_otstup, game.size, game.size);
-        game.death_screen_batch.draw(game.arrow_no, game.horizontal_otstup+game.size*9, game.vertical_otstup, game.size, game.size);
+        game.death_screen_batch.draw(game.return_button_large, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size);
         for (Slime slime: slimes){
             slime.draw(game.death_screen_batch, game.size, delta);
         }

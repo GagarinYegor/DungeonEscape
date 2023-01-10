@@ -56,7 +56,7 @@ public class SettingsScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0.25f, 0.25f, 0.25f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.settings_batch.begin();
-        game.settings_batch.draw(game.return_button, game.horizontal_otstup+game.size, game.vertical_otstup, game.size*8, game.size);
+        game.settings_batch.draw(game.return_button_large, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size);
         game.settings_batch.draw(game.delete_button, game.horizontal_otstup, game.vertical_otstup+game.size*1, game.size*10, game.size);
         if (start_timer>=0){
             start_timer-=delta;
