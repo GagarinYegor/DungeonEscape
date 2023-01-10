@@ -560,7 +560,16 @@ public class GameScreen extends ScreenAdapter {
             game.info_font.draw(game.batch, "Сила:", game.right_border_x - game.size + game.size / 10, game.right_border_y + game.size * 6 - game.size * 30 / 20);
             game.info_font.draw(game.batch, "" + player.getPower(), game.right_border_x - game.size + game.size / 10, game.right_border_y + game.size * 6 - game.size * 35 / 20);
         }
-
+        else {
+            game.info_font.draw(game.batch, "Name:", game.right_border_x - game.size + game.size / 10, game.right_border_y + game.size * 6 - game.size * 3 / 20);
+            game.info_name_font.draw(game.batch, player.getName(), game.right_border_x - game.size + game.size / 10, game.right_border_y + game.size * 6 - game.size * 7 / 20);
+            game.info_font.draw(game.batch, "Health:", game.right_border_x - game.size + game.size / 10, game.right_border_y + game.size * 6 - game.size * 10 / 20);
+            game.info_font.draw(game.batch, player.getHealth() + "/" + player.getMaxHealth(), game.right_border_x - game.size + game.size / 10, game.right_border_y + game.size * 6 - game.size * 15 / 20);
+            game.info_font.draw(game.batch, "Moves:", game.right_border_x - game.size + game.size / 10, game.right_border_y + game.size * 6 - game.size * 20 / 20);
+            game.info_font.draw(game.batch, "" + game.moves, game.right_border_x - game.size + game.size / 10, game.right_border_y + game.size * 6 - game.size * 25 / 20);
+            game.info_font.draw(game.batch, "Power:", game.right_border_x - game.size + game.size / 10, game.right_border_y + game.size * 6 - game.size * 30 / 20);
+            game.info_font.draw(game.batch, "" + player.getPower(), game.right_border_x - game.size + game.size / 10, game.right_border_y + game.size * 6 - game.size * 35 / 20);
+        }
         if (is_map_find){
             if (!is_map_activ) {
                 game.batch.draw(game.passiv_map_button, game.right_border_x - game.size, game.right_border_y+game.size*2, game.size, game.size);
