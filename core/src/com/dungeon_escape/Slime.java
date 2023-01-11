@@ -64,7 +64,7 @@ public class Slime {
             }
             if (is_moving) {
                 batch.draw(slime_animation.getFrame(), real_x, real_y, size, size);
-                slime_animation.update(dt);
+                //slime_animation.update(dt);
                 if (real_x < x * size + horizontal_otstup) {
                     if (real_x + speed * dt < x * size + horizontal_otstup) {
                         real_x += speed * dt;
