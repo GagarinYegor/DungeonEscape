@@ -61,7 +61,7 @@ public class DungeonEscape extends Game {
 	String [][] map;
 	int[][] slimes_mass;
 	int[][] levers_mass;
-	int cage_x, cage_y, slime_mass_x, slime_mass_y, lever_mass_x, lever_mass_y, moves, player_lvl;
+	int cage_x, cage_y, slime_mass_x, slime_mass_y, lever_mass_x, lever_mass_y, moves;
 	Input.TextInputListener listener;
 	String name;
 	boolean is_english, attack_button_auto_reset;

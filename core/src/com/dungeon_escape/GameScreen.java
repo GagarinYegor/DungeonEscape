@@ -20,7 +20,6 @@ public class GameScreen extends ScreenAdapter {
     public void check_hod(){
         if (player.getX() == 20 && player.getY() == 0){
             game.theme.stop();
-            game.player_lvl = player.getLvl();
             game.setScreen(new WinScreen(game));
         }
         if (player.getX() == 37 && player.getY() == 3 && !is_map_find){
