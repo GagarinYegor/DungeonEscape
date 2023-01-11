@@ -41,7 +41,7 @@ public class SettingsScreen extends ScreenAdapter {
                     game.setScreen(new MainMenuScreen(game));
                     return true;
                 }
-                if (button == Input.Buttons.LEFT && touch_y == 3 && touch_x >= 1 && touch_x <= 4 && !game.is_english) {
+                if (button == Input.Buttons.LEFT && touch_y == 3 && touch_x >= 0 && touch_x <= 4 && !game.is_english) {
                     start_timer = 0.1f;
                     game.is_english = true;
                     return true;
