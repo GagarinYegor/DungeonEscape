@@ -113,7 +113,6 @@ public class RecordScreen extends ScreenAdapter {
                 game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[0], game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
                 game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[1], game.horizontal_otstup + game.size / 10 + game.size * 3.3f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
                 if (!game.is_english) {
-                    System.out.println(strings.get(i + 1).split(" ")[2]);
                     if (strings.get(i + 1).split(" ")[2].contains("true")){
                         game.record_font.draw(game.records_batch, "Пройдено", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
                     }

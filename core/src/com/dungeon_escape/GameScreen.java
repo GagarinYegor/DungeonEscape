@@ -86,7 +86,7 @@ public class GameScreen extends ScreenAdapter {
                     if (Math.abs(slime.getX() - player.getX()) < 5 && Math.abs(slime.getY() - player.getY()) < 5) {
                         slime_hod = true;
                         cages[slime.getX()][slime.getY()].set_movable(true);
-                        System.out.println("I see you!");
+                        //System.out.println("I see you!");
                         if (slime_hod && slime.getX() == player.getX() && slime.getY() < player.getY()){
                             //cages[slime.getX()][slime.getY()].set_movable(true);
                             if (cages[slime.getX()][slime.getY()+1].get_movable()) slime.move(0, 1);
@@ -306,7 +306,7 @@ public class GameScreen extends ScreenAdapter {
                     touch_y = (int) ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size - 1);
                 }
                 if (button == Input.Buttons.LEFT) {
-                    if (touch_x == 9 && touch_y == 2 && is_map_find) {
+                    if (touch_x == 9 && touch_y == 3 && is_map_find) {
                         is_map_activ = !is_map_activ;
                     }
                     if (touch_x == 9 && touch_y == 1) {
@@ -314,7 +314,7 @@ public class GameScreen extends ScreenAdapter {
                     }
                     if(!is_map_activ) {
                         if (is_hod) {
-                            if (touch_x == 9 && touch_y == 0) {
+                            if (touch_x == 9 && touch_y == 2) {
                                 hod_end();
                             }
                             if (is_attack) {
@@ -537,6 +537,11 @@ public class GameScreen extends ScreenAdapter {
         for (Lever lever: levers){
             lever.draw(game.batch, game.size);
         }
+        for (Slime slime: slimes){
+            if (Math.abs(slime.getX() - player.getX()) < 6 && Math.abs(slime.getY() - player.getY()) < 5) {
+                slime.blast_drow(game.batch, game.size, delta);
+            }
+        }
         if (game.vertical_otstup!=0){
             game.batch.draw(game.border, game.up_border_x-game.size, game.up_border_y, game.width+2*game.size, game.vertical_otstup+game.size);
             game.batch.draw(game.border, game.down_border_x-game.size, game.down_border_y-game.size, game.width+2*game.size, game.vertical_otstup+game.size);
@@ -547,7 +552,8 @@ public class GameScreen extends ScreenAdapter {
         }
         if (is_attack) game.batch.draw(game.activ_attack_button, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y+game.size, game.size, game.size);
         else game.batch.draw(game.passiv_attack_button, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y+game.size, game.size, game.size);
-        game.batch.draw(game.waiting_button, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y, game.size, game.size);
+        game.batch.draw(game.waiting_button, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y+game.size*2, game.size, game.size);
+
         game.batch.draw(game.info_window, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y + game.size * 4, game.size, game.size * 2);
         if (!game.is_english) {
             game.info_font.draw(game.batch, "Имя:", game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 3 / 20);
@@ -571,10 +577,10 @@ public class GameScreen extends ScreenAdapter {
         }
         if (is_map_find){
             if (!is_map_activ) {
-                game.batch.draw(game.passiv_map_button, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y+game.size*2, game.size, game.size);
+                game.batch.draw(game.passiv_map_button, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y+game.size*3, game.size, game.size);
             }
             else {
-                game.batch.draw(game.activ_map_button, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y+game.size*2, game.size, game.size);
+                game.batch.draw(game.activ_map_button, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y+game.size*3, game.size, game.size);
             }
         }
         if (is_map_activ){

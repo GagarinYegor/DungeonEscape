@@ -95,7 +95,6 @@ public class Slime {
                 is_moving = false;
             }
             slime_animation.update(dt);
-            blast.draw(batch, size, dt);
         }
     }
     public void attacking(int x, int y){
@@ -140,4 +139,5 @@ public class Slime {
     public boolean getMoving(){return is_moving;}
     public boolean getAttack(){return is_attack;}
     public boolean getAttacked(){return is_attacked;}
+    public void blast_drow(SpriteBatch batch, float size, float dt){blast.draw(batch, size, dt);}
 }
