@@ -19,7 +19,7 @@ public class WinScreen extends ScreenAdapter {
         game.win_screen_batch = new SpriteBatch();
         this.game = game;
         FileHandle win_file = Gdx.files.local("text_resources/records.txt");
-        win_file.writeString("\n"+game.name+" "+game.moves, true);
+        win_file.writeString("\n"+game.name+" "+game.moves+" true", true);
         //win_file.writeString(game.name+" "+game.player_lvl+" "+game.moves, false);
     }
 

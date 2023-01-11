@@ -89,7 +89,22 @@ public class RecordScreen extends ScreenAdapter {
                 game.records_batch.draw(game.row, game.horizontal_otstup, game.vertical_otstup + game.size * (5 - i), game.size * 10, game.size);
                 game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[0], game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
                 game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[1], game.horizontal_otstup + game.size / 10 + game.size * 3.3f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
-                //game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[2], game.horizontal_otstup + game.size / 10 + game.size * 7, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                if (!game.is_english) {
+                    if (strings.get(i + 1).split(" ")[2].contains("true")){
+                        game.record_font.draw(game.records_batch, "Пройдено", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                    }
+                    else {
+                        game.record_font.draw(game.records_batch, "Не пройдено", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                    }
+                }
+                else {
+                    if (strings.get(i + 1).split(" ")[2].contains("true")){
+                        game.record_font.draw(game.records_batch, "Passed", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                    }
+                    else {
+                        game.record_font.draw(game.records_batch, "Not passed", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                    }
+                }
             }
         }
         else {
@@ -97,8 +112,24 @@ public class RecordScreen extends ScreenAdapter {
                 game.records_batch.draw(game.row, game.horizontal_otstup, game.vertical_otstup + game.size * (5 - i), game.size * 10, game.size);
                 game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[0], game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
                 game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[1], game.horizontal_otstup + game.size / 10 + game.size * 3.3f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
-                //game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[2], game.horizontal_otstup + game.size / 10 + game.size * 7, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
-            }
+                if (!game.is_english) {
+                    System.out.println(strings.get(i + 1).split(" ")[2]);
+                    if (strings.get(i + 1).split(" ")[2].contains("true")){
+                        game.record_font.draw(game.records_batch, "Пройдено", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                    }
+                    else {
+                        game.record_font.draw(game.records_batch, "Не пройдено", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                    }
+                }
+                else {
+                    if (strings.get(i + 1).split(" ")[2].contains("true")){
+                        game.record_font.draw(game.records_batch, "Passed", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                    }
+                    else {
+                        game.record_font.draw(game.records_batch, "Not passed", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                    }
+                }
+           }
         }
         if (sdvig != strings.size()-6 && strings.size()>6) {
             game.records_batch.draw(game.arrow_down, game.horizontal_otstup+game.size*9, game.vertical_otstup-game.size*sdvig, game.size, game.size);

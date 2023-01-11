@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -14,6 +15,9 @@ public class DeathScreen extends ScreenAdapter {
 
     public DeathScreen(DungeonEscape game) {
         game.death_screen_batch = new SpriteBatch();
+        this.game = game;
+        FileHandle win_file = Gdx.files.local("text_resources/records.txt");
+        win_file.writeString("\n"+game.name+" "+game.moves+" false", true);
         slimes = new Slime[10];
         for (int i = 0; i< 10; i++){
             slimes[i] =  new Slime(i, 1, game.size, game.horizontal_otstup, game.vertical_otstup, game.green_slime_texture_region, 6, game.speed, game.slime_blast, game.green_slime_attacking, game.green_slime_attacked, game.slime_attacking_sound, game.slime_attacked_sound, game.title_text_table);
