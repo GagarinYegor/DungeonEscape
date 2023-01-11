@@ -114,7 +114,12 @@ public class RecordScreen extends ScreenAdapter {
         else {
             game.records_batch.draw(game.return_button_eng, game.horizontal_otstup + game.size, game.vertical_otstup - game.size * sdvig, game.size * 8, game.size);
         }
-        game.records_batch.draw(game.row_heading, game.horizontal_otstup, game.vertical_otstup+game.size*6-game.size*sdvig, game.size*10, game.size);
+        if (!game.is_english) {
+            game.records_batch.draw(game.row_heading, game.horizontal_otstup, game.vertical_otstup + game.size * 6 - game.size * sdvig, game.size * 10, game.size);
+        }
+        else {
+            game.records_batch.draw(game.row_heading_eng, game.horizontal_otstup, game.vertical_otstup + game.size * 6 - game.size * sdvig, game.size * 10, game.size);
+        }
         if (start_timer>=0){
             start_timer-=delta;
             game.records_batch.draw(game.border, -game.size, -game.size-game.size*sdvig, game.width+game.size*2, game.height+game.size*2);

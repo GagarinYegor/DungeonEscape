@@ -30,7 +30,7 @@ public class DungeonEscape extends Game {
 			player_texture_region_mowing_right, player_texture_region_mowing_left,
 			begin_button, record_button, return_button, row_heading,
 			return_button_large, settings_screen_button, delete_button,
-			begin_button_eng, record_button_eng, return_button_eng,  row_heading_eng,
+			begin_button_eng, record_button_eng, return_button_eng, row_heading_eng,
 			return_button_large_eng, settings_screen_button_eng, delete_button_eng,
 			row, info_window, russian_button, english_button, russian_button_activ, english_button_activ,
 			title_text_table, border, activ_attack_button, passiv_attack_button, waiting_button,
@@ -128,6 +128,7 @@ public class DungeonEscape extends Game {
 		settings_screen_button = new Texture("interface/buttons/settings_button.png");
 		settings_screen_button_eng = new Texture("interface/buttons/settings_button_eng.png");
 		row_heading = new Texture("interface/row_heading.png");
+		row_heading_eng = new Texture("interface/row_heading_eng.png");
 		empty_button = new Texture("interface/buttons/empty_button.png");
 		yes_button = new Texture("interface/buttons/yes_button.png");
 		yes_button_activ = new Texture("interface/buttons/yes_button_activ.png");
