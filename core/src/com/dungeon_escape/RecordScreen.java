@@ -27,6 +27,10 @@ public class RecordScreen extends ScreenAdapter {
         game.records_batch = new SpriteBatch();
         this.game = game;
         FileHandle record_file = Gdx.files.local("text_resources/records.txt");
+        if (!record_file.exists()){
+            FileHandle file = Gdx.files.local("text_resources/records.txt");
+            file.writeString("", false);
+        }
         Scanner records_scan = new Scanner(record_file.read());
         strings = new Vector<>();
         while (records_scan.hasNextLine()){
