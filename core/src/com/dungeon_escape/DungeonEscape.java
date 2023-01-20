@@ -10,16 +10,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class DungeonEscape extends Game {
 
-	SpriteBatch batch, records_batch, main_menu_batch,
-			death_screen_batch, win_screen_batch, settings_batch;
+	SpriteBatch batch, records_batch, main_menu_batch, death_screen_batch, win_screen_batch, settings_batch;
 
 	BitmapFont info_font, record_font, death_screen_font, win_screen_font, info_name_font, setting_font;
 
@@ -361,5 +358,29 @@ public class DungeonEscape extends Game {
 		no_button_activ.dispose();
 		yes_button_eng_activ.dispose();
 		no_button_eng_activ.dispose();
+
+		info_font.dispose();
+		record_font.dispose();
+		death_screen_font.dispose();
+		win_screen_font.dispose();
+		info_name_font.dispose();
+		setting_font.dispose();
+
+		batch.dispose();
+		records_batch.dispose();
+		main_menu_batch.dispose();
+		death_screen_batch.dispose();
+		win_screen_batch.dispose();
+		settings_batch.dispose();
+
+		slime_attacked_sound.dispose();
+		slime_attacking_sound.dispose();
+		player_attacking_sound.dispose();
+		player_attacked_sound.dispose();
+		lever_sound.dispose();
+		open_doors_sound.dispose();
+		closed_doors_sound.dispose();
+
+		theme.dispose();
 	}
 }
