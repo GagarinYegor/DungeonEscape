@@ -266,10 +266,6 @@ public class DungeonEscape extends Game {
 
 		generator.dispose();
 
-		//FileHandle rec_file = Gdx.files.local("text_resources/records.txt");
-		//if (rec_file.length()==0) rec_file.writeString("Test 0 0", false);
-		//rec_file.writeString("Test 0 0", false);
-
 		setScreen(new MainMenuScreen(this));
 	}
 

@@ -1,15 +1,12 @@
 package com.dungeon_escape;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Player {
-    private boolean is_attack, is_attacked, is_moving, is_right;
+    private boolean isAttack, isAttacked, isMoving, isRight;
     private int x, y, health, max_health, power;
     private float real_x, real_y, attacked_timer, speed, horizontal_otstup, vertical_otstup, size;
     private Animation player_animation_right, player_animation_left, player_mowing_right, player_mowing_left;
@@ -44,8 +41,8 @@ public class Player {
         player_mowing_left = new Animation(new TextureRegion(player_texture_region_mowing_left), MovingframeCount, 0.3f);
         this.player_attacking_sound = player_attacking_sound;
         this.player_attacked_sound = player_attacked_sound;
-        is_attack = false;
-        is_attacked = false;
+        isAttack = false;
+        isAttacked = false;
         attacked_timer = 0;
         blast = new Blast(x, y, size, horizontal_otstup, vertical_otstup, player_blast, 8, speed);
         this.size = size;
@@ -53,30 +50,30 @@ public class Player {
         health = max_health;
         power = 20;
         this.name = name;
-        is_right = true;
+        isRight = true;
     }
 
     public void draw(SpriteBatch batch, float size, float dt){
-        if(!is_moving) {
-            if (is_attacked) {
-                if (is_right) batch.draw(attacked_player_right, real_x, real_y, size, size);
+        if(!isMoving) {
+            if (isAttacked) {
+                if (isRight) batch.draw(attacked_player_right, real_x, real_y, size, size);
                 else batch.draw(attacked_player_left, real_x, real_y, size, size);
                 if (attacked_timer < 0.5f) {
                     attacked_timer += dt;
-                } else is_attacked = false;
+                } else isAttacked = false;
             } else {
-                if (is_attack) {
-                    if (is_right) batch.draw(attacking_player_right, real_x, real_y, size, size);
+                if (isAttack) {
+                    if (isRight) batch.draw(attacking_player_right, real_x, real_y, size, size);
                     else batch.draw(attacking_player_left, real_x, real_y, size, size);
-                    if (!blast.get_activ()) is_attack = false;
+                    if (!blast.get_activ()) isAttack = false;
                 } else {
-                    if (is_right) batch.draw(player_animation_right.getFrame(), real_x, real_y, size, size);
+                    if (isRight) batch.draw(player_animation_right.getFrame(), real_x, real_y, size, size);
                     else batch.draw(player_animation_left.getFrame(), real_x, real_y, size, size);
                 }
             }
         }
         else {
-            if (is_right) {
+            if (isRight) {
                 batch.draw(player_mowing_right.getFrame(), real_x, real_y, size, size);
                 player_mowing_right.update(dt);
             }
@@ -85,7 +82,7 @@ public class Player {
                 player_mowing_left.update(dt);
             }
             if (real_x<x*size+horizontal_otstup){
-                is_right = true;
+                isRight = true;
                 if (real_x+speed*dt<x*size+horizontal_otstup) {
                     real_x += speed*dt;
                 }
@@ -93,7 +90,7 @@ public class Player {
                 else real_x = x*size+horizontal_otstup;
             }
             if (real_x>x*size+horizontal_otstup){
-                is_right = false;
+                isRight = false;
                 if (real_x-speed*dt>x*size+horizontal_otstup) {
                     real_x -= speed*dt;
                 }
@@ -116,7 +113,7 @@ public class Player {
             }
         }
         if (real_x==x*size+horizontal_otstup&&real_y==y*size+vertical_otstup) {
-            is_moving = false;
+            isMoving = false;
         }
         player_animation_right.update(dt);
         player_animation_left.update(dt);
@@ -124,24 +121,24 @@ public class Player {
     }
 
     public void attacking(int x, int y){
-        if (is_attack == false) {
+        if (isAttack == false) {
             player_attacking_sound.play();
-            is_attack = true;
+            isAttack = true;
             blast.set_target(x, y, this.x, this.y);
         }
     }
     public void attacked(int damage){
-        if (is_attacked == false) {
+        if (isAttacked == false) {
             health -= damage;
             player_attacked_sound.play();
-            is_attacked = true;
+            isAttacked = true;
             attacked_timer = 0;
         }
     }
     public void move(int x, int y){
         this.x += x;
         this.y += y;
-        is_moving = true;
+        isMoving = true;
     }
     public int getX(){
         return x;
@@ -164,9 +161,9 @@ public class Player {
     public int getPower(){
         return power;
     }
-    public boolean getMoving(){return is_moving;}
-    public boolean getAttack(){return is_attack;}
-    public boolean getAttacked(){return is_attacked;}
+    public boolean getMoving(){return isMoving;}
+    public boolean getAttack(){return isAttack;}
+    public boolean getAttacked(){return isAttacked;}
     public String getName(){return name;}
     public void setHealth(int newHealth){health = newHealth;}
 }
