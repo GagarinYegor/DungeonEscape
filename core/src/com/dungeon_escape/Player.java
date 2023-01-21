@@ -14,7 +14,7 @@ public class Player {
     private Blast blast;
     private String name;
 
-    Sound player_attacking_sound, player_attacked_sound;
+    Sound playerAttackingSound, playerAttackedSound;
     Player(int x, int y, float size, float horizontal_otstup, float vertical_otstup,
            Texture player_texture_region_right, Texture player_texture_region_left,
            int frameCount,
@@ -23,7 +23,7 @@ public class Player {
            float speed, Texture player_blast,
            Texture attacking_player_right, Texture attacked_player_right,
            Texture attacking_player_left, Texture attacked_player_left,
-           Sound player_attacking_sound, Sound player_attacked_sound, String name){
+           Sound playerAttackingSound, Sound playerAttackedSound, String name){
         this.speed = speed;
         this.x = x;
         this.y = y;
@@ -39,8 +39,8 @@ public class Player {
         player_animation_left = new Animation(new TextureRegion(player_texture_region_left), frameCount, 0.5f);
         player_mowing_right = new Animation(new TextureRegion(player_texture_region_mowing_right), MovingframeCount, 0.3f);
         player_mowing_left = new Animation(new TextureRegion(player_texture_region_mowing_left), MovingframeCount, 0.3f);
-        this.player_attacking_sound = player_attacking_sound;
-        this.player_attacked_sound = player_attacked_sound;
+        this.playerAttackingSound = playerAttackingSound;
+        this.playerAttackedSound = playerAttackedSound;
         isAttacking = false;
         isAttacked = false;
         attacked_timer = 0;
@@ -122,7 +122,7 @@ public class Player {
 
     public void attacking(int x, int y){
         if (isAttacking == false) {
-            player_attacking_sound.play();
+            playerAttackingSound.play();
             isAttacking = true;
             blast.set_target(x, y, this.x, this.y);
         }
@@ -130,7 +130,7 @@ public class Player {
     public void attacked(int damage){
         if (isAttacked == false) {
             health -= damage;
-            player_attacked_sound.play();
+            playerAttackedSound.play();
             isAttacked = true;
             attacked_timer = 0;
         }
@@ -146,10 +146,10 @@ public class Player {
     public int getY(){
         return y;
     }
-    public float get_real_X(){
+    public float getRealX(){
         return realX;
     }
-    public float get_real_Y(){
+    public float getRealY(){
         return realY;
     }
     public int getHealth(){
@@ -161,9 +161,9 @@ public class Player {
     public int getPower(){
         return power;
     }
-    public boolean getMoving(){return isMoving;}
-    public boolean getAttacking(){return isAttacking;}
-    public boolean getAttacked(){return isAttacked;}
+    public boolean isMoving(){return isMoving;}
+    public boolean isAttacking(){return isAttacking;}
+    public boolean isAttacked(){return isAttacked;}
     public String getName(){return name;}
     public void setHealth(int newHealth){health = newHealth;}
 }

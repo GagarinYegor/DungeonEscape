@@ -35,9 +35,9 @@ public class GameScreen extends ScreenAdapter {
                     if (slime.getAttacked()) check_flag = false;
                 }
             }
-            if (player.getMoving()) check_flag = false;
-            if (player.getAttacking()) check_flag = false;
-            if (player.getAttacked()) check_flag = false;
+            if (player.isMoving()) check_flag = false;
+            if (player.isAttacking()) check_flag = false;
+            if (player.isAttacked()) check_flag = false;
             if (check_flag) is_hod = true;
         }
         else{
@@ -467,14 +467,14 @@ public class GameScreen extends ScreenAdapter {
                 slime.death();
             }
         }
-        game.left_border_x = player.get_real_X()- game.size*4-game.horizontal_otstup;
-        game.right_border_x = player.get_real_X()+ game.size*6;
-        game.up_border_x = player.get_real_X()- game.size*4-game.horizontal_otstup;
-        game.down_border_x = player.get_real_X()- game.size*4-game.horizontal_otstup;
-        game.left_border_y = player.get_real_Y()- game.size*3-game.vertical_otstup;
-        game.right_border_y = player.get_real_Y()- game.size*3-game.vertical_otstup;
-        game.up_border_y = player.get_real_Y()+ game.size*4;
-        game.down_border_y = player.get_real_Y()- game.size*3-game.vertical_otstup;
+        game.left_border_x = player.getRealX()- game.size*4-game.horizontal_otstup;
+        game.right_border_x = player.getRealX()+ game.size*6;
+        game.up_border_x = player.getRealX()- game.size*4-game.horizontal_otstup;
+        game.down_border_x = player.getRealX()- game.size*4-game.horizontal_otstup;
+        game.left_border_y = player.getRealY()- game.size*3-game.vertical_otstup;
+        game.right_border_y = player.getRealY()- game.size*3-game.vertical_otstup;
+        game.up_border_y = player.getRealY()+ game.size*4;
+        game.down_border_y = player.getRealY()- game.size*3-game.vertical_otstup;
         if (camera_move_right > 0){
             camera.translate(game.speed*delta, 0);
             camera_move_right -= game.speed*delta;
