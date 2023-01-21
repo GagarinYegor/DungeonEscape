@@ -36,7 +36,7 @@ public class GameScreen extends ScreenAdapter {
                 }
             }
             if (player.getMoving()) check_flag = false;
-            if (player.getAttack()) check_flag = false;
+            if (player.getAttacking()) check_flag = false;
             if (player.getAttacked()) check_flag = false;
             if (check_flag) is_hod = true;
         }
