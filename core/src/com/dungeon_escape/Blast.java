@@ -10,7 +10,7 @@ public class Blast {
     private Animation blastAnimation;
     private boolean isActiv;
 
-    Blast (int x, int y, float size, float horizontalOtstup, float verticalOtstup, Texture blastTextureRegion, int frameCount, float speed){
+    public Blast (int x, int y, float size, float horizontalOtstup, float verticalOtstup, Texture blastTextureRegion, int frameCount, float speed){
         this.speed = speed;
         this.x = x;
         this.y = y;

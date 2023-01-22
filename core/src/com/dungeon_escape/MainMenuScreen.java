@@ -34,12 +34,12 @@ public class MainMenuScreen extends ScreenAdapter {
         buttons_real_x= game.size;
         buttons_real_y=game.size;
 
-        slime = new Slime(7, 5, game.size, game.horizontal_otstup, game.vertical_otstup,
+        slime = new Slime(7, 5, game.size, game.horizontalOtstup, game.verticalOtstup,
                 game.greenSlimeTextureRegion, 6, game.speed, game.slimeBlast,
                 game.greenSlimeAttacking, game.greenSlimeAttacked,
                 game.slimeAttackingSound, game.slimeAttackedSound, game.titleTextTable, game.slimeFont);
 
-        player = new Player(2, 5, game.size, game.horizontal_otstup, game.vertical_otstup,
+        player = new Player(2, 5, game.size, game.horizontalOtstup, game.verticalOtstup,
                 game.playerTextureRegionRight, game.playerTextureRegionLeft,
                 12,
                 game.playerTextureRegionMowingRight, game.playerTextureRegionMowingLeft,
@@ -84,17 +84,17 @@ public class MainMenuScreen extends ScreenAdapter {
             public boolean touchDown (int x, int y, int pointer, int button) {
                 int touch_x;
                 int touch_y;
-                if ((Gdx.input.getX()-game.horizontal_otstup) / game.size>=0){
-                    touch_x = (int) ((Gdx.input.getX()-game.horizontal_otstup) / game.size);
+                if ((Gdx.input.getX()-game.horizontalOtstup) / game.size>=0){
+                    touch_x = (int) ((Gdx.input.getX()-game.horizontalOtstup) / game.size);
                 }
                 else{
-                    touch_x = (int) ((Gdx.input.getX()-game.horizontal_otstup) / game.size - 1);
+                    touch_x = (int) ((Gdx.input.getX()-game.horizontalOtstup) / game.size - 1);
                 }
-                if ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size >=0){
-                    touch_y= (int) ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size);
+                if ((game.height - (game.verticalOtstup +Gdx.input.getY())) / game.size >=0){
+                    touch_y= (int) ((game.height - (game.verticalOtstup +Gdx.input.getY())) / game.size);
                 }
                 else {
-                    touch_y = (int) ((game.height - (game.vertical_otstup+Gdx.input.getY())) / game.size - 1);
+                    touch_y = (int) ((game.height - (game.verticalOtstup +Gdx.input.getY())) / game.size - 1);
                 }
                 if (button == Input.Buttons.LEFT && touch_y == 2 && touch_x >= 0 && touch_x <= 9) {
                     if (!is_dialog_open) {
@@ -185,18 +185,18 @@ public class MainMenuScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.mainMenuBatch.setProjectionMatrix(main_menu_camera.combined);
         game.mainMenuBatch.begin();
-        game.mainMenuBatch.draw(game.screensaver, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size*7);
+        game.mainMenuBatch.draw(game.screensaver, game.horizontalOtstup, game.verticalOtstup, game.size*10, game.size*7);
         slime.draw(game.mainMenuBatch, game.size, delta);
         player.draw(game.mainMenuBatch, game.size, delta);
         if(!game.is_english) {
-            game.mainMenuBatch.draw(game.beginButton, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size * 2, game.size * 10, game.size);
-            game.mainMenuBatch.draw(game.recordButton, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size, game.size * 10, game.size);
-            game.mainMenuBatch.draw(game.settingsScreenButton, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size * 0, game.size * 10, game.size);
+            game.mainMenuBatch.draw(game.beginButton, game.horizontalOtstup + buttons_real_x, game.verticalOtstup + buttons_real_y + game.size * 2, game.size * 10, game.size);
+            game.mainMenuBatch.draw(game.recordButton, game.horizontalOtstup + buttons_real_x, game.verticalOtstup + buttons_real_y + game.size, game.size * 10, game.size);
+            game.mainMenuBatch.draw(game.settingsScreenButton, game.horizontalOtstup + buttons_real_x, game.verticalOtstup + buttons_real_y + game.size * 0, game.size * 10, game.size);
         }
         else {
-            game.mainMenuBatch.draw(game.beginButtonEng, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size * 2, game.size * 10, game.size);
-            game.mainMenuBatch.draw(game.recordButtonEng, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size, game.size * 10, game.size);
-            game.mainMenuBatch.draw(game.settingsScreenButtonEng, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size * 0, game.size * 10, game.size);
+            game.mainMenuBatch.draw(game.beginButtonEng, game.horizontalOtstup + buttons_real_x, game.verticalOtstup + buttons_real_y + game.size * 2, game.size * 10, game.size);
+            game.mainMenuBatch.draw(game.recordButtonEng, game.horizontalOtstup + buttons_real_x, game.verticalOtstup + buttons_real_y + game.size, game.size * 10, game.size);
+            game.mainMenuBatch.draw(game.settingsScreenButtonEng, game.horizontalOtstup + buttons_real_x, game.verticalOtstup + buttons_real_y + game.size * 0, game.size * 10, game.size);
         }
         if (start_timer>=0){
             start_timer-=delta;

@@ -7,9 +7,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Lever {
     private int x, y, doorX, doorY;
     private float realX, realY, doorRealX, doorRealY;
-    private boolean is_activ;
-    private  Texture activ_lever, passivLever, closedDoor, openedDoor;
-    Sound lever_sound, openDoorSound, closeDoorSound;
+    private boolean isActiv;
+    private  Texture activLever, passivLever, closedDoor, openedDoor;
+    private Sound lever_sound, openDoorSound, closeDoorSound;
     Lever (int x, int y, int doorX, int door_y, float size, float horizontalOtstup, float verticalOtstup, Texture activLever, Texture passivlever, Texture closedDoor, Texture openedDoor, Sound leverSound, Sound openDoorSound, Sound closeDoorSound){
         this.x = x;
         this.y = y;
@@ -19,19 +19,19 @@ public class Lever {
         realY = this.y*size+verticalOtstup;
         doorRealX = this.doorX *size+ horizontalOtstup;
         doorRealY = this.doorY *size+verticalOtstup;
-        this.activ_lever = activLever;
+        this.activLever = activLever;
         this.passivLever = passivlever;
         this.closedDoor = closedDoor;
         this.openedDoor = openedDoor;
         this.lever_sound = leverSound;
         this.openDoorSound = openDoorSound;
         this.closeDoorSound = closeDoorSound;
-        is_activ = false;
+        isActiv = false;
     }
 
     public void draw(SpriteBatch batch, float size){
-        if (is_activ) {
-            batch.draw(activ_lever, realX, realY, size, size);
+        if (isActiv) {
+            batch.draw(activLever, realX, realY, size, size);
             batch.draw(openedDoor, doorRealX, doorRealY, size, size*2);
         }
         else {
@@ -42,9 +42,9 @@ public class Lever {
 
     public void click(Cage [][] cages){
         lever_sound.play();
-        if (!is_activ) openDoorSound.play();
+        if (!isActiv) openDoorSound.play();
         else closeDoorSound.play();
-        is_activ = !is_activ;
+        isActiv = !isActiv;
         cages[doorX][doorY].setMovable(!cages[doorX][doorY].getMovable());
     }
 
