@@ -31,9 +31,9 @@ public class Cage {
         //font.draw(batch, x+":"+(y), real_x+size/2, real_y+size/2);
         cage_animation.update(dt);
     }
-    public boolean get_movable(){
+    public boolean getMovable(){
         return moveable;
     }
 
-    public void set_movable(boolean new_movable){moveable=new_movable;}
+    public void setMovable(boolean new_movable){moveable=new_movable;}
 }
