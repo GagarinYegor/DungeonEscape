@@ -65,7 +65,7 @@ public class Player {
                 if (isAttacking) {
                     if (isRight) batch.draw(attacking_player_right, realX, realY, size, size);
                     else batch.draw(attacking_player_left, realX, realY, size, size);
-                    if (!blast.get_activ()) isAttacking = false;
+                    if (!blast.isActiv()) isAttacking = false;
                 } else {
                     if (isRight) batch.draw(player_animation_right.getFrame(), realX, realY, size, size);
                     else batch.draw(player_animation_left.getFrame(), realX, realY, size, size);
@@ -124,7 +124,7 @@ public class Player {
         if (isAttacking == false) {
             playerAttackingSound.play();
             isAttacking = true;
-            blast.set_target(x, y, this.x, this.y);
+            blast.setTarget(x, y, this.x, this.y);
         }
     }
     public void attacked(int damage){

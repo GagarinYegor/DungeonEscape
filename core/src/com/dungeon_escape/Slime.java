@@ -1,6 +1,5 @@
 package com.dungeon_escape;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -59,7 +58,7 @@ public class Slime {
                 batch.draw(slime_animation.getFrame(), real_x, real_y, size, size);
                 if (is_attack) {
                     batch.draw(attacking_slime, real_x, real_y, size, size);
-                    if (!blast.get_activ()) is_attack = false;
+                    if (!blast.isActiv()) is_attack = false;
                 }
             }
             if (is_moving) {
@@ -101,7 +100,7 @@ public class Slime {
         if (is_attack == false) {
             slime_attacking_sound.play();
             is_attack = true;
-            blast.set_target(x, y, this.x, this.y);
+            blast.setTarget(x, y, this.x, this.y);
         }
     }
     public void attacked(int damage){
