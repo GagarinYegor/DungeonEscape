@@ -72,12 +72,12 @@ public class DungeonEscape extends Game {
 		name = "";
 
 		//slime res
-		greenSlimeTextureRegion = new Texture("slime/green_slime_texture_region.png");
-		greenSlimeAttacking = new Texture("slime/green_attacking_slime.png");
-		greenSlimeAttacked = new Texture("slime/green_attacked_slime.png");
-		slimeBlast = new Texture("slime/slime_charge.png");
-		slimeAttackedSound = Gdx.audio.newSound(Gdx.files.internal("slime/slime_attacked.mp3"));
-		slimeAttackingSound = Gdx.audio.newSound(Gdx.files.internal("slime/slime_attacking.wav"));
+		greenSlimeTextureRegion = new Texture("slime/images/green_slime_texture_region.png");
+		greenSlimeAttacking = new Texture("slime/images/green_attacking_slime.png");
+		greenSlimeAttacked = new Texture("slime/images/green_attacked_slime.png");
+		slimeBlast = new Texture("slime/images/slime_charge.png");
+		slimeAttackedSound = Gdx.audio.newSound(Gdx.files.internal("slime/sounds/slime_attacked.mp3"));
+		slimeAttackingSound = Gdx.audio.newSound(Gdx.files.internal("slime/sounds/slime_attacking.wav"));
 
 		//floor res
 		stoneFloorTextureRegion = new Texture("floor/stone_floor.png");
