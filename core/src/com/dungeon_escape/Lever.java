@@ -10,7 +10,7 @@ public class Lever {
     private boolean is_activ;
     private  Texture activ_lever, passivLever, closedDoor, openedDoor;
     Sound lever_sound, openDoorSound, closeDoorSound;
-    Lever (int x, int y, int doorX, int door_y, float size, float horizontalOtstup, float verticalOtstup, Texture activLever, Texture passivlever, float speed, Texture closedDoor, Texture openedDoor, Sound lever_sound, Sound openDoorSound, Sound closeDoorSound){
+    Lever (int x, int y, int doorX, int door_y, float size, float horizontalOtstup, float verticalOtstup, Texture activLever, Texture passivlever, float speed, Texture closedDoor, Texture openedDoor, Sound leverSound, Sound openDoorSound, Sound closeDoorSound){
         this.speed = speed;
         this.x = x;
         this.y = y;
@@ -24,7 +24,7 @@ public class Lever {
         this.passivLever = passivlever;
         this.closedDoor = closedDoor;
         this.openedDoor = openedDoor;
-        this.lever_sound = lever_sound;
+        this.lever_sound = leverSound;
         this.openDoorSound = openDoorSound;
         this.closeDoorSound = closeDoorSound;
         is_activ = false;
