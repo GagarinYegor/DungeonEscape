@@ -52,14 +52,14 @@ public class WinScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.winScreenBatch.begin();
-        game.winScreenBatch.draw(game.win_screen_img, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size*7);
+        game.winScreenBatch.draw(game.winScreenImg, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size*7);
         if (!game.is_english) {
             game.winScreenFont.draw(game.winScreenBatch, "Игрок " + game.name + " успешно покинул подземелье!", game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * 6 + game.size / 2);
-            game.winScreenBatch.draw(game.return_button_large, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size);
+            game.winScreenBatch.draw(game.returnButtonLarge, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size);
         }
         else {
             game.winScreenFont.draw(game.winScreenBatch, "Player  " + game.name + " is finally escaped the dungeon!", game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * 6 + game.size / 2);
-            game.winScreenBatch.draw(game.return_button_large_eng, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size);
+            game.winScreenBatch.draw(game.returnButtonLargeEng, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size);
         }
         game.winScreenBatch.end();
     }

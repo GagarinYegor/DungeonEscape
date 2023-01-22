@@ -35,19 +35,19 @@ public class MainMenuScreen extends ScreenAdapter {
         buttons_real_y=game.size;
 
         slime = new Slime(7, 5, game.size, game.horizontal_otstup, game.vertical_otstup,
-                game.green_slime_texture_region, 6, game.speed, game.slime_blast,
-                game.green_slime_attacking, game.green_slime_attacked,
-                game.slime_attacking_sound, game.slime_attacked_sound, game.title_text_table, game.slimeFont);
+                game.greenSlimeTextureRegion, 6, game.speed, game.slimeBlast,
+                game.greenSlimeAttacking, game.greenSlimeAttacked,
+                game.slimeAttackingSound, game.slimeAttackedSound, game.titleTextTable, game.slimeFont);
 
         player = new Player(2, 5, game.size, game.horizontal_otstup, game.vertical_otstup,
-                game.player_texture_region_right, game.player_texture_region_left,
+                game.playerTextureRegionRight, game.playerTextureRegionLeft,
                 12,
-                game.player_texture_region_mowing_right, game.player_texture_region_mowing_left,
+                game.playerTextureRegionMowingRight, game.playerTextureRegionMowingLeft,
                 14,
-                game.speed, game.player_blast,
-                game.player_attacking_right, game.player_attacked_right,
-                game.player_attacking_left, game.player_attacked_left,
-                game.player_attacking_sound, game.player_attacked_sound, "");
+                game.speed, game.playerBlast,
+                game.playerAttackingRight, game.playerAttackedRight,
+                game.playerAttackingLeft, game.playerAttackedLeft,
+                game.playerAttackingSound, game.sound, "");
 
         is_dialog_open = false;
         is_correct_name = false;
@@ -189,14 +189,14 @@ public class MainMenuScreen extends ScreenAdapter {
         slime.draw(game.mainMenuBatch, game.size, delta);
         player.draw(game.mainMenuBatch, game.size, delta);
         if(!game.is_english) {
-            game.mainMenuBatch.draw(game.begin_button, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size * 2, game.size * 10, game.size);
-            game.mainMenuBatch.draw(game.record_button, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size, game.size * 10, game.size);
-            game.mainMenuBatch.draw(game.settings_screen_button, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size * 0, game.size * 10, game.size);
+            game.mainMenuBatch.draw(game.beginButton, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size * 2, game.size * 10, game.size);
+            game.mainMenuBatch.draw(game.recordButton, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size, game.size * 10, game.size);
+            game.mainMenuBatch.draw(game.settingsScreenButton, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size * 0, game.size * 10, game.size);
         }
         else {
-            game.mainMenuBatch.draw(game.begin_button_eng, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size * 2, game.size * 10, game.size);
-            game.mainMenuBatch.draw(game.record_button_eng, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size, game.size * 10, game.size);
-            game.mainMenuBatch.draw(game.settings_screen_button_eng, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size * 0, game.size * 10, game.size);
+            game.mainMenuBatch.draw(game.beginButtonEng, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size * 2, game.size * 10, game.size);
+            game.mainMenuBatch.draw(game.recordButtonEng, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size, game.size * 10, game.size);
+            game.mainMenuBatch.draw(game.settingsScreenButtonEng, game.horizontal_otstup + buttons_real_x, game.vertical_otstup + buttons_real_y + game.size * 0, game.size * 10, game.size);
         }
         if (start_timer>=0){
             start_timer-=delta;

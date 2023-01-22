@@ -20,32 +20,32 @@ public class DungeonEscape extends Game {
 
 	BitmapFont infoFont, recordFont, deathScreenFont, winScreenFont, infoNameFont, settingFont, slimeFont;
 
-	Texture green_slime_texture_region, slime_blast, green_slime_attacked, green_slime_attacking,
-			player_texture_region_right, player_texture_region_left, player_blast,
-			player_attacked_right, player_attacking_right,
-			player_attacked_left, player_attacking_left,
-			player_texture_region_mowing_right, player_texture_region_mowing_left,
-			begin_button, record_button, return_button, row_heading,
-			return_button_large, settings_screen_button, delete_button,
-			begin_button_eng, record_button_eng, return_button_eng, row_heading_eng,
-			return_button_large_eng, settings_screen_button_eng, delete_button_eng,
-			row, info_window, russian_button, english_button, russian_button_activ, english_button_activ,
-			title_text_table, border, activ_attack_button, passiv_attack_button, waiting_button,
-			death_screen_img, win_screen_img,
-			arrow_up, arrow_down, arrow_no, arrow_next,
+	Texture greenSlimeTextureRegion, slimeBlast, greenSlimeAttacked, greenSlimeAttacking,
+			playerTextureRegionRight, playerTextureRegionLeft, playerBlast,
+			playerAttackedRight, playerAttackingRight,
+			playerAttackedLeft, playerAttackingLeft,
+			playerTextureRegionMowingRight, playerTextureRegionMowingLeft,
+			beginButton, recordButton, returnButton, rowHeading,
+			returnButtonLarge, settingsScreenButton, deleteButton,
+			beginButtonEng, recordButtonEng, returnButtonEng, rowHeadingEng,
+			returnButtonLargeEng, settingsScreenButtonEng, deleteButtonEng,
+			row, infoWindow, russianButton, englishButton, russianButtonActiv, englishButtonActiv,
+			titleTextTable, border, activAttackButton, passivAttackButton, waitingButton,
+			deathScreenImg, winScreenImg,
+			arrowUp, arrowDown, arrowNo, arrowNext,
 			wu__, wd__, wl__, wr__,
 			cwul, cwur, cwdl, cwdr,
 			cul_, cur_, cdl_, cdr_,
-			activ_lever, passiv_lever,
+			activLever, passivLever,
 			chd, ohd, cvd, ovd,
-			screensaver, stone_floor_texture_region, exit_img, exit_door, stone_floor_sc,
-			wdwt, sfwm, clmn, map_img, passiv_map_button, activ_map_button, death_img, empty_button,
-			yes_button, no_button, yes_button_eng, no_button_eng,
-			yes_button_activ, no_button_activ, yes_button_eng_activ, no_button_eng_activ;
+			screensaver, stoneFloorTextureRegion, exitImg, exitDoor, stoneFloorSc,
+			wdwt, sfwm, clmn, mapImg, passivMapButton, activMapButton, deathImg, emptyButton,
+			yesButton, noButton, yesButtonEng, noButtonEng,
+			yesButtonActiv, noButtonActiv, yesButtonEngActiv, noButtonEngActiv;
 
-	Sound slime_attacked_sound, slime_attacking_sound,
-			player_attacking_sound, player_attacked_sound,
-			lever_sound, open_doors_sound, closed_doors_sound;
+	Sound slimeAttackedSound, slimeAttackingSound,
+			playerAttackingSound, sound,
+			leverSound, openDoorsSound, closedDoorsSound;
 
 	Music theme;
 
@@ -71,95 +71,95 @@ public class DungeonEscape extends Game {
 		name = "";
 
 		//slime res
-		green_slime_texture_region = new Texture("slime/green_slime_texture_region.png");
-		green_slime_attacking = new Texture("slime/green_attacking_slime.png");
-		green_slime_attacked = new Texture("slime/green_attacked_slime.png");
-		slime_blast = new Texture("slime/slime_charge.png");
-		slime_attacked_sound = Gdx.audio.newSound(Gdx.files.internal("slime/slime_attacked.mp3"));
-		slime_attacking_sound = Gdx.audio.newSound(Gdx.files.internal("slime/slime_attacking.wav"));
+		greenSlimeTextureRegion = new Texture("slime/green_slime_texture_region.png");
+		greenSlimeAttacking = new Texture("slime/green_attacking_slime.png");
+		greenSlimeAttacked = new Texture("slime/green_attacked_slime.png");
+		slimeBlast = new Texture("slime/slime_charge.png");
+		slimeAttackedSound = Gdx.audio.newSound(Gdx.files.internal("slime/slime_attacked.mp3"));
+		slimeAttackingSound = Gdx.audio.newSound(Gdx.files.internal("slime/slime_attacking.wav"));
 
 		//floor res
-		stone_floor_texture_region = new Texture("floor/stone_floor.png");
+		stoneFloorTextureRegion = new Texture("floor/stone_floor.png");
 		clmn = new Texture("floor/clmn.png");
-		stone_floor_sc = new Texture("floor/stone_floor_sc.png");
+		stoneFloorSc = new Texture("floor/stone_floor_sc.png");
 		sfwm = new Texture("floor/stone_floor_with_map.png");
 
 		//player res
-		player_texture_region_right = new Texture("player/player_texture_region_right.png");
-		player_texture_region_left = new Texture("player/player_texture_region_left.png");
-		player_attacked_right = new Texture("player/player_attacked_right.png");
-		player_attacking_right = new Texture("player/player_attacking_right.png");
-		player_attacked_left = new Texture("player/player_attacked_left.png");
-		player_attacking_left = new Texture("player/player_attacking_left.png");
-		player_blast = new Texture("interface/nothing.png");
-		player_attacked_sound = Gdx.audio.newSound(Gdx.files.internal("player/attacked_player_sound.wav"));
-		player_attacking_sound = Gdx.audio.newSound(Gdx.files.internal("player/attacking_player_sound.wav"));
-		player_texture_region_mowing_right = new Texture("player/player_right_moving_texture_region.png");
-		player_texture_region_mowing_left = new Texture("player/player_left_moving_texture_region.png");
+		playerTextureRegionRight = new Texture("player/player_texture_region_right.png");
+		playerTextureRegionLeft = new Texture("player/player_texture_region_left.png");
+		playerAttackedRight = new Texture("player/player_attacked_right.png");
+		playerAttackingRight = new Texture("player/player_attacking_right.png");
+		playerAttackedLeft = new Texture("player/player_attacked_left.png");
+		playerAttackingLeft = new Texture("player/player_attacking_left.png");
+		playerBlast = new Texture("interface/nothing.png");
+		sound = Gdx.audio.newSound(Gdx.files.internal("player/attacked_player_sound.wav"));
+		playerAttackingSound = Gdx.audio.newSound(Gdx.files.internal("player/attacking_player_sound.wav"));
+		playerTextureRegionMowingRight = new Texture("player/player_right_moving_texture_region.png");
+		playerTextureRegionMowingLeft = new Texture("player/player_left_moving_texture_region.png");
 
 		//lever res
-		activ_lever = new Texture("levers/al__.png");
-		passiv_lever = new Texture("levers/dl__.png");
+		activLever = new Texture("levers/al__.png");
+		passivLever = new Texture("levers/dl__.png");
 
 		//doors res
 		ohd = new Texture("doors/ohd.png");
 		chd = new Texture("doors/chd.png");
 		ovd = new Texture("doors/ovd.png");
 		cvd = new Texture("doors/cvd.png");
-		open_doors_sound = Gdx.audio.newSound(Gdx.files.internal("doors/sounds/open_doors_sound.ogg"));
-		closed_doors_sound = Gdx.audio.newSound(Gdx.files.internal("doors/sounds/closed_doors_sound.ogg"));
-		lever_sound = Gdx.audio.newSound(Gdx.files.internal("doors/sounds/lever_sound.wav"));
-		exit_img = new Texture("doors/exit.png");
-		exit_door = new Texture("doors/exit_door.png");
+		openDoorsSound = Gdx.audio.newSound(Gdx.files.internal("doors/sounds/open_doors_sound.ogg"));
+		closedDoorsSound = Gdx.audio.newSound(Gdx.files.internal("doors/sounds/closed_doors_sound.ogg"));
+		leverSound = Gdx.audio.newSound(Gdx.files.internal("doors/sounds/lever_sound.wav"));
+		exitImg = new Texture("doors/exit.png");
+		exitDoor = new Texture("doors/exit_door.png");
 
 		//interface res
-		begin_button = new Texture("interface/buttons/begin_button.png");
-		begin_button_eng = new Texture("interface/buttons/begin_button_eng.png");
-		record_button = new Texture("interface/buttons/record_button.png");
-		record_button_eng = new Texture("interface/buttons/record_button_eng.png");
-		return_button = new Texture("interface/buttons/return_button.png");
-		return_button_eng = new Texture("interface/buttons/return_button_eng.png");
-		return_button_large = new Texture("interface/buttons/return_button_large.png");
-		return_button_large_eng = new Texture("interface/buttons/return_button_large_eng.png");
-		delete_button = new Texture("interface/buttons/delete_button.png");
-		delete_button_eng = new Texture("interface/buttons/delete_button_eng.png");
-		settings_screen_button = new Texture("interface/buttons/settings_button.png");
-		settings_screen_button_eng = new Texture("interface/buttons/settings_button_eng.png");
-		row_heading = new Texture("interface/row_heading.png");
-		row_heading_eng = new Texture("interface/row_heading_eng.png");
-		empty_button = new Texture("interface/buttons/empty_button.png");
-		yes_button = new Texture("interface/buttons/yes_button.png");
-		yes_button_activ = new Texture("interface/buttons/yes_button_activ.png");
-		yes_button_eng = new Texture("interface/buttons/yes_button_eng.png");
-		yes_button_eng_activ = new Texture("interface/buttons/yes_button_eng_activ.png");
-		no_button = new Texture("interface/buttons/no_button.png");
-		no_button_activ = new Texture("interface/buttons/no_button_activ.png");
-		no_button_eng = new Texture("interface/buttons/no_button_eng.png");
-		no_button_eng_activ = new Texture("interface/buttons/no_button_eng_activ.png");
+		beginButton = new Texture("interface/buttons/begin_button.png");
+		beginButtonEng = new Texture("interface/buttons/begin_button_eng.png");
+		recordButton = new Texture("interface/buttons/record_button.png");
+		recordButtonEng = new Texture("interface/buttons/record_button_eng.png");
+		returnButton = new Texture("interface/buttons/return_button.png");
+		returnButtonEng = new Texture("interface/buttons/return_button_eng.png");
+		returnButtonLarge = new Texture("interface/buttons/return_button_large.png");
+		returnButtonLargeEng = new Texture("interface/buttons/return_button_large_eng.png");
+		deleteButton = new Texture("interface/buttons/delete_button.png");
+		deleteButtonEng = new Texture("interface/buttons/delete_button_eng.png");
+		settingsScreenButton = new Texture("interface/buttons/settings_button.png");
+		settingsScreenButtonEng = new Texture("interface/buttons/settings_button_eng.png");
+		rowHeading = new Texture("interface/row_heading.png");
+		rowHeadingEng = new Texture("interface/row_heading_eng.png");
+		emptyButton = new Texture("interface/buttons/empty_button.png");
+		yesButton = new Texture("interface/buttons/yes_button.png");
+		yesButtonActiv = new Texture("interface/buttons/yes_button_activ.png");
+		yesButtonEng = new Texture("interface/buttons/yes_button_eng.png");
+		yesButtonEngActiv = new Texture("interface/buttons/yes_button_eng_activ.png");
+		noButton = new Texture("interface/buttons/no_button.png");
+		noButtonActiv = new Texture("interface/buttons/no_button_activ.png");
+		noButtonEng = new Texture("interface/buttons/no_button_eng.png");
+		noButtonEngActiv = new Texture("interface/buttons/no_button_eng_activ.png");
 
-		passiv_map_button = new Texture("interface/buttons/passiv_map_button.png");
-		activ_map_button = new Texture("interface/buttons/activ_map_button.png");
-		passiv_attack_button = new Texture("interface/buttons/passiv_attack_button.png");
-		activ_attack_button = new Texture("interface/buttons/activ_attack_button.png");
-		waiting_button = new Texture("interface/buttons/waiting_button.png");
-		russian_button = new Texture("interface/buttons/russian_button.png");
-		russian_button_activ = new Texture("interface/buttons/russian_button_activ.png");
-		english_button = new Texture("interface/buttons/english_button.png");
-		english_button_activ = new Texture("interface/buttons/english_button_activ.png");
+		passivMapButton = new Texture("interface/buttons/passiv_map_button.png");
+		activMapButton = new Texture("interface/buttons/activ_map_button.png");
+		passivAttackButton = new Texture("interface/buttons/passiv_attack_button.png");
+		activAttackButton = new Texture("interface/buttons/activ_attack_button.png");
+		waitingButton = new Texture("interface/buttons/waiting_button.png");
+		russianButton = new Texture("interface/buttons/russian_button.png");
+		russianButtonActiv = new Texture("interface/buttons/russian_button_activ.png");
+		englishButton = new Texture("interface/buttons/english_button.png");
+		englishButtonActiv = new Texture("interface/buttons/english_button_activ.png");
 
 		row = new Texture("interface/row.png");
-		arrow_next = new Texture("interface/arrow_next.png");
-		title_text_table = new Texture("interface/title_text_table.png");
+		arrowNext = new Texture("interface/arrow_next.png");
+		titleTextTable = new Texture("interface/title_text_table.png");
 		border = new Texture("interface/border.png");
-		info_window = new Texture("interface/info_window.png");
+		infoWindow = new Texture("interface/info_window.png");
 		screensaver = new Texture("interface/screensaver.png");
-		death_screen_img = new Texture("interface/death_screen_img.png");
-		win_screen_img = new Texture("interface/win_screen.png");
-		arrow_up = new Texture("interface/arrow_up.png");
-		arrow_down = new Texture("interface/arrow_down.png");
-		arrow_no = new Texture("interface/arrow_no.png");
-		map_img = new Texture("interface/map.png");
-		death_img = new Texture("interface/death_img.png");
+		deathScreenImg = new Texture("interface/death_screen_img.png");
+		winScreenImg = new Texture("interface/win_screen.png");
+		arrowUp = new Texture("interface/arrow_up.png");
+		arrowDown = new Texture("interface/arrow_down.png");
+		arrowNo = new Texture("interface/arrow_no.png");
+		mapImg = new Texture("interface/map.png");
+		deathImg = new Texture("interface/death_img.png");
 		theme = Gdx.audio.newMusic(Gdx.files.internal("interface/theme.mp3"));
 
 		//walls res
@@ -275,50 +275,50 @@ public class DungeonEscape extends Game {
 
 	@Override
 	public void dispose () {
-		green_slime_texture_region.dispose();
-		slime_blast.dispose();
-		green_slime_attacked.dispose();
-		green_slime_attacking.dispose();
-		player_texture_region_right.dispose();
-		player_texture_region_left.dispose();
-		player_blast.dispose();
-		player_attacked_right.dispose();
-		player_attacking_right.dispose();
-		player_attacked_left.dispose();
-		player_attacking_left.dispose();
-		player_texture_region_mowing_right.dispose();
-		player_texture_region_mowing_left.dispose();
-		begin_button.dispose();
-		record_button.dispose();
-		return_button.dispose();
-		row_heading.dispose();
-		return_button_large.dispose();
-		settings_screen_button.dispose();
-		delete_button.dispose();
-		begin_button_eng.dispose();
-		record_button_eng.dispose();
-		return_button_eng.dispose();
-		row_heading_eng.dispose();
-		return_button_large_eng.dispose();
-		settings_screen_button_eng.dispose();
-		delete_button_eng.dispose();
+		greenSlimeTextureRegion.dispose();
+		slimeBlast.dispose();
+		greenSlimeAttacked.dispose();
+		greenSlimeAttacking.dispose();
+		playerTextureRegionRight.dispose();
+		playerTextureRegionLeft.dispose();
+		playerBlast.dispose();
+		playerAttackedRight.dispose();
+		playerAttackingRight.dispose();
+		playerAttackedLeft.dispose();
+		playerAttackingLeft.dispose();
+		playerTextureRegionMowingRight.dispose();
+		playerTextureRegionMowingLeft.dispose();
+		beginButton.dispose();
+		recordButton.dispose();
+		returnButton.dispose();
+		rowHeading.dispose();
+		returnButtonLarge.dispose();
+		settingsScreenButton.dispose();
+		deleteButton.dispose();
+		beginButtonEng.dispose();
+		recordButtonEng.dispose();
+		returnButtonEng.dispose();
+		rowHeadingEng.dispose();
+		returnButtonLargeEng.dispose();
+		settingsScreenButtonEng.dispose();
+		deleteButtonEng.dispose();
 		row.dispose();
-		info_window.dispose();
-		russian_button.dispose();
-		english_button.dispose();
-		russian_button_activ.dispose();
-		english_button_activ.dispose();
-		title_text_table.dispose();
+		infoWindow.dispose();
+		russianButton.dispose();
+		englishButton.dispose();
+		russianButtonActiv.dispose();
+		englishButtonActiv.dispose();
+		titleTextTable.dispose();
 		border.dispose();
-		activ_attack_button.dispose();
-		passiv_attack_button.dispose();
-		waiting_button.dispose();
-		death_screen_img.dispose();
-		win_screen_img.dispose();
-		arrow_up.dispose();
-		arrow_down.dispose();
-		arrow_no.dispose();
-		arrow_next.dispose();
+		activAttackButton.dispose();
+		passivAttackButton.dispose();
+		waitingButton.dispose();
+		deathScreenImg.dispose();
+		winScreenImg.dispose();
+		arrowUp.dispose();
+		arrowDown.dispose();
+		arrowNo.dispose();
+		arrowNext.dispose();
 		wu__.dispose();
 		wd__.dispose();
 		wl__.dispose();
@@ -331,33 +331,33 @@ public class DungeonEscape extends Game {
 		cur_.dispose();
 		cdl_.dispose();
 		cdr_.dispose();
-		activ_lever.dispose();
-		passiv_lever.dispose();
+		activLever.dispose();
+		passivLever.dispose();
 		chd.dispose();
 		ohd.dispose();
 		cvd.dispose();
 		ovd.dispose();
 		screensaver.dispose();
-		stone_floor_texture_region.dispose();
-		exit_img.dispose();
-		exit_door.dispose();
-		stone_floor_sc.dispose();
+		stoneFloorTextureRegion.dispose();
+		exitImg.dispose();
+		exitDoor.dispose();
+		stoneFloorSc.dispose();
 		wdwt.dispose();
 		sfwm.dispose();
 		clmn.dispose();
-		map_img.dispose();
-		passiv_map_button.dispose();
-		activ_map_button.dispose();
-		death_img.dispose();
-		empty_button.dispose();
-		yes_button.dispose();
-		no_button.dispose();
-		yes_button_eng.dispose();
-		no_button_eng.dispose();
-		yes_button_activ.dispose();
-		no_button_activ.dispose();
-		yes_button_eng_activ.dispose();
-		no_button_eng_activ.dispose();
+		mapImg.dispose();
+		passivMapButton.dispose();
+		activMapButton.dispose();
+		deathImg.dispose();
+		emptyButton.dispose();
+		yesButton.dispose();
+		noButton.dispose();
+		yesButtonEng.dispose();
+		noButtonEng.dispose();
+		yesButtonActiv.dispose();
+		noButtonActiv.dispose();
+		yesButtonEngActiv.dispose();
+		noButtonEngActiv.dispose();
 
 		infoFont.dispose();
 		recordFont.dispose();
@@ -365,6 +365,7 @@ public class DungeonEscape extends Game {
 		winScreenFont.dispose();
 		infoNameFont.dispose();
 		settingFont.dispose();
+		slimeFont.dispose();
 
 		gameBatch.dispose();
 		recordsBatch.dispose();
@@ -373,13 +374,13 @@ public class DungeonEscape extends Game {
 		winScreenBatch.dispose();
 		settingsBatch.dispose();
 
-		slime_attacked_sound.dispose();
-		slime_attacking_sound.dispose();
-		player_attacking_sound.dispose();
-		player_attacked_sound.dispose();
-		lever_sound.dispose();
-		open_doors_sound.dispose();
-		closed_doors_sound.dispose();
+		slimeAttackedSound.dispose();
+		slimeAttackingSound.dispose();
+		playerAttackingSound.dispose();
+		sound.dispose();
+		leverSound.dispose();
+		openDoorsSound.dispose();
+		closedDoorsSound.dispose();
 
 		theme.dispose();
 	}

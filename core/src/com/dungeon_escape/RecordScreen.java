@@ -134,24 +134,24 @@ public class RecordScreen extends ScreenAdapter {
            }
         }
         if (sdvig != strings.size()-6 && strings.size()>6) {
-            game.recordsBatch.draw(game.arrow_down, game.horizontal_otstup+game.size*9, game.vertical_otstup-game.size*sdvig, game.size, game.size);
+            game.recordsBatch.draw(game.arrowDown, game.horizontal_otstup+game.size*9, game.vertical_otstup-game.size*sdvig, game.size, game.size);
         }
-        else game.recordsBatch.draw(game.arrow_no, game.horizontal_otstup+game.size*9, game.vertical_otstup-game.size*sdvig, game.size, game.size);
+        else game.recordsBatch.draw(game.arrowNo, game.horizontal_otstup+game.size*9, game.vertical_otstup-game.size*sdvig, game.size, game.size);
         if (sdvig !=0) {
-            game.recordsBatch.draw(game.arrow_up, game.horizontal_otstup, game.vertical_otstup-game.size*sdvig, game.size, game.size);
+            game.recordsBatch.draw(game.arrowUp, game.horizontal_otstup, game.vertical_otstup-game.size*sdvig, game.size, game.size);
         }
-        else game.recordsBatch.draw(game.arrow_no, game.horizontal_otstup, game.vertical_otstup-game.size*sdvig, game.size, game.size);
+        else game.recordsBatch.draw(game.arrowNo, game.horizontal_otstup, game.vertical_otstup-game.size*sdvig, game.size, game.size);
         if (!game.is_english) {
-            game.recordsBatch.draw(game.return_button, game.horizontal_otstup + game.size, game.vertical_otstup - game.size * sdvig, game.size * 8, game.size);
+            game.recordsBatch.draw(game.returnButton, game.horizontal_otstup + game.size, game.vertical_otstup - game.size * sdvig, game.size * 8, game.size);
         }
         else {
-            game.recordsBatch.draw(game.return_button_eng, game.horizontal_otstup + game.size, game.vertical_otstup - game.size * sdvig, game.size * 8, game.size);
+            game.recordsBatch.draw(game.returnButtonEng, game.horizontal_otstup + game.size, game.vertical_otstup - game.size * sdvig, game.size * 8, game.size);
         }
         if (!game.is_english) {
-            game.recordsBatch.draw(game.row_heading, game.horizontal_otstup, game.vertical_otstup + game.size * 6 - game.size * sdvig, game.size * 10, game.size);
+            game.recordsBatch.draw(game.rowHeading, game.horizontal_otstup, game.vertical_otstup + game.size * 6 - game.size * sdvig, game.size * 10, game.size);
         }
         else {
-            game.recordsBatch.draw(game.row_heading_eng, game.horizontal_otstup, game.vertical_otstup + game.size * 6 - game.size * sdvig, game.size * 10, game.size);
+            game.recordsBatch.draw(game.rowHeadingEng, game.horizontal_otstup, game.vertical_otstup + game.size * 6 - game.size * sdvig, game.size * 10, game.size);
         }
         if (start_timer>=0){
             start_timer-=delta;
