@@ -8,15 +8,12 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.io.IOException;
-import java.io.Writer;
-
 public class WinScreen extends ScreenAdapter {
 
     DungeonEscape game;
 
     public WinScreen(DungeonEscape game) {
-        game.win_screen_batch = new SpriteBatch();
+        game.winScreenBatch = new SpriteBatch();
         this.game = game;
         FileHandle win_file = Gdx.files.local("text_resources/records.txt");
         win_file.writeString("\n"+game.name+" "+game.moves+" true", true);
@@ -54,17 +51,17 @@ public class WinScreen extends ScreenAdapter {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        game.win_screen_batch.begin();
-        game.win_screen_batch.draw(game.win_screen_img, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size*7);
+        game.winScreenBatch.begin();
+        game.winScreenBatch.draw(game.win_screen_img, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size*7);
         if (!game.is_english) {
-            game.win_screen_font.draw(game.win_screen_batch, "Игрок " + game.name + " успешно покинул подземелье!", game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * 6 + game.size / 2);
-            game.win_screen_batch.draw(game.return_button_large, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size);
+            game.winScreenFont.draw(game.winScreenBatch, "Игрок " + game.name + " успешно покинул подземелье!", game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * 6 + game.size / 2);
+            game.winScreenBatch.draw(game.return_button_large, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size);
         }
         else {
-            game.win_screen_font.draw(game.win_screen_batch, "Player  " + game.name + " is finally escaped the dungeon!", game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * 6 + game.size / 2);
-            game.win_screen_batch.draw(game.return_button_large_eng, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size);
+            game.winScreenFont.draw(game.winScreenBatch, "Player  " + game.name + " is finally escaped the dungeon!", game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * 6 + game.size / 2);
+            game.winScreenBatch.draw(game.return_button_large_eng, game.horizontal_otstup, game.vertical_otstup, game.size*10, game.size);
         }
-        game.win_screen_batch.end();
+        game.winScreenBatch.end();
     }
 
     @Override

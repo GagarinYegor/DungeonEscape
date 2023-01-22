@@ -256,22 +256,22 @@ public class GameScreen extends ScreenAdapter {
             }
         }
         for (int i = 0; i < slimes.length; i++){
-            slimes[i] = new Slime(game.slimes_mass[i][1], game.slimes_mass[i][0], game.size, game.horizontal_otstup, game.vertical_otstup, game.green_slime_texture_region, 6, game.speed, game.slime_blast, game.green_slime_attacking, game.green_slime_attacked, game.slime_attacking_sound, game.slime_attacked_sound, game.title_text_table);
+            slimes[i] = new Slime(game.slimes_mass[i][1], game.slimes_mass[i][0], game.size, game.horizontal_otstup, game.vertical_otstup, game.green_slime_texture_region, 6, game.speed, game.slime_blast, game.green_slime_attacking, game.green_slime_attacked, game.slime_attacking_sound, game.slime_attacked_sound, game.title_text_table, game.slimeFont);
             cages[game.slimes_mass[i][1]][game.slimes_mass[i][0]].setMovable(false);
         }
         for (int i=0; i< game.lever_mass_y; i++){
             if (game.levers_mass[i][4] == 0) {
-                levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontal_otstup, game.vertical_otstup, game.activ_lever, game.passiv_lever, game.speed, game.cvd, game.ovd, game.lever_sound, game.open_doors_sound, game.closed_doors_sound);
+                levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontal_otstup, game.vertical_otstup, game.activ_lever, game.passiv_lever, game.cvd, game.ovd, game.lever_sound, game.open_doors_sound, game.closed_doors_sound);
                 cages[game.levers_mass[i][0]][game.levers_mass[i][1]].setMovable(false);
                 cages[game.levers_mass[i][2]][game.levers_mass[i][3]].setMovable(false);
             }
             if (game.levers_mass[i][4] == 1) {
-                levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontal_otstup, game.vertical_otstup, game.activ_lever, game.passiv_lever, game.speed, game.chd, game.ohd, game.slime_attacked_sound, game.open_doors_sound, game.closed_doors_sound);
+                levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontal_otstup, game.vertical_otstup, game.activ_lever, game.passiv_lever, game.chd, game.ohd, game.slime_attacked_sound, game.open_doors_sound, game.closed_doors_sound);
                 cages[game.levers_mass[i][0]][game.levers_mass[i][1]].setMovable(false);
                 cages[game.levers_mass[i][2]][game.levers_mass[i][3]].setMovable(false);
             }
             if (game.levers_mass[i][4] == 2) {
-                levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontal_otstup, game.vertical_otstup, game.player_blast, game.player_blast, game.speed, game.exit_door, game.exit_door, game.slime_attacked_sound, game.open_doors_sound, game.closed_doors_sound);
+                levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontal_otstup, game.vertical_otstup, game.player_blast, game.player_blast, game.exit_door, game.exit_door, game.slime_attacked_sound, game.open_doors_sound, game.closed_doors_sound);
                 cages[game.levers_mass[i][0]][game.levers_mass[i][1]].setMovable(false);
                 cages[game.levers_mass[i][2]][game.levers_mass[i][3]].setMovable(true);
             }
@@ -518,80 +518,80 @@ public class GameScreen extends ScreenAdapter {
 
         Gdx.gl.glClearColor(0.4f, 0.4f, 0.4f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        game.batch.setProjectionMatrix(camera.combined);
-        game.batch.begin();
+        game.gameBatch.setProjectionMatrix(camera.combined);
+        game.gameBatch.begin();
         for (int i = 0; i < game.cage_x; i++){
             for (int j = 0; j < game.cage_y; j++) {
                 //cages[i][j].draw(game.batch, game.size, delta);
                 if (Math.abs(i - player.getX()) < 6 && Math.abs(j - player.getY()) < 5) {
-                    cages[i][j].draw(game.batch, game.size, delta);
+                    cages[i][j].draw(game.gameBatch, game.size, delta);
                 }
             }
         }
-        player.draw(game.batch, game.size, delta);
+        player.draw(game.gameBatch, game.size, delta);
         for (Slime slime: slimes){
             if (Math.abs(slime.getX() - player.getX()) < 6 && Math.abs(slime.getY() - player.getY()) < 5) {
-                slime.draw(game.batch, game.size, delta);
+                slime.draw(game.gameBatch, game.size, delta);
             }
         }
         for (Lever lever: levers){
-            lever.draw(game.batch, game.size);
+            lever.draw(game.gameBatch, game.size);
         }
         for (Slime slime: slimes){
             if (Math.abs(slime.getX() - player.getX()) < 6 && Math.abs(slime.getY() - player.getY()) < 5) {
-                slime.blast_drow(game.batch, game.size, delta);
+                slime.blast_drow(game.gameBatch, game.size, delta);
             }
         }
         if (game.vertical_otstup!=0){
-            game.batch.draw(game.border, game.up_border_x-game.size, game.up_border_y, game.width+2*game.size, game.vertical_otstup+game.size);
-            game.batch.draw(game.border, game.down_border_x-game.size, game.down_border_y-game.size, game.width+2*game.size, game.vertical_otstup+game.size);
+            game.gameBatch.draw(game.border, game.up_border_x-game.size, game.up_border_y, game.width+2*game.size, game.vertical_otstup+game.size);
+            game.gameBatch.draw(game.border, game.down_border_x-game.size, game.down_border_y-game.size, game.width+2*game.size, game.vertical_otstup+game.size);
         }
         if (game.horizontal_otstup!=0) {
-            game.batch.draw(game.border, game.left_border_x - game.size, game.left_border_y - game.size, game.horizontal_otstup + game.size, game.height + 2 * game.size);
-            game.batch.draw(game.border, game.right_border_x - game.size, game.right_border_y - game.size, game.horizontal_otstup + 2*game.size, game.height + 2 * game.size);
+            game.gameBatch.draw(game.border, game.left_border_x - game.size, game.left_border_y - game.size, game.horizontal_otstup + game.size, game.height + 2 * game.size);
+            game.gameBatch.draw(game.border, game.right_border_x - game.size, game.right_border_y - game.size, game.horizontal_otstup + 2*game.size, game.height + 2 * game.size);
         }
-        if (is_attack) game.batch.draw(game.activ_attack_button, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y+game.size, game.size, game.size);
-        else game.batch.draw(game.passiv_attack_button, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y+game.size, game.size, game.size);
-        game.batch.draw(game.waiting_button, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y+game.size*2, game.size, game.size);
+        if (is_attack) game.gameBatch.draw(game.activ_attack_button, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y+game.size, game.size, game.size);
+        else game.gameBatch.draw(game.passiv_attack_button, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y+game.size, game.size, game.size);
+        game.gameBatch.draw(game.waiting_button, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y+game.size*2, game.size, game.size);
 
-        game.batch.draw(game.info_window, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y + game.size * 4, game.size, game.size * 2);
+        game.gameBatch.draw(game.info_window, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y + game.size * 4, game.size, game.size * 2);
         if (!game.is_english) {
-            game.info_font.draw(game.batch, "Имя:", game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 3 / 20);
-            game.info_name_font.draw(game.batch, player.getName(), game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 7 / 20);
-            game.info_font.draw(game.batch, "Здоровье:", game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 10 / 20);
-            game.info_font.draw(game.batch, player.getHealth() + "/" + player.getMaxHealth(), game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 15 / 20);
-            game.info_font.draw(game.batch, "Ход №:", game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 20 / 20);
-            game.info_font.draw(game.batch, "" + game.moves, game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 25 / 20);
-            game.info_font.draw(game.batch, "Сила:", game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 30 / 20);
-            game.info_font.draw(game.batch, "" + player.getPower(), game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 35 / 20);
+            game.infoFont.draw(game.gameBatch, "Имя:", game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 3 / 20);
+            game.infoNameFont.draw(game.gameBatch, player.getName(), game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 7 / 20);
+            game.infoFont.draw(game.gameBatch, "Здоровье:", game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 10 / 20);
+            game.infoFont.draw(game.gameBatch, player.getHealth() + "/" + player.getMaxHealth(), game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 15 / 20);
+            game.infoFont.draw(game.gameBatch, "Ход №:", game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 20 / 20);
+            game.infoFont.draw(game.gameBatch, "" + game.moves, game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 25 / 20);
+            game.infoFont.draw(game.gameBatch, "Сила:", game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 30 / 20);
+            game.infoFont.draw(game.gameBatch, "" + player.getPower(), game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 35 / 20);
         }
         else {
-            game.info_font.draw(game.batch, "Name:", game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 3 / 20);
-            game.info_name_font.draw(game.batch, player.getName(), game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 7 / 20);
-            game.info_font.draw(game.batch, "Health:", game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 10 / 20);
-            game.info_font.draw(game.batch, player.getHealth() + "/" + player.getMaxHealth(), game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 15 / 20);
-            game.info_font.draw(game.batch, "Moves:", game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 20 / 20);
-            game.info_font.draw(game.batch, "" + game.moves, game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 25 / 20);
-            game.info_font.draw(game.batch, "Power:", game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 30 / 20);
-            game.info_font.draw(game.batch, "" + player.getPower(), game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 35 / 20);
+            game.infoFont.draw(game.gameBatch, "Name:", game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 3 / 20);
+            game.infoNameFont.draw(game.gameBatch, player.getName(), game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 7 / 20);
+            game.infoFont.draw(game.gameBatch, "Health:", game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 10 / 20);
+            game.infoFont.draw(game.gameBatch, player.getHealth() + "/" + player.getMaxHealth(), game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 15 / 20);
+            game.infoFont.draw(game.gameBatch, "Moves:", game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 20 / 20);
+            game.infoFont.draw(game.gameBatch, "" + game.moves, game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 25 / 20);
+            game.infoFont.draw(game.gameBatch, "Power:", game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 30 / 20);
+            game.infoFont.draw(game.gameBatch, "" + player.getPower(), game.right_border_x - game.size + game.size / 10, game.vertical_otstup+game.right_border_y + game.size * 6 - game.size * 35 / 20);
         }
         if (is_map_find){
             if (!is_map_activ) {
-                game.batch.draw(game.passiv_map_button, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y+game.size*3, game.size, game.size);
+                game.gameBatch.draw(game.passiv_map_button, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y+game.size*3, game.size, game.size);
             }
             else {
-                game.batch.draw(game.activ_map_button, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y+game.size*3, game.size, game.size);
+                game.gameBatch.draw(game.activ_map_button, game.right_border_x - game.size, game.vertical_otstup+game.right_border_y+game.size*3, game.size, game.size);
             }
         }
         if (is_map_activ){
-            game.batch.draw(game.map_img, game.left_border_x+game.horizontal_otstup+game.size, game.left_border_y+game.vertical_otstup, game.size*7, game.size*7);
+            game.gameBatch.draw(game.map_img, game.left_border_x+game.horizontal_otstup+game.size, game.left_border_y+game.vertical_otstup, game.size*7, game.size*7);
         }
         if (start_timer>=0){
             start_timer-=delta;
-            game.batch.draw(game.border, game.left_border_x, game.left_border_y, game.width+game.size*2, game.height+game.size*2);
+            game.gameBatch.draw(game.border, game.left_border_x, game.left_border_y, game.width+game.size*2, game.height+game.size*2);
         }
         camera.update();
-        game.batch.end();
+        game.gameBatch.end();
     }
 
     @Override

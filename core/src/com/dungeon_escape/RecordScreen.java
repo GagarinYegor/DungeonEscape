@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,7 +23,7 @@ public class RecordScreen extends ScreenAdapter {
     public RecordScreen(DungeonEscape game) {
         start_timer = 0.1f;
         sdvig = 0;
-        game.records_batch = new SpriteBatch();
+        game.recordsBatch = new SpriteBatch();
         this.game = game;
         FileHandle record_file = Gdx.files.local("text_resources/records.txt");
         if (!record_file.exists()){
@@ -86,80 +85,80 @@ public class RecordScreen extends ScreenAdapter {
     public void render(float delta) {
         Gdx.gl.glClearColor(0.25f, .25f, 0.25f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        game.records_batch.setProjectionMatrix(record_screen_camera.combined);
-        game.records_batch.begin();
+        game.recordsBatch.setProjectionMatrix(record_screen_camera.combined);
+        game.recordsBatch.begin();
         if (strings.size()>6) {
             for (int i = sdvig; i < sdvig + 5; i++) {
-                game.records_batch.draw(game.row, game.horizontal_otstup, game.vertical_otstup + game.size * (5 - i), game.size * 10, game.size);
-                game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[0], game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
-                game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[1], game.horizontal_otstup + game.size / 10 + game.size * 3.3f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                game.recordsBatch.draw(game.row, game.horizontal_otstup, game.vertical_otstup + game.size * (5 - i), game.size * 10, game.size);
+                game.recordFont.draw(game.recordsBatch, strings.get(i + 1).split(" ")[0], game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                game.recordFont.draw(game.recordsBatch, strings.get(i + 1).split(" ")[1], game.horizontal_otstup + game.size / 10 + game.size * 3.3f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
                 if (!game.is_english) {
                     if (strings.get(i + 1).split(" ")[2].contains("true")){
-                        game.record_font.draw(game.records_batch, "Пройдено", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                        game.recordFont.draw(game.recordsBatch, "Пройдено", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
                     }
                     else {
-                        game.record_font.draw(game.records_batch, "Не пройдено", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                        game.recordFont.draw(game.recordsBatch, "Не пройдено", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
                     }
                 }
                 else {
                     if (strings.get(i + 1).split(" ")[2].contains("true")){
-                        game.record_font.draw(game.records_batch, "Passed", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                        game.recordFont.draw(game.recordsBatch, "Passed", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
                     }
                     else {
-                        game.record_font.draw(game.records_batch, "Not passed", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                        game.recordFont.draw(game.recordsBatch, "Not passed", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
                     }
                 }
             }
         }
         else {
             for (int i = 0; i < strings.size() - 1; i++) {
-                game.records_batch.draw(game.row, game.horizontal_otstup, game.vertical_otstup + game.size * (5 - i), game.size * 10, game.size);
-                game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[0], game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
-                game.record_font.draw(game.records_batch, strings.get(i + 1).split(" ")[1], game.horizontal_otstup + game.size / 10 + game.size * 3.3f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                game.recordsBatch.draw(game.row, game.horizontal_otstup, game.vertical_otstup + game.size * (5 - i), game.size * 10, game.size);
+                game.recordFont.draw(game.recordsBatch, strings.get(i + 1).split(" ")[0], game.horizontal_otstup + game.size / 10, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                game.recordFont.draw(game.recordsBatch, strings.get(i + 1).split(" ")[1], game.horizontal_otstup + game.size / 10 + game.size * 3.3f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
                 if (!game.is_english) {
                     if (strings.get(i + 1).split(" ")[2].contains("true")){
-                        game.record_font.draw(game.records_batch, "Пройдено", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                        game.recordFont.draw(game.recordsBatch, "Пройдено", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
                     }
                     else {
-                        game.record_font.draw(game.records_batch, "Не пройдено", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                        game.recordFont.draw(game.recordsBatch, "Не пройдено", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
                     }
                 }
                 else {
                     if (strings.get(i + 1).split(" ")[2].contains("true")){
-                        game.record_font.draw(game.records_batch, "Passed", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                        game.recordFont.draw(game.recordsBatch, "Passed", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
                     }
                     else {
-                        game.record_font.draw(game.records_batch, "Not passed", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
+                        game.recordFont.draw(game.recordsBatch, "Not passed", game.horizontal_otstup + game.size / 10 + game.size * 6.6f, game.vertical_otstup + game.size * (6 - i) - game.size / 3);
                     }
                 }
            }
         }
         if (sdvig != strings.size()-6 && strings.size()>6) {
-            game.records_batch.draw(game.arrow_down, game.horizontal_otstup+game.size*9, game.vertical_otstup-game.size*sdvig, game.size, game.size);
+            game.recordsBatch.draw(game.arrow_down, game.horizontal_otstup+game.size*9, game.vertical_otstup-game.size*sdvig, game.size, game.size);
         }
-        else game.records_batch.draw(game.arrow_no, game.horizontal_otstup+game.size*9, game.vertical_otstup-game.size*sdvig, game.size, game.size);
+        else game.recordsBatch.draw(game.arrow_no, game.horizontal_otstup+game.size*9, game.vertical_otstup-game.size*sdvig, game.size, game.size);
         if (sdvig !=0) {
-            game.records_batch.draw(game.arrow_up, game.horizontal_otstup, game.vertical_otstup-game.size*sdvig, game.size, game.size);
+            game.recordsBatch.draw(game.arrow_up, game.horizontal_otstup, game.vertical_otstup-game.size*sdvig, game.size, game.size);
         }
-        else game.records_batch.draw(game.arrow_no, game.horizontal_otstup, game.vertical_otstup-game.size*sdvig, game.size, game.size);
+        else game.recordsBatch.draw(game.arrow_no, game.horizontal_otstup, game.vertical_otstup-game.size*sdvig, game.size, game.size);
         if (!game.is_english) {
-            game.records_batch.draw(game.return_button, game.horizontal_otstup + game.size, game.vertical_otstup - game.size * sdvig, game.size * 8, game.size);
+            game.recordsBatch.draw(game.return_button, game.horizontal_otstup + game.size, game.vertical_otstup - game.size * sdvig, game.size * 8, game.size);
         }
         else {
-            game.records_batch.draw(game.return_button_eng, game.horizontal_otstup + game.size, game.vertical_otstup - game.size * sdvig, game.size * 8, game.size);
+            game.recordsBatch.draw(game.return_button_eng, game.horizontal_otstup + game.size, game.vertical_otstup - game.size * sdvig, game.size * 8, game.size);
         }
         if (!game.is_english) {
-            game.records_batch.draw(game.row_heading, game.horizontal_otstup, game.vertical_otstup + game.size * 6 - game.size * sdvig, game.size * 10, game.size);
+            game.recordsBatch.draw(game.row_heading, game.horizontal_otstup, game.vertical_otstup + game.size * 6 - game.size * sdvig, game.size * 10, game.size);
         }
         else {
-            game.records_batch.draw(game.row_heading_eng, game.horizontal_otstup, game.vertical_otstup + game.size * 6 - game.size * sdvig, game.size * 10, game.size);
+            game.recordsBatch.draw(game.row_heading_eng, game.horizontal_otstup, game.vertical_otstup + game.size * 6 - game.size * sdvig, game.size * 10, game.size);
         }
         if (start_timer>=0){
             start_timer-=delta;
-            game.records_batch.draw(game.border, -game.size, -game.size-game.size*sdvig, game.width+game.size*2, game.height+game.size*2);
+            game.recordsBatch.draw(game.border, -game.size, -game.size-game.size*sdvig, game.width+game.size*2, game.height+game.size*2);
         }
         record_screen_camera.update();
-        game.records_batch.end();
+        game.recordsBatch.end();
     }
 
     @Override

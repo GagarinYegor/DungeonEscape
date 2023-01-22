@@ -6,12 +6,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Lever {
     private int x, y, doorX, doorY;
-    private float speed, realX, realY, doorRealX, doorRealY;
+    private float realX, realY, doorRealX, doorRealY;
     private boolean is_activ;
     private  Texture activ_lever, passivLever, closedDoor, openedDoor;
     Sound lever_sound, openDoorSound, closeDoorSound;
-    Lever (int x, int y, int doorX, int door_y, float size, float horizontalOtstup, float verticalOtstup, Texture activLever, Texture passivlever, float speed, Texture closedDoor, Texture openedDoor, Sound leverSound, Sound openDoorSound, Sound closeDoorSound){
-        this.speed = speed;
+    Lever (int x, int y, int doorX, int door_y, float size, float horizontalOtstup, float verticalOtstup, Texture activLever, Texture passivlever, Texture closedDoor, Texture openedDoor, Sound leverSound, Sound openDoorSound, Sound closeDoorSound){
         this.x = x;
         this.y = y;
         this.doorX = doorX;

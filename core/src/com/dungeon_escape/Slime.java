@@ -17,7 +17,7 @@ public class Slime {
     private Blast blast;
     private Sound slime_attacking_sound, slime_attacked_sound;
 
-    Slime(int x, int y, float size, float horizontal_otstup, float vertical_otstup, Texture slime_texture_region, int frameCount, float speed, Texture slime_blast, Texture attacking_slime, Texture attacked_slime, Sound slime_attacking_sound, Sound slime_attacked_sound, Texture title_text_table){
+    Slime(int x, int y, float size, float horizontal_otstup, float vertical_otstup, Texture slime_texture_region, int frameCount, float speed, Texture slime_blast, Texture attacking_slime, Texture attacked_slime, Sound slime_attacking_sound, Sound slime_attacked_sound, Texture title_text_table, BitmapFont slimeFont){
         this.speed = speed;
         this.x = x;
         this.y = y;
@@ -29,9 +29,7 @@ public class Slime {
         this.attacked_slime = attacked_slime;
         slime_animation = new Animation(new TextureRegion(slime_texture_region), frameCount, 0.5f);
         this.title_text_table = title_text_table;
-        font = new BitmapFont();
-        font.setColor(Color.RED);
-        font.getData().setScale(size/100, size/75);
+        font = slimeFont;
         this.slime_attacking_sound = slime_attacking_sound;
         this.slime_attacked_sound = slime_attacked_sound;
         is_attack = false;
@@ -48,7 +46,7 @@ public class Slime {
     public void draw(SpriteBatch batch, float size, float dt) {
         if (is_alive) {
             batch.draw(title_text_table, real_x, real_y + size - size / 4, size, size / 4);
-            font.draw(batch, "Hp:"+health+"/"+max_health, real_x + size / 10, real_y + size - size / 20);
+            font.draw(batch, "  "+health+"/"+max_health, real_x + size / 10, real_y + size - size / 20);
             if (is_attacked) {
                 batch.draw(attacked_slime, real_x, real_y, size, size);
                 if (attacked_timer < 0.5f) {

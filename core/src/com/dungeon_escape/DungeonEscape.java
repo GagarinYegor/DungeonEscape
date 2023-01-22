@@ -16,9 +16,9 @@ import java.util.Scanner;
 
 public class DungeonEscape extends Game {
 
-	SpriteBatch batch, records_batch, main_menu_batch, death_screen_batch, win_screen_batch, settings_batch;
+	SpriteBatch gameBatch, recordsBatch, mainMenuBatch, deathScreenBatch, winScreenBatch, settingsBatch;
 
-	BitmapFont info_font, record_font, death_screen_font, win_screen_font, info_name_font, setting_font;
+	BitmapFont infoFont, recordFont, deathScreenFont, winScreenFont, infoNameFont, settingFont, slimeFont;
 
 	Texture green_slime_texture_region, slime_blast, green_slime_attacked, green_slime_attacking,
 			player_texture_region_right, player_texture_region_left, player_blast,
@@ -67,7 +67,7 @@ public class DungeonEscape extends Game {
 	public void create() {
 		is_english = false;
 		attack_button_auto_reset = false;
-		batch = new SpriteBatch();
+		gameBatch = new SpriteBatch();
 		name = "";
 
 		//slime res
@@ -242,27 +242,31 @@ public class DungeonEscape extends Game {
 
 		parameter.size = (int)(size/2.1f);
 		parameter.color = Color.WHITE;
-		death_screen_font = generator.generateFont(parameter);
+		deathScreenFont = generator.generateFont(parameter);
 
 		parameter.size = (int)(size/2.3f);
 		parameter.color = Color.WHITE;
-		win_screen_font = generator.generateFont(parameter);
+		winScreenFont = generator.generateFont(parameter);
 
 		parameter.size = (int)(size/5.5f);
 		parameter.color = Color.BLACK;
-		info_font = generator.generateFont(parameter);
+		infoFont = generator.generateFont(parameter);
 
 		parameter.size = (int)(size/7.6f);
 		parameter.color = Color.BLACK;
-		info_name_font = generator.generateFont(parameter);
+		infoNameFont = generator.generateFont(parameter);
 
 		parameter.size = (int)(size/2.1f);
 		parameter.color = Color.DARK_GRAY;
-		record_font = generator.generateFont(parameter);
+		recordFont = generator.generateFont(parameter);
 
 		parameter.size = (int)(size/2.1f);
 		parameter.color = Color.DARK_GRAY;
-		setting_font = generator.generateFont(parameter);
+		settingFont = generator.generateFont(parameter);
+
+		parameter.size = (int)(size/5.5f);
+		parameter.color = Color.RED;
+		slimeFont = generator.generateFont(parameter);
 
 		generator.dispose();
 
@@ -355,19 +359,19 @@ public class DungeonEscape extends Game {
 		yes_button_eng_activ.dispose();
 		no_button_eng_activ.dispose();
 
-		info_font.dispose();
-		record_font.dispose();
-		death_screen_font.dispose();
-		win_screen_font.dispose();
-		info_name_font.dispose();
-		setting_font.dispose();
+		infoFont.dispose();
+		recordFont.dispose();
+		deathScreenFont.dispose();
+		winScreenFont.dispose();
+		infoNameFont.dispose();
+		settingFont.dispose();
 
-		batch.dispose();
-		records_batch.dispose();
-		main_menu_batch.dispose();
-		death_screen_batch.dispose();
-		win_screen_batch.dispose();
-		settings_batch.dispose();
+		gameBatch.dispose();
+		recordsBatch.dispose();
+		mainMenuBatch.dispose();
+		deathScreenBatch.dispose();
+		winScreenBatch.dispose();
+		settingsBatch.dispose();
 
 		slime_attacked_sound.dispose();
 		slime_attacking_sound.dispose();
