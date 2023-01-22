@@ -46,7 +46,7 @@ public class Slime {
     public void draw(SpriteBatch batch, float size, float dt) {
         if (is_alive) {
             batch.draw(title_text_table, real_x, real_y + size - size / 4, size, size / 4);
-            font.draw(batch, "  "+health+"/"+max_health, real_x + size / 10, real_y + size - size / 20);
+            font.draw(batch, "  "+health+"/"+max_health, real_x + size / 10, real_y + size - size / 15);
             if (is_attacked) {
                 batch.draw(attacked_slime, real_x, real_y, size, size);
                 if (attacked_timer < 0.5f) {
