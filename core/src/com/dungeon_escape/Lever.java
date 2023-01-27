@@ -54,4 +54,5 @@ public class Lever {
     public int getY(){
         return y;
     }
+    public boolean isActiv() {return isActiv;}
 }

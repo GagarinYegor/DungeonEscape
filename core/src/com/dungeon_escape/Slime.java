@@ -127,6 +127,9 @@ public class Slime {
     public int getHealth(){
         return health;
     }
+    public int getMaxHealth(){
+        return max_health;
+    }
     public int getPower(){
         return power;
     }

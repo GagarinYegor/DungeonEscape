@@ -21,6 +21,32 @@ public class GameScreen extends ScreenAdapter {
     float start_timer, camera_move_up, camera_move_down, camera_move_left, camera_move_right;
     boolean is_hod, is_attack, check_flag, slime_hod, is_map_find, is_map_activ;
 
+    private void save() {
+        FileHandle saved_file = Gdx.files.local("text_resources/saved_records.txt");
+        saved_file.writeString("///moves///" + "\n", false);
+        saved_file.writeString(game.moves + "\n", true);
+        saved_file.writeString("///is_map_find, is_map_activ, is_attack///" + "\n", true);
+        String text = "";
+        if (is_map_find) text += "1 ";
+        else text += "0 ";
+        if (is_map_activ) text += "1 ";
+        else text += "0 ";
+        if (is_attack) text += "1" + "\n";
+        else text += "0" + "\n";
+        saved_file.writeString(text, true);
+        saved_file.writeString("///playerX, playerY, name, health, maxHealth///" + "\n", true);
+        saved_file.writeString(player.getX() + " " + player.getY() + " " + player.getName() + " " + player.getMaxHealth() + " " + player.getHealth() + "\n", true);
+        saved_file.writeString("///slimes///" + "\n", true);
+        for (int i = 0; i<slimes.length; i++) {
+            saved_file.writeString(slimes[i].getY() + " " + slimes[i].getX() + " " + slimes[i].getHealth() + " " + slimes[i].getMaxHealth() + "\n", true);
+        }
+        saved_file.writeString("///levers///" + "\n", true);
+        for (int i = 0; i<levers.length; i++) {
+            if (levers[i].isActiv()) saved_file.writeString("1" + "\n", true);
+            else saved_file.writeString("0" + "\n", true);
+        }
+    }
+
     public void check_hod(){
         if (player.getX() == 20 && player.getY() == 0){
             game.theme.stop();
@@ -77,6 +103,7 @@ public class GameScreen extends ScreenAdapter {
         }
         slime_move();
         game.moves+=1;
+        save();
     }
 
     public void slime_move(){
@@ -334,7 +361,6 @@ public class GameScreen extends ScreenAdapter {
                 }
             }
         }
-
         else {
             game.moves = 0;
             is_map_find = false;
@@ -508,39 +534,6 @@ public class GameScreen extends ScreenAdapter {
                         }
                         return true;
                     }
-                }
-                return false;
-            }
-
-            @Override
-            public boolean keyDown(int keycode) {
-                if (keycode == Input.Keys.UP){
-                    player.move(0, 1);
-                    camera.translate(0, game.size);
-                    return true;
-                }
-                if (keycode == Input.Keys.DOWN){
-                    player.move(0, -1);
-                    camera.translate(0, -game.size);
-                    return true;
-                }
-                if (keycode == Input.Keys.RIGHT){
-                    player.move(1, 0);
-                    camera.translate(game.size, 0);
-                    return true;
-                }
-                if (keycode == Input.Keys.LEFT){
-                    player.move(-1, 0);
-                    camera.translate(-game.size, 0);
-                    return true;
-                }
-                if (keycode == Input.Keys.Q){
-                    camera.zoom+=game.size/500;
-                    return true;
-                }
-                if (keycode == Input.Keys.A){
-                    camera.zoom-=game.size/500;
-                    return true;
                 }
                 return false;
             }
