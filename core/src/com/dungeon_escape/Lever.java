@@ -10,7 +10,7 @@ public class Lever {
     private boolean isActiv;
     private  Texture activLever, passivLever, closedDoor, openedDoor;
     private Sound lever_sound, openDoorSound, closeDoorSound;
-    Lever (int x, int y, int doorX, int door_y, float size, float horizontalOtstup, float verticalOtstup, Texture activLever, Texture passivlever, Texture closedDoor, Texture openedDoor, Sound leverSound, Sound openDoorSound, Sound closeDoorSound){
+    Lever (int x, int y, int doorX, int door_y, float size, float horizontalOtstup, float verticalOtstup, Texture activLever, Texture passivlever, Texture closedDoor, Texture openedDoor, Sound leverSound, Sound openDoorSound, Sound closeDoorSound, boolean isActiv){
         this.x = x;
         this.y = y;
         this.doorX = doorX;
@@ -26,7 +26,7 @@ public class Lever {
         this.lever_sound = leverSound;
         this.openDoorSound = openDoorSound;
         this.closeDoorSound = closeDoorSound;
-        isActiv = false;
+        this.isActiv = isActiv;
     }
 
     public void draw(SpriteBatch batch, float size){

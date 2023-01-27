@@ -3,8 +3,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+
+import java.util.Scanner;
+import java.util.Vector;
 
 public class GameScreen extends ScreenAdapter {
 
@@ -76,11 +80,12 @@ public class GameScreen extends ScreenAdapter {
     }
 
     public void slime_move(){
+        int damage = 0;
         for (Slime slime:slimes){
             if (slime.getHealth()>0) {
                 if (Math.abs(slime.getX() - player.getX()) < 3 && Math.abs(slime.getY() - player.getY()) < 3) {
                     slime.attacking(player.getX(), player.getY());
-                    player.attacked(slime.getPower());
+                    damage+= slime.getPower();
                     is_hod = false;
                 } else {
                     if (Math.abs(slime.getX() - player.getX()) < 5 && Math.abs(slime.getY() - player.getY()) < 5) {
@@ -204,87 +209,171 @@ public class GameScreen extends ScreenAdapter {
                 }
             }
         }
+        if (damage>0) player.attacked(damage);
     }
 
     public GameScreen(DungeonEscape game) {
+        this.game = game;
         game.theme.setLooping(true);
         game.theme.play();
         game.theme.setVolume(0.5f);
-        game.moves = 0;
         start_timer = 0.1f;
-        is_map_find = false;
-        is_map_activ = false;
         camera = new OrthographicCamera(game.width, game.height);
         camera.setToOrtho(false, game.width, game.height);
-        camera.translate(-game.size, 0);
         camera_move_up = 0;
         camera_move_down = 0;
         camera_move_left = 0;
         camera_move_right = 0;
         is_hod = true;
-        is_attack = false;
-        this.game = game;
         slimes = new Slime[game.slime_mass_y];
         cages = new Cage[game.cage_x][game.cage_y];
         levers = new Lever[game.lever_mass_y];
-        for (int i = 0; i < game.cage_x; i++){
-            for (int j = 0; j < game.cage_y; j++){
-                if (game.map[i][j].contains("sf__")) cages[i][j] = new Cage(i, j, true, game.size, game.horizontalOtstup, game.verticalOtstup, game.stoneFloorTextureRegion, 1);
-                else if (game.map[i][j].contains("sfwm")) cages[i][j] = new Cage(i, j, true, game.size, game.horizontalOtstup, game.verticalOtstup, game.sfwm, 1);
-                else if (game.map[i][j].contains("nthi")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.playerBlast, 1);
-                else if (game.map[i][j].contains("clmn")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.clmn, 1);
-                else if (game.map[i][j].contains("exit")) cages[i][j] = new Cage(i, j, true, game.size, game.horizontalOtstup, game.verticalOtstup, game.exitImg, 1);
-                else if (game.map[i][j].contains("sfsc")) cages[i][j] = new Cage(i, j, true, game.size, game.horizontalOtstup, game.verticalOtstup, game.stoneFloorSc, 1);
-                else if (game.map[i][j].contains("wdwt")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.wdwt, 12);
+        for (int i = 0; i < game.cage_x; i++) {
+            for (int j = 0; j < game.cage_y; j++) {
+                if (game.map[i][j].contains("sf__"))
+                    cages[i][j] = new Cage(i, j, true, game.size, game.horizontalOtstup, game.verticalOtstup, game.stoneFloorTextureRegion, 1);
+                else if (game.map[i][j].contains("sfwm"))
+                    cages[i][j] = new Cage(i, j, true, game.size, game.horizontalOtstup, game.verticalOtstup, game.sfwm, 1);
+                else if (game.map[i][j].contains("nthi"))
+                    cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.playerBlast, 1);
+                else if (game.map[i][j].contains("clmn"))
+                    cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.clmn, 1);
+                else if (game.map[i][j].contains("exit"))
+                    cages[i][j] = new Cage(i, j, true, game.size, game.horizontalOtstup, game.verticalOtstup, game.exitImg, 1);
+                else if (game.map[i][j].contains("sfsc"))
+                    cages[i][j] = new Cage(i, j, true, game.size, game.horizontalOtstup, game.verticalOtstup, game.stoneFloorSc, 1);
+                else if (game.map[i][j].contains("wdwt"))
+                    cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.wdwt, 12);
 
-                else if (game.map[i][j].contains("wd__")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.wd__, 1);
-                else if (game.map[i][j].contains("wu__")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.wu__, 1);
-                else if (game.map[i][j].contains("wl__")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.wl__, 1);
-                else if (game.map[i][j].contains("wr__")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.wr__, 1);
+                else if (game.map[i][j].contains("wd__"))
+                    cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.wd__, 1);
+                else if (game.map[i][j].contains("wu__"))
+                    cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.wu__, 1);
+                else if (game.map[i][j].contains("wl__"))
+                    cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.wl__, 1);
+                else if (game.map[i][j].contains("wr__"))
+                    cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.wr__, 1);
 
-                else if (game.map[i][j].contains("cul_")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.cul_, 1);
-                else if (game.map[i][j].contains("cur_")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.cur_, 1);
-                else if (game.map[i][j].contains("cdl_")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.cdl_, 1);
-                else if (game.map[i][j].contains("cdr_")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.cdr_, 1);
+                else if (game.map[i][j].contains("cul_"))
+                    cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.cul_, 1);
+                else if (game.map[i][j].contains("cur_"))
+                    cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.cur_, 1);
+                else if (game.map[i][j].contains("cdl_"))
+                    cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.cdl_, 1);
+                else if (game.map[i][j].contains("cdr_"))
+                    cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.cdr_, 1);
 
-                else if (game.map[i][j].contains("cwul")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.cwul, 1);
-                else if (game.map[i][j].contains("cwur")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.cwur, 1);
-                else if (game.map[i][j].contains("cwdl")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.cwdl, 1);
-                else if (game.map[i][j].contains("cwdr")) cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.cwdr, 1);
+                else if (game.map[i][j].contains("cwul"))
+                    cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.cwul, 1);
+                else if (game.map[i][j].contains("cwur"))
+                    cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.cwur, 1);
+                else if (game.map[i][j].contains("cwdl"))
+                    cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.cwdl, 1);
+                else if (game.map[i][j].contains("cwdr"))
+                    cages[i][j] = new Cage(i, j, false, game.size, game.horizontalOtstup, game.verticalOtstup, game.cwdr, 1);
 
-                else cages[i][j] = new Cage(i, j, true, game.size, game.horizontalOtstup, game.verticalOtstup, game.beginButton, 1);
+                else
+                    cages[i][j] = new Cage(i, j, true, game.size, game.horizontalOtstup, game.verticalOtstup, game.beginButton, 1);
             }
         }
-        for (int i = 0; i < slimes.length; i++){
-            slimes[i] = new Slime(game.slimes_mass[i][1], game.slimes_mass[i][0], game.size, game.horizontalOtstup, game.verticalOtstup, game.greenSlimeTextureRegion, 6, game.speed, game.slimeBlast, game.greenSlimeAttacking, game.greenSlimeAttacked, game.slimeAttackingSound, game.slimeAttackedSound, game.titleTextTable, game.slimeFont);
-            cages[game.slimes_mass[i][1]][game.slimes_mass[i][0]].setMovable(false);
+
+        FileHandle saved_file = Gdx.files.local("text_resources/saved_records.txt");
+        if (saved_file.exists()) {
+            Scanner saved_records_scan = new Scanner(saved_file.read());
+            Vector<String> saved_strings = new Vector<>();
+            while (saved_records_scan.hasNextLine()){
+                saved_strings.add(saved_records_scan.nextLine());
+            }
+            for (int i = 0; i < saved_strings.size(); i++){
+                System.out.println(saved_strings.get(i));
+            }
+            game.moves = Integer.parseInt(saved_strings.get(1));
+            if (saved_strings.get(3).split(" ")[0].equals("0")) is_map_find = false;
+            else is_map_find = true;
+            if (saved_strings.get(3).split(" ")[1].equals("0")) is_map_activ = false;
+            else is_map_activ = true;
+            if (saved_strings.get(3).split(" ")[2].equals("0")) is_attack = false;
+            else is_attack = true;
+            player = new Player(Integer.parseInt(saved_strings.get(5).split(" ")[0]), Integer.parseInt(saved_strings.get(5).split(" ")[1]), game.size, game.horizontalOtstup, game.verticalOtstup,
+                    game.playerTextureRegionRight, game.playerTextureRegionLeft,
+                    12,
+                    game.playerTextureRegionMowingRight, game.playerTextureRegionMowingLeft,
+                    14,
+                    game.speed, game.playerBlast,
+                    game.playerAttackingRight, game.playerAttackedRight,
+                    game.playerAttackingLeft, game.playerAttackedLeft,
+                    game.playerAttackingSound, game.sound, saved_strings.get(5).split(" ")[2], Integer.parseInt(saved_strings.get(5).split(" ")[3]), Integer.parseInt(saved_strings.get(5).split(" ")[4]));
+            camera.translate((player.getX()-4)*game.size, (player.getY()-3)*game.size);
+            game.name = player.getName();
+            for (int i = 0; i < slimes.length; i++) {
+                slimes[i] = new Slime(Integer.parseInt(saved_strings.get(7+i).split(" ")[1]),
+                        Integer.parseInt(saved_strings.get(7+i).split(" ")[0]), game.size,
+                        game.horizontalOtstup, game.verticalOtstup, game.greenSlimeTextureRegion,
+                        6, game.speed, game.slimeBlast, game.greenSlimeAttacking,
+                        game.greenSlimeAttacked, game.slimeAttackingSound, game.slimeAttackedSound,
+                        game.titleTextTable, game.slimeFont, Integer.parseInt(saved_strings.get(7+i).split(" ")[2]),
+                        Integer.parseInt(saved_strings.get(7+i).split(" ")[3]));
+                cages[slimes[i].getX()][slimes[i].getY()].setMovable(false);
+            }
+            System.out.println(slimes.length);
+            for (int i = 0; i < game.lever_mass_y; i++) {
+                if (game.levers_mass[i][4] == 0) {
+                    levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontalOtstup, game.verticalOtstup, game.activLever, game.passivLever, game.cvd, game.ovd, game.leverSound, game.openDoorsSound, game.closedDoorsSound, saved_strings.get(8+slimes.length+i).equals("1"));
+                    cages[game.levers_mass[i][0]][game.levers_mass[i][1]].setMovable(false);
+                    cages[game.levers_mass[i][2]][game.levers_mass[i][3]].setMovable(saved_strings.get(8+slimes.length+i).equals("1"));
+                }
+                if (game.levers_mass[i][4] == 1) {
+                    levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontalOtstup, game.verticalOtstup, game.activLever, game.passivLever, game.chd, game.ohd, game.slimeAttackedSound, game.openDoorsSound, game.closedDoorsSound, saved_strings.get(8+slimes.length+i).equals("1"));
+                    cages[game.levers_mass[i][0]][game.levers_mass[i][1]].setMovable(false);
+                    cages[game.levers_mass[i][2]][game.levers_mass[i][3]].setMovable(saved_strings.get(8+slimes.length+i).equals("1"));
+                }
+                if (game.levers_mass[i][4] == 2) {
+                    levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontalOtstup, game.verticalOtstup, game.playerBlast, game.playerBlast, game.exitDoor, game.exitDoor, game.slimeAttackedSound, game.openDoorsSound, game.closedDoorsSound, saved_strings.get(8+slimes.length+i).equals("1"));
+                    cages[game.levers_mass[i][0]][game.levers_mass[i][1]].setMovable(false);
+                    cages[game.levers_mass[i][2]][game.levers_mass[i][3]].setMovable(saved_strings.get(8+slimes.length+i).equals("1"));
+                }
+            }
         }
-        for (int i=0; i< game.lever_mass_y; i++){
-            if (game.levers_mass[i][4] == 0) {
-                levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontalOtstup, game.verticalOtstup, game.activLever, game.passivLever, game.cvd, game.ovd, game.leverSound, game.openDoorsSound, game.closedDoorsSound);
-                cages[game.levers_mass[i][0]][game.levers_mass[i][1]].setMovable(false);
-                cages[game.levers_mass[i][2]][game.levers_mass[i][3]].setMovable(false);
+
+        else {
+            game.moves = 0;
+            is_map_find = false;
+            is_map_activ = false;
+            player = new Player(3, 3, game.size, game.horizontalOtstup, game.verticalOtstup,
+                    game.playerTextureRegionRight, game.playerTextureRegionLeft,
+                    12,
+                    game.playerTextureRegionMowingRight, game.playerTextureRegionMowingLeft,
+                    14,
+                    game.speed, game.playerBlast,
+                    game.playerAttackingRight, game.playerAttackedRight,
+                    game.playerAttackingLeft, game.playerAttackedLeft,
+                    game.playerAttackingSound, game.sound, game.name, 100, 100);
+            camera.translate(-game.size, 0);
+            is_attack = false;
+
+            for (int i = 0; i < slimes.length; i++) {
+                slimes[i] = new Slime(game.slimes_mass[i][1], game.slimes_mass[i][0], game.size, game.horizontalOtstup, game.verticalOtstup, game.greenSlimeTextureRegion, 6, game.speed, game.slimeBlast, game.greenSlimeAttacking, game.greenSlimeAttacked, game.slimeAttackingSound, game.slimeAttackedSound, game.titleTextTable, game.slimeFont, 100, 100);
+                cages[slimes[i].getX()][slimes[i].getY()].setMovable(false);
             }
-            if (game.levers_mass[i][4] == 1) {
-                levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontalOtstup, game.verticalOtstup, game.activLever, game.passivLever, game.chd, game.ohd, game.slimeAttackedSound, game.openDoorsSound, game.closedDoorsSound);
-                cages[game.levers_mass[i][0]][game.levers_mass[i][1]].setMovable(false);
-                cages[game.levers_mass[i][2]][game.levers_mass[i][3]].setMovable(false);
-            }
-            if (game.levers_mass[i][4] == 2) {
-                levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontalOtstup, game.verticalOtstup, game.playerBlast, game.playerBlast, game.exitDoor, game.exitDoor, game.slimeAttackedSound, game.openDoorsSound, game.closedDoorsSound);
-                cages[game.levers_mass[i][0]][game.levers_mass[i][1]].setMovable(false);
-                cages[game.levers_mass[i][2]][game.levers_mass[i][3]].setMovable(true);
+
+            for (int i = 0; i < game.lever_mass_y; i++) {
+                if (game.levers_mass[i][4] == 0) {
+                    levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontalOtstup, game.verticalOtstup, game.activLever, game.passivLever, game.cvd, game.ovd, game.leverSound, game.openDoorsSound, game.closedDoorsSound, false);
+                    cages[game.levers_mass[i][0]][game.levers_mass[i][1]].setMovable(false);
+                    cages[game.levers_mass[i][2]][game.levers_mass[i][3]].setMovable(false);
+                }
+                if (game.levers_mass[i][4] == 1) {
+                    levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontalOtstup, game.verticalOtstup, game.activLever, game.passivLever, game.chd, game.ohd, game.slimeAttackedSound, game.openDoorsSound, game.closedDoorsSound, false);
+                    cages[game.levers_mass[i][0]][game.levers_mass[i][1]].setMovable(false);
+                    cages[game.levers_mass[i][2]][game.levers_mass[i][3]].setMovable(false);
+                }
+                if (game.levers_mass[i][4] == 2) {
+                    levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontalOtstup, game.verticalOtstup, game.playerBlast, game.playerBlast, game.exitDoor, game.exitDoor, game.slimeAttackedSound, game.openDoorsSound, game.closedDoorsSound, false);
+                    cages[game.levers_mass[i][0]][game.levers_mass[i][1]].setMovable(false);
+                    cages[game.levers_mass[i][2]][game.levers_mass[i][3]].setMovable(true);
+                }
             }
         }
-        player = new Player(3, 3, game.size, game.horizontalOtstup, game.verticalOtstup,
-                game.playerTextureRegionRight, game.playerTextureRegionLeft,
-                12,
-                game.playerTextureRegionMowingRight, game.playerTextureRegionMowingLeft,
-                14,
-                game.speed, game.playerBlast,
-                game.playerAttackingRight, game.playerAttackedRight,
-                game.playerAttackingLeft, game.playerAttackedLeft,
-                game.playerAttackingSound, game.sound, game.name);
     }
 
     @Override

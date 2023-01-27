@@ -18,9 +18,11 @@ public class DeathScreen extends ScreenAdapter {
         this.game = game;
         FileHandle win_file = Gdx.files.local("text_resources/records.txt");
         win_file.writeString("\n"+game.name+" "+game.moves+" false", true);
+        FileHandle saved_file = Gdx.files.local("text_resources/saved_records.txt");
+        saved_file.delete();
         slimes = new Slime[10];
         for (int i = 0; i< 10; i++){
-            slimes[i] =  new Slime(i, 1, game.size, game.horizontalOtstup, game.verticalOtstup, game.greenSlimeTextureRegion, 6, game.speed, game.slimeBlast, game.greenSlimeAttacking, game.greenSlimeAttacked, game.slimeAttackingSound, game.slimeAttackedSound, game.titleTextTable, game.slimeFont);
+            slimes[i] =  new Slime(i, 1, game.size, game.horizontalOtstup, game.verticalOtstup, game.greenSlimeTextureRegion, 6, game.speed, game.slimeBlast, game.greenSlimeAttacking, game.greenSlimeAttacked, game.slimeAttackingSound, game.slimeAttackedSound, game.titleTextTable, game.slimeFont, 100, 100);
         }
         this.game = game;
     }

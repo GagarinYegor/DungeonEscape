@@ -16,6 +16,8 @@ public class WinScreen extends ScreenAdapter {
         this.game = game;
         FileHandle win_file = Gdx.files.local("text_resources/records.txt");
         win_file.writeString("\n"+game.name+" "+game.moves+" true", true);
+        FileHandle saved_file = Gdx.files.local("text_resources/saved_records.txt");
+        saved_file.delete();
     }
 
     @Override

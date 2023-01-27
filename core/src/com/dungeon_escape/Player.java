@@ -23,7 +23,7 @@ public class Player {
            float speed, Texture player_blast,
            Texture attackingPlayerRight, Texture attackedPlayerRight,
            Texture attackingPlayerLeft, Texture attackedPlayerLeft,
-           Sound playerAttackingSound, Sound playerAttackedSound, String name){
+           Sound playerAttackingSound, Sound playerAttackedSound, String name, int maxHealth, int health){
         this.speed = speed;
         this.x = x;
         this.y = y;
@@ -45,8 +45,8 @@ public class Player {
         isAttacked = false;
         attackedTimer = 0;
         blast = new Blast(x, y, size, horizontalOtstup, verticalOtstup, player_blast, 8, speed);
-        maxHealth = 100;
-        health = maxHealth;
+        this.maxHealth = maxHealth;
+        this.health = health;
         power = 20;
         this.name = name;
         isRight = true;

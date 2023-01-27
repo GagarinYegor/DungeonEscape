@@ -3,6 +3,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -37,7 +38,7 @@ public class MainMenuScreen extends ScreenAdapter {
         slime = new Slime(7, 5, game.size, game.horizontalOtstup, game.verticalOtstup,
                 game.greenSlimeTextureRegion, 6, game.speed, game.slimeBlast,
                 game.greenSlimeAttacking, game.greenSlimeAttacked,
-                game.slimeAttackingSound, game.slimeAttackedSound, game.titleTextTable, game.slimeFont);
+                game.slimeAttackingSound, game.slimeAttackedSound, game.titleTextTable, game.slimeFont, 100, 100);
 
         player = new Player(2, 5, game.size, game.horizontalOtstup, game.verticalOtstup,
                 game.playerTextureRegionRight, game.playerTextureRegionLeft,
@@ -47,7 +48,7 @@ public class MainMenuScreen extends ScreenAdapter {
                 game.speed, game.playerBlast,
                 game.playerAttackingRight, game.playerAttackedRight,
                 game.playerAttackingLeft, game.playerAttackedLeft,
-                game.playerAttackingSound, game.sound, "");
+                game.playerAttackingSound, game.sound, "", 100, 100);
 
         is_dialog_open = false;
         is_correct_name = false;
@@ -55,16 +56,16 @@ public class MainMenuScreen extends ScreenAdapter {
         game.listener = new Input.TextInputListener() {
             @Override
             public void input(String s) {
-                if (s.length()<=10&&s.length()>=1){
+                if (s.length()<=10&&s.length()>=1&&!s.equals(" ")){
                     game.name = s;
                     is_correct_name = true;
                 }
                 else {
                     if (!game.is_english){
-                        Gdx.input.getTextInput(game.listener, "Имя должно состоять из 1-10 букв", game.name, "");
+                        Gdx.input.getTextInput(game.listener, "Имя должно состоять из 1-10 букв без пробела", game.name, "");
                     }
                     else {
-                        Gdx.input.getTextInput(game.listener, "Name shoud be 1-10 letters", game.name, "");
+                        Gdx.input.getTextInput(game.listener, "Name shoud be 1-10 letters without spaces", game.name, "");
                     }
                 }
             }
@@ -97,13 +98,18 @@ public class MainMenuScreen extends ScreenAdapter {
                     touch_y = (int) ((game.height - (game.verticalOtstup +Gdx.input.getY())) / game.size - 1);
                 }
                 if (button == Input.Buttons.LEFT && touch_y == 2 && touch_x >= 0 && touch_x <= 9) {
-                    if (!is_dialog_open) {
-                        is_dialog_open = true;
-                        if (!game.is_english) {
-                            Gdx.input.getTextInput(game.listener, "Введите имя:", game.name, "");
-                        }
-                        else {
-                            Gdx.input.getTextInput(game.listener, "Enter your name:", game.name, "");
+                    FileHandle saved_file = Gdx.files.local("text_resources/saved_records.txt");
+                    if (saved_file.exists()) {
+                        is_correct_name = true;
+                    }
+                    else {
+                        if (!is_dialog_open) {
+                            is_dialog_open = true;
+                            if (!game.is_english) {
+                                Gdx.input.getTextInput(game.listener, "Введите имя:", game.name, "");
+                            } else {
+                                Gdx.input.getTextInput(game.listener, "Enter your name:", game.name, "");
+                            }
                         }
                     }
                     return true;

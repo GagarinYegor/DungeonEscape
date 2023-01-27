@@ -17,7 +17,10 @@ public class Slime {
     private Blast blast;
     private Sound slime_attacking_sound, slime_attacked_sound;
 
-    Slime(int x, int y, float size, float horizontal_otstup, float vertical_otstup, Texture slime_texture_region, int frameCount, float speed, Texture slime_blast, Texture attacking_slime, Texture attacked_slime, Sound slime_attacking_sound, Sound slime_attacked_sound, Texture title_text_table, BitmapFont slimeFont){
+    Slime(int x, int y, float size, float horizontal_otstup, float vertical_otstup,
+          Texture slime_texture_region, int frameCount, float speed, Texture slime_blast,
+          Texture attacking_slime, Texture attacked_slime, Sound slime_attacking_sound,
+          Sound slime_attacked_sound, Texture title_text_table, BitmapFont slimeFont, int health, int max_health){
         this.speed = speed;
         this.x = x;
         this.y = y;
@@ -38,8 +41,8 @@ public class Slime {
         blast = new Blast(x, y, size, horizontal_otstup, vertical_otstup, slime_blast, 8, speed);
         this.size = size;
         is_alive = true;
-        max_health = 100;
-        health = max_health;
+        this.max_health = max_health;
+        this.health = health;
         power = 15;
     }
 
