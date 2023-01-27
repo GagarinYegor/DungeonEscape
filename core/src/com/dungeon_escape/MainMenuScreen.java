@@ -56,7 +56,7 @@ public class MainMenuScreen extends ScreenAdapter {
         game.listener = new Input.TextInputListener() {
             @Override
             public void input(String s) {
-                if (s.length()<=10&&s.length()>=1&&!s.equals(" ")){
+                if (s.length()<=10&&s.length()>=1&&s.indexOf(" ")==-1){
                     game.name = s;
                     is_correct_name = true;
                 }
