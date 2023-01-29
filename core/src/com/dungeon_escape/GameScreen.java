@@ -228,7 +228,6 @@ public class GameScreen extends ScreenAdapter {
                                 else if (cages[slime.getX()][slime.getY()-1].getMovable()) slime.move(0, -1);
                                 else if (cages[slime.getX()-1][slime.getY()].getMovable()) slime.move(-1, 0);
                             }
-
                             slime_hod = false;
                             //cages[slime.getX()][slime.getY()].set_movable(false);
                         }
