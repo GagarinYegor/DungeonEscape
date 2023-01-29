@@ -356,8 +356,8 @@ public class GameScreen extends ScreenAdapter {
                 }
                 if (game.levers_mass[i][4] == 2) {
                     levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontalOtstup, game.verticalOtstup, game.playerBlast, game.playerBlast, game.exitDoor, game.exitDoor, game.slimeAttackedSound, game.openDoorsSound, game.closedDoorsSound, saved_strings.get(8+slimes.length+i).equals("1"));
-                    cages[game.levers_mass[i][0]][game.levers_mass[i][1]].setMovable(false);
-                    cages[game.levers_mass[i][2]][game.levers_mass[i][3]].setMovable(saved_strings.get(8+slimes.length+i).equals("1"));
+                    cages[game.levers_mass[i][0]][game.levers_mass[i][1]].setMovable(true);
+                    cages[game.levers_mass[i][2]][game.levers_mass[i][3]].setMovable(true);
                 }
             }
         }
@@ -395,7 +395,7 @@ public class GameScreen extends ScreenAdapter {
                 }
                 if (game.levers_mass[i][4] == 2) {
                     levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontalOtstup, game.verticalOtstup, game.playerBlast, game.playerBlast, game.exitDoor, game.exitDoor, game.slimeAttackedSound, game.openDoorsSound, game.closedDoorsSound, false);
-                    cages[game.levers_mass[i][0]][game.levers_mass[i][1]].setMovable(false);
+                    cages[game.levers_mass[i][0]][game.levers_mass[i][1]].setMovable(true);
                     cages[game.levers_mass[i][2]][game.levers_mass[i][3]].setMovable(true);
                 }
             }
