@@ -20,9 +20,9 @@ public class GameScreen extends ScreenAdapter {
     OrthographicCamera camera;
     float start_timer, camera_move_up, camera_move_down, camera_move_left, camera_move_right;
     boolean is_hod, is_attack, check_flag, slime_hod, is_map_find, is_map_activ;
+    FileHandle saved_file;
 
     private void save() {
-        FileHandle saved_file = Gdx.files.local("text_resources/saved_records.txt");
         saved_file.writeString("///moves///" + "\n", false);
         saved_file.writeString(game.moves + "\n", true);
         saved_file.writeString("///is_map_find, is_map_activ, is_attack///" + "\n", true);
@@ -240,6 +240,7 @@ public class GameScreen extends ScreenAdapter {
     }
 
     public GameScreen(DungeonEscape game) {
+        saved_file = Gdx.files.local("text_resources/saved_records.txt");
         this.game = game;
         game.theme.setLooping(true);
         game.theme.play();
