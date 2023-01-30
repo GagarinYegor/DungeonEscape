@@ -361,6 +361,7 @@ public class GameScreen extends ScreenAdapter {
                     cages[game.levers_mass[i][2]][game.levers_mass[i][3]].setMovable(true);
                 }
             }
+            if (is_map_find) cages[37][3].change_Animation(game.stoneFloorTextureRegion, 1);
         }
         else {
             game.moves = 0;
