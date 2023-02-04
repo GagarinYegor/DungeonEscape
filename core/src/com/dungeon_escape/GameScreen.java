@@ -19,19 +19,21 @@ public class GameScreen extends ScreenAdapter {
     Lever [] levers;
     OrthographicCamera camera;
     float start_timer, camera_move_up, camera_move_down, camera_move_left, camera_move_right;
-    boolean is_hod, is_attack, check_flag, slime_hod, is_map_find, is_map_activ;
+    boolean is_hod, is_attack, check_flag, slime_hod, is_map_find, is_map_activ, is_tips_activ, is_dialog_open, close;
     FileHandle saved_file;
 
     private void save() {
         saved_file.writeString("///moves///" + "\n", false);
         saved_file.writeString(game.moves + "\n", true);
-        saved_file.writeString("///is_map_find, is_map_activ, is_attack///" + "\n", true);
+        saved_file.writeString("///is_map_find, is_map_activ, is_attack, is_tips_activ///" + "\n", true);
         String text = "";
         if (is_map_find) text += "1 ";
         else text += "0 ";
         if (is_map_activ) text += "1 ";
         else text += "0 ";
-        if (is_attack) text += "1" + "\n";
+        if (is_attack) text += "1 ";
+        else text += "0 ";
+        if (is_tips_activ) text += "1" + "\n";
         else text += "0" + "\n";
         saved_file.writeString(text, true);
         saved_file.writeString("///playerX, playerY, name, health, maxHealth///" + "\n", true);
@@ -239,13 +241,14 @@ public class GameScreen extends ScreenAdapter {
         if (damage>0) player.attacked(damage);
     }
 
-    public GameScreen(DungeonEscape game) {
-        saved_file = Gdx.files.local("text_resources/saved_records.txt");
+    public GameScreen(final DungeonEscape game) {
         this.game = game;
+        saved_file = Gdx.files.local("text_resources/saved_records.txt");
         game.theme.setLooping(true);
         game.theme.play();
         game.theme.setVolume(0.5f);
         start_timer = 0.1f;
+        close = false;
         camera = new OrthographicCamera(game.width, game.height);
         camera.setToOrtho(false, game.width, game.height);
         camera_move_up = 0;
@@ -256,6 +259,7 @@ public class GameScreen extends ScreenAdapter {
         slimes = new Slime[game.slime_mass_y];
         cages = new Cage[game.cage_x][game.cage_y];
         levers = new Lever[game.lever_mass_y];
+        is_dialog_open = false;
         for (int i = 0; i < game.cage_x; i++) {
             for (int j = 0; j < game.cage_y; j++) {
                 if (game.map[i][j].contains("sf__"))
@@ -322,6 +326,8 @@ public class GameScreen extends ScreenAdapter {
             else is_map_activ = true;
             if (saved_strings.get(3).split(" ")[2].equals("0")) is_attack = false;
             else is_attack = true;
+            if (saved_strings.get(3).split(" ")[3].equals("0")) is_tips_activ = false;
+            else is_tips_activ = true;
             player = new Player(Integer.parseInt(saved_strings.get(5).split(" ")[0]), Integer.parseInt(saved_strings.get(5).split(" ")[1]), game.size, game.horizontalOtstup, game.verticalOtstup,
                     game.playerTextureRegionRight, game.playerTextureRegionLeft,
                     12,
@@ -367,6 +373,7 @@ public class GameScreen extends ScreenAdapter {
             game.moves = 0;
             is_map_find = false;
             is_map_activ = false;
+            is_tips_activ = false;
             player = new Player(3, 3, game.size, game.horizontalOtstup, game.verticalOtstup,
                     game.playerTextureRegionRight, game.playerTextureRegionLeft,
                     12,
@@ -402,6 +409,28 @@ public class GameScreen extends ScreenAdapter {
                 }
             }
         }
+        game.gameListener = new Input.TextInputListener() {
+            @Override
+            public void input(String s) {
+                if ((!game.is_english && s.equals("Да")) || (game.is_english && s.equals("Yes"))) {
+                    close = true;
+                }
+                else {
+                    if (!game.is_english) {
+                        is_dialog_open = true;
+                        Gdx.input.getTextInput(game.gameListener, "Вы уверены что хотите отменить игру?", "", "Введите \"Да\" в это поле");
+                    } else {
+                        is_dialog_open = true;
+                        Gdx.input.getTextInput(game.gameListener, "Are you sure you want to cancel the game?", "", "Enter \"Yes\" here");
+                    }
+                }
+            }
+
+            @Override
+            public void canceled() {
+                is_dialog_open = false;
+            }
+        };
     }
 
     @Override
@@ -423,13 +452,30 @@ public class GameScreen extends ScreenAdapter {
                     touch_y = (int) ((game.height - (game.verticalOtstup +Gdx.input.getY())) / game.size - 1);
                 }
                 if (button == Input.Buttons.LEFT) {
-                    if (touch_x == 9 && touch_y == 3 && is_map_find) {
+                    if (touch_x == 9 && touch_y == 3 && is_map_find && !is_tips_activ && !is_dialog_open) {
                         is_map_activ = !is_map_activ;
+                        save();
                     }
-                    if (touch_x == 9 && touch_y == 1) {
+                    if (touch_x == 9 && touch_y == 1 && !is_map_activ && !is_tips_activ && !is_dialog_open) {
                         is_attack = !is_attack;
+                        save();
                     }
-                    if(!is_map_activ) {
+                    if (touch_x == 9 && touch_y == 6 && !is_map_activ && !is_dialog_open) {
+                        is_tips_activ = !is_tips_activ;
+                        save();
+                    }
+                    if (touch_x == 9 && touch_y == 0 && !is_map_activ && !is_tips_activ) {
+                        if (!is_dialog_open) {
+                            if (!game.is_english) {
+                                is_dialog_open = true;
+                                Gdx.input.getTextInput(game.gameListener, "Вы уверены что хотите отменить игру?", "", "Введите \"Да\" в это поле");
+                            } else {
+                                is_dialog_open = true;
+                                Gdx.input.getTextInput(game.gameListener, "Are you sure you want to cancel the game?", "", "Enter \"Yes\" here");
+                            }
+                        }
+                    }
+                    if(!is_map_activ && !is_tips_activ && !is_dialog_open) {
                         if (is_hod) {
                             if (touch_x == 9 && touch_y == 2) {
                                 hod_end();
@@ -544,6 +590,9 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+        if (close) {
+            game.setScreen(new DeathScreen(game));
+        }
         check_hod();
         for (Slime slime:slimes){
             if (slime.getHealth()<=0){
@@ -636,6 +685,9 @@ public class GameScreen extends ScreenAdapter {
         }
         if (is_attack) game.gameBatch.draw(game.activAttackButton, game.right_border_x - game.size, game.verticalOtstup +game.right_border_y+game.size, game.size, game.size);
         else game.gameBatch.draw(game.passivAttackButton, game.right_border_x - game.size, game.verticalOtstup +game.right_border_y+game.size, game.size, game.size);
+        if (is_tips_activ) game.gameBatch.draw(game.activTipsButton, game.right_border_x - game.size, game.verticalOtstup +game.right_border_y+game.size*6, game.size, game.size);
+        else game.gameBatch.draw(game.passivTipsButton, game.right_border_x - game.size, game.verticalOtstup +game.right_border_y+game.size*6, game.size, game.size);
+        game.gameBatch.draw(game.close_button, game.right_border_x - game.size, game.verticalOtstup +game.right_border_y+game.size*0, game.size, game.size);
         game.gameBatch.draw(game.waitingButton, game.right_border_x - game.size, game.verticalOtstup +game.right_border_y+game.size*2, game.size, game.size);
 
         game.gameBatch.draw(game.infoWindow, game.right_border_x - game.size, game.verticalOtstup +game.right_border_y + game.size * 4, game.size, game.size * 2);
@@ -670,6 +722,7 @@ public class GameScreen extends ScreenAdapter {
         if (is_map_activ){
             game.gameBatch.draw(game.mapImg, game.left_border_x+game.horizontalOtstup +game.size, game.left_border_y+game.verticalOtstup, game.size*7, game.size*7);
         }
+
         if (start_timer>=0){
             start_timer-=delta;
             game.gameBatch.draw(game.border, game.left_border_x, game.left_border_y, game.width+game.size*2, game.height+game.size*2);

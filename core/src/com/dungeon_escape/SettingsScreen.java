@@ -12,11 +12,37 @@ public class SettingsScreen extends ScreenAdapter {
 
     DungeonEscape game;
     float start_timer;
+    boolean is_dialog_open;
 
-    public SettingsScreen(DungeonEscape game) {
+    public SettingsScreen(final DungeonEscape game) {
         start_timer = 0.1f;
+        is_dialog_open = false;
         game.settingsBatch = new SpriteBatch();
         this.game = game;
+        game.settingsListener = new Input.TextInputListener() {
+            @Override
+            public void input(String s) {
+                if ((!game.is_english && s.equals("Да")) || (game.is_english && s.equals("Yes"))) {
+                    start_timer = 0.1f;
+                    FileHandle win_file = Gdx.files.local("text_resources/records.txt");
+                    win_file.writeString("", false);
+                    is_dialog_open = false;
+                }
+                else {
+                    if (!game.is_english) {
+                        is_dialog_open = true;
+                        Gdx.input.getTextInput(game.settingsListener, "Вы уверены что хотите очистить попытки?", "", "Введите \"Да\" в это поле");
+                    } else {
+                        is_dialog_open = true;
+                        Gdx.input.getTextInput(game.settingsListener, "Are you sure you want to erase the history?", "", "Enter \"Yes\" here");
+                    }
+                }
+            }
+            @Override
+            public void canceled() {
+                is_dialog_open = false;
+            }
+        };
     }
 
     @Override
@@ -37,32 +63,35 @@ public class SettingsScreen extends ScreenAdapter {
                 else {
                     touch_y = (int) ((game.height - (game.verticalOtstup +Gdx.input.getY())) / game.size - 1);
                 }
-                if (button == Input.Buttons.LEFT && touch_y == 0 && touch_x >= 0 && touch_x <= 9) {
+                if (button == Input.Buttons.LEFT && touch_y == 0 && touch_x >= 0 && touch_x <= 9 && !is_dialog_open) {
                     game.setScreen(new MainMenuScreen(game));
                     return true;
                 }
-                if (button == Input.Buttons.LEFT && touch_y == 3 && touch_x >= 0 && touch_x <= 4 && !game.is_english) {
+                if (button == Input.Buttons.LEFT && touch_y == 3 && touch_x >= 0 && touch_x <= 4 && !game.is_english && !is_dialog_open) {
                     start_timer = 0.1f;
                     game.is_english = true;
                     return true;
                 }
-                if (button == Input.Buttons.LEFT && touch_y == 3 && touch_x >= 5 && touch_x <= 9 && game.is_english) {
+                if (button == Input.Buttons.LEFT && touch_y == 3 && touch_x >= 5 && touch_x <= 9 && game.is_english && !is_dialog_open) {
                     start_timer = 0.1f;
                     game.is_english = false;
                     return true;
                 }
                 if (button == Input.Buttons.LEFT && touch_y == 1 && touch_x >= 0 && touch_x <= 9) {
-                    start_timer = 0.1f;
-                    FileHandle win_file = Gdx.files.local("text_resources/records.txt");
-                    win_file.writeString("", false);
-                    return true;
+                    if (!game.is_english) {
+                        is_dialog_open = true;
+                        Gdx.input.getTextInput(game.settingsListener, "Вы уверены что хотите очистить попытки?", "", "Введите \"Да\" в это поле");
+                    } else {
+                        is_dialog_open = true;
+                        Gdx.input.getTextInput(game.settingsListener, "Are you sure you want to erase the history?", "", "Enter \"Yes\" here");
+                    }
                 }
-                if (button == Input.Buttons.LEFT && touch_y == 5 && touch_x >= 0 && touch_x <= 1 && !game.attack_button_auto_reset) {
+                if (button == Input.Buttons.LEFT && touch_y == 5 && touch_x >= 0 && touch_x <= 1 && !game.attack_button_auto_reset && !is_dialog_open) {
                     start_timer = 0.1f;
                     game.attack_button_auto_reset = true;
                     return true;
                 }
-                if (button == Input.Buttons.LEFT && touch_y == 5 && touch_x >= 8 && touch_x <= 9 && game.attack_button_auto_reset) {
+                if (button == Input.Buttons.LEFT && touch_y == 5 && touch_x >= 8 && touch_x <= 9 && game.attack_button_auto_reset && !is_dialog_open) {
                     start_timer = 0.1f;
                     game.attack_button_auto_reset = false;
                     return true;

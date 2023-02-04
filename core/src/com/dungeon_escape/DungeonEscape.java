@@ -40,8 +40,8 @@ public class DungeonEscape extends Game {
 			chd, ohd, cvd, ovd,
 			screensaver, stoneFloorTextureRegion, exitImg, exitDoor, stoneFloorSc,
 			wdwt, sfwm, clmn, mapImg, passivMapButton, activMapButton, deathImg, emptyButton,
-			yesButton, noButton, yesButtonEng, noButtonEng,
-			yesButtonActiv, noButtonActiv, yesButtonEngActiv, noButtonEngActiv;
+			yesButton, noButton, yesButtonEng, noButtonEng, passivTipsButton, activTipsButton,
+			yesButtonActiv, noButtonActiv, yesButtonEngActiv, noButtonEngActiv, close_button;
 
 	Sound slimeAttackedSound, slimeAttackingSound,
 			playerAttackingSound, sound,
@@ -59,7 +59,7 @@ public class DungeonEscape extends Game {
 	int[][] slimes_mass;
 	int[][] levers_mass;
 	int cage_x, cage_y, slime_mass_x, slime_mass_y, lever_mass_x, lever_mass_y, moves;
-	Input.TextInputListener listener;
+	Input.TextInputListener listener, gameListener, settingsListener;
 	String name;
 	boolean is_english, attack_button_auto_reset;
 
@@ -147,6 +147,9 @@ public class DungeonEscape extends Game {
 		russianButtonActiv = new Texture("interface/buttons/russian_button_activ.png");
 		englishButton = new Texture("interface/buttons/english_button.png");
 		englishButtonActiv = new Texture("interface/buttons/english_button_activ.png");
+		passivTipsButton = new Texture("interface/buttons/passiv_tips_button.png");
+		activTipsButton = new Texture("interface/buttons/activ_tips_button.png");
+		close_button = new Texture("interface/buttons/close_button.png");
 
 		row = new Texture("interface/row.png");
 		arrowNext = new Texture("interface/arrow_next.png");
