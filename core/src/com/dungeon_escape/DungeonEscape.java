@@ -41,7 +41,8 @@ public class DungeonEscape extends Game {
 			screensaver, stoneFloorTextureRegion, exitImg, exitDoor, stoneFloorSc,
 			wdwt, sfwm, clmn, mapImg, passivMapButton, activMapButton, deathImg, emptyButton,
 			yesButton, noButton, yesButtonEng, noButtonEng, passivTipsButton, activTipsButton,
-			yesButtonActiv, noButtonActiv, yesButtonEngActiv, noButtonEngActiv, close_button;
+			yesButtonActiv, noButtonActiv, yesButtonEngActiv, noButtonEngActiv, close_button,
+			tip1, tip2, tip3, tip4, tip5;
 
 	Sound slimeAttackedSound, slimeAttackingSound,
 			playerAttackingSound, sound,
@@ -54,6 +55,7 @@ public class DungeonEscape extends Game {
 	final String FONT_CHARS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?№-+=()*&.;:,{}\"´`'<>";
 
 	public static final int SCR_WIDTH = 960, SCR_HEIGHT = 540;
+	//public static final int SCR_WIDTH = 540, SCR_HEIGHT = 960;
 
 	String [][] map;
 	int[][] slimes_mass;
@@ -165,6 +167,12 @@ public class DungeonEscape extends Game {
 		mapImg = new Texture("interface/map.png");
 		deathImg = new Texture("interface/death_img.png");
 		theme = Gdx.audio.newMusic(Gdx.files.internal("interface/theme.mp3"));
+
+		tip1 = new Texture("interface/tips/tip_1.png");
+		tip2 = new Texture("interface/tips/tip_2.png");
+		tip3 = new Texture("interface/tips/tip_3.png");
+		tip4 = new Texture("interface/tips/tip_4.png");
+		tip5 = new Texture("interface/tips/tip_5.png");
 
 		//walls res
 		wu__ = new Texture("walls/wu__.png");

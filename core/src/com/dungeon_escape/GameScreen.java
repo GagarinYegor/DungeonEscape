@@ -21,6 +21,7 @@ public class GameScreen extends ScreenAdapter {
     float start_timer, camera_move_up, camera_move_down, camera_move_left, camera_move_right;
     boolean is_hod, is_attack, check_flag, slime_hod, is_map_find, is_map_activ, is_tips_activ, is_dialog_open, close;
     FileHandle saved_file;
+    int currentTip;
 
     private void save() {
         saved_file.writeString("///moves///" + "\n", false);
@@ -256,6 +257,7 @@ public class GameScreen extends ScreenAdapter {
         camera_move_left = 0;
         camera_move_right = 0;
         is_hod = true;
+        currentTip = 1;
         slimes = new Slime[game.slime_mass_y];
         cages = new Cage[game.cage_x][game.cage_y];
         levers = new Lever[game.lever_mass_y];
@@ -454,6 +456,15 @@ public class GameScreen extends ScreenAdapter {
                 if (button == Input.Buttons.LEFT) {
                     if (touch_x == 9 && touch_y == 3 && is_map_find && !is_tips_activ && !is_dialog_open) {
                         is_map_activ = !is_map_activ;
+                        save();
+                    }
+                    if (touch_x == 0 && touch_y == 6 && is_tips_activ && !is_dialog_open) {
+                        if (currentTip+1<=5) {
+                            currentTip+=1;
+                        }
+                        else {
+                            currentTip=1;
+                        }
                         save();
                     }
                     if (touch_x == 9 && touch_y == 1 && !is_map_activ && !is_tips_activ && !is_dialog_open) {
@@ -721,6 +732,27 @@ public class GameScreen extends ScreenAdapter {
         }
         if (is_map_activ){
             game.gameBatch.draw(game.mapImg, game.left_border_x+game.horizontalOtstup +game.size, game.left_border_y+game.verticalOtstup, game.size*7, game.size*7);
+        }
+
+        if (is_tips_activ){
+            switch (currentTip) {
+                case 1:
+                    game.gameBatch.draw(game.tip1, game.left_border_x + game.horizontalOtstup, game.left_border_y + game.verticalOtstup, game.size * 10, game.size * 7);
+                    break;
+                case 2:
+                    game.gameBatch.draw(game.tip2, game.left_border_x + game.horizontalOtstup, game.left_border_y + game.verticalOtstup, game.size * 10, game.size * 7);
+                    break;
+                case 3:
+                    game.gameBatch.draw(game.tip3, game.left_border_x + game.horizontalOtstup, game.left_border_y + game.verticalOtstup, game.size * 10, game.size * 7);
+                    break;
+                case 4:
+                    game.gameBatch.draw(game.tip4, game.left_border_x + game.horizontalOtstup, game.left_border_y + game.verticalOtstup, game.size * 10, game.size * 7);
+                    break;
+                case 5:
+                    game.gameBatch.draw(game.tip5, game.left_border_x + game.horizontalOtstup, game.left_border_y + game.verticalOtstup, game.size * 10, game.size * 7);
+                    break;
+            }
+            game.gameBatch.draw(game.arrowNext, game.left_border_x + game.horizontalOtstup, game.left_border_y + game.verticalOtstup + game.size*6, game.size, game.size);
         }
 
         if (start_timer>=0){
