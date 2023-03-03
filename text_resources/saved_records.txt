@@ -1,9 +1,9 @@
 ///moves///
-88
+90
 ///is_map_find, is_map_activ, is_attack, is_tips_activ///
 1 0 0 0
 ///playerX, playerY, name, health, maxHealth///
-37 4 E 100 55
+37 6 E 100 65
 ///slimes///
 4 10 100 100
 4 16 100 100
