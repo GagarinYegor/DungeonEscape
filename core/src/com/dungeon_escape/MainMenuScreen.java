@@ -61,7 +61,7 @@ public class MainMenuScreen extends ScreenAdapter {
                     is_correct_name = true;
                 }
                 else {
-                    if (!game.is_english){
+                    if (!game.isEnglish){
                         Gdx.input.getTextInput(game.listener, "Имя должно состоять из 1-10 букв без пробела", game.name, "");
                     }
                     else {
@@ -105,7 +105,7 @@ public class MainMenuScreen extends ScreenAdapter {
                     else {
                         if (!is_dialog_open) {
                             is_dialog_open = true;
-                            if (!game.is_english) {
+                            if (!game.isEnglish) {
                                 Gdx.input.getTextInput(game.listener, "Введите имя:", game.name, "");
                             } else {
                                 Gdx.input.getTextInput(game.listener, "Enter your name:", game.name, "");
@@ -194,7 +194,7 @@ public class MainMenuScreen extends ScreenAdapter {
         game.mainMenuBatch.draw(game.screensaver, game.horizontalOtstup, game.verticalOtstup, game.size*10, game.size*7);
         slime.draw(game.mainMenuBatch, game.size, delta);
         player.draw(game.mainMenuBatch, game.size, delta);
-        if(!game.is_english) {
+        if(!game.isEnglish) {
             game.mainMenuBatch.draw(game.beginButton, game.horizontalOtstup + buttons_real_x, game.verticalOtstup + buttons_real_y + game.size * 2, game.size * 10, game.size);
             game.mainMenuBatch.draw(game.recordButton, game.horizontalOtstup + buttons_real_x, game.verticalOtstup + buttons_real_y + game.size, game.size * 10, game.size);
             game.mainMenuBatch.draw(game.settingsScreenButton, game.horizontalOtstup + buttons_real_x, game.verticalOtstup + buttons_real_y + game.size * 0, game.size * 10, game.size);

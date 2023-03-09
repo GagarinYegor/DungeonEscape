@@ -18,7 +18,7 @@ public class DungeonEscape extends Game {
 
 	SpriteBatch gameBatch, recordsBatch, mainMenuBatch, deathScreenBatch, winScreenBatch, settingsBatch;
 
-	BitmapFont infoFont, recordFont, deathScreenFont, winScreenFont, infoNameFont, settingFont, slimeFont;
+	BitmapFont infoFont, recordFont, deathScreenFont, winScreenFont, infoNameFont, settingFont, slimeFont, tipsFont;
 
 	Texture greenSlimeTextureRegion, slimeBlast, greenSlimeAttacked, greenSlimeAttacking,
 			playerTextureRegionRight, playerTextureRegionLeft, playerBlast,
@@ -42,7 +42,7 @@ public class DungeonEscape extends Game {
 			wdwt, sfwm, clmn, mapImg, passivMapButton, activMapButton, deathImg, emptyButton,
 			yesButton, noButton, yesButtonEng, noButtonEng, passivTipsButton, activTipsButton,
 			yesButtonActiv, noButtonActiv, yesButtonEngActiv, noButtonEngActiv, close_button,
-			tip1, tip2, tip3, tip4, tip5;
+			tip1, tip2, tip3, tip4, tip5, tip6;
 
 	Sound slimeAttackedSound, slimeAttackingSound,
 			playerAttackingSound, sound,
@@ -50,8 +50,8 @@ public class DungeonEscape extends Game {
 
 	Music theme;
 
-	float size, horizontalOtstup, verticalOtstup, left_border_x, left_border_y, right_border_x, right_border_y,
-			up_border_x, up_border_y, down_border_x, down_border_y, width, height, speed;
+	float size, horizontalOtstup, verticalOtstup, leftBorderX, leftBorderY, rightBorderX, rightBorderY,
+			upBorderX, upBorderY, downBorderX, downBorderY, width, height, speed;
 	final String FONT_CHARS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?№-+=()*&.;:,{}\"´`'<>";
 
 	public static final int SCR_WIDTH = 960, SCR_HEIGHT = 540;
@@ -60,15 +60,15 @@ public class DungeonEscape extends Game {
 	String [][] map;
 	int[][] slimes_mass;
 	int[][] levers_mass;
-	int cage_x, cage_y, slime_mass_x, slime_mass_y, lever_mass_x, lever_mass_y, moves;
+	int cageX, cageY, slimeMassX, slimeMassY, leverMassX, leverMassY, moves;
 	Input.TextInputListener listener, gameListener, settingsListener;
 	String name;
-	boolean is_english, attack_button_auto_reset;
+	boolean isEnglish, attackButtonAutoReset;
 
 	@Override
 	public void create() {
-		is_english = false;
-		attack_button_auto_reset = false;
+		isEnglish = true;
+		attackButtonAutoReset = false;
 		gameBatch = new SpriteBatch();
 		winScreenBatch = new SpriteBatch();
 		name = "";
@@ -168,11 +168,12 @@ public class DungeonEscape extends Game {
 		deathImg = new Texture("interface/death_img.png");
 		theme = Gdx.audio.newMusic(Gdx.files.internal("interface/theme.mp3"));
 
-		tip1 = new Texture("interface/tips/tip_1.png");
-		tip2 = new Texture("interface/tips/tip_2.png");
-		tip3 = new Texture("interface/tips/tip_3.png");
-		tip4 = new Texture("interface/tips/tip_4.png");
-		tip5 = new Texture("interface/tips/tip_5.png");
+		tip1 = new Texture("interface/tips/tip1.png");
+		tip2 = new Texture("interface/tips/tip2.png");
+		tip3 = new Texture("interface/tips/tip3.png");
+		tip4 = new Texture("interface/tips/tip4.png");
+		tip5 = new Texture("interface/tips/tip5.png");
+		tip6 = new Texture("interface/tips/tip6.png");
 
 		//walls res
 		wu__ = new Texture("walls/wu__.png");
@@ -202,47 +203,47 @@ public class DungeonEscape extends Game {
 			size = width/10;
 			verticalOtstup = (height - 7*size)/2;
 		}
-		left_border_x = 0;
-		left_border_y = 0;
-		right_border_x = width- horizontalOtstup;
-		right_border_y = 0;
-		up_border_x = 0;
-		up_border_y = height- verticalOtstup;
-		down_border_x = 0;
-		down_border_y = 0;
+		leftBorderX = 0;
+		leftBorderY = 0;
+		rightBorderX = width- horizontalOtstup;
+		rightBorderY = 0;
+		upBorderX = 0;
+		upBorderY = height- verticalOtstup;
+		downBorderX = 0;
+		downBorderY = 0;
 
 		speed = size*3;
 
 		map = new String[41][41];
 		FileHandle file = Gdx.files.internal("text_resources/map.txt");
 		String [] text_y = file.readString().split("\n");
-		cage_y = text_y.length;
-		for (int i=0; i<cage_y; i++){
+		cageY = text_y.length;
+		for (int i = 0; i< cageY; i++){
 			String [] text_x = text_y[i].split(" ");
-			cage_x = text_x.length;
-			for (int j=0; j<cage_x; j++){
-				map [j][(cage_y-1)-i] = text_x[j];
+			cageX = text_x.length;
+			for (int j = 0; j< cageX; j++){
+				map [j][(cageY -1)-i] = text_x[j];
 			}
 		}
 
 		FileHandle slime_file = Gdx.files.internal("text_resources/slimes.txt");
 		Scanner slimes_scan = new Scanner(slime_file.read());
-		slime_mass_x = 2;
-		slime_mass_y = 28;
-		slimes_mass = new int[slime_mass_y][slime_mass_x];
-		for (int i=0; i<slime_mass_y; i++){
-			for (int j=0; j<slime_mass_x; j++){
+		slimeMassX = 2;
+		slimeMassY = 28;
+		slimes_mass = new int[slimeMassY][slimeMassX];
+		for (int i = 0; i< slimeMassY; i++){
+			for (int j = 0; j< slimeMassX; j++){
 				slimes_mass[i][j] = slimes_scan.nextInt();
 			}
 		}
 
 		FileHandle lever_file = Gdx.files.internal("text_resources/levers.txt");
 		Scanner levers_scan = new Scanner(lever_file.read());
-		lever_mass_x = 5;
-		lever_mass_y = 21;
-		levers_mass = new int[lever_mass_y][lever_mass_x];
-		for (int i=0; i<lever_mass_y; i++){
-			for (int j=0; j<lever_mass_x; j++){
+		leverMassX = 5;
+		leverMassY = 21;
+		levers_mass = new int[leverMassY][leverMassX];
+		for (int i = 0; i< leverMassY; i++){
+			for (int j = 0; j< leverMassX; j++){
 				levers_mass[i][j] = levers_scan.nextInt();
 			}
 		}
@@ -279,6 +280,10 @@ public class DungeonEscape extends Game {
 		parameter.size = (int)(size/5.5f);
 		parameter.color = Color.RED;
 		slimeFont = generator.generateFont(parameter);
+
+		parameter.size = (int)(size/4);
+		parameter.color = Color.WHITE;
+		tipsFont = generator.generateFont(parameter);
 
 		generator.dispose();
 

@@ -92,7 +92,7 @@ public class RecordScreen extends ScreenAdapter {
                 game.recordsBatch.draw(game.row, game.horizontalOtstup, game.verticalOtstup + game.size * (5 - i), game.size * 10, game.size);
                 game.recordFont.draw(game.recordsBatch, strings.get(i + 1).split(" ")[0], game.horizontalOtstup + game.size / 10, game.verticalOtstup + game.size * (6 - i) - game.size / 3);
                 game.recordFont.draw(game.recordsBatch, strings.get(i + 1).split(" ")[1], game.horizontalOtstup + game.size / 10 + game.size * 3.3f, game.verticalOtstup + game.size * (6 - i) - game.size / 3);
-                if (!game.is_english) {
+                if (!game.isEnglish) {
                     if (strings.get(i + 1).split(" ")[2].contains("true")){
                         game.recordFont.draw(game.recordsBatch, "Пройдено", game.horizontalOtstup + game.size / 10 + game.size * 6.6f, game.verticalOtstup + game.size * (6 - i) - game.size / 3);
                     }
@@ -115,7 +115,7 @@ public class RecordScreen extends ScreenAdapter {
                 game.recordsBatch.draw(game.row, game.horizontalOtstup, game.verticalOtstup + game.size * (5 - i), game.size * 10, game.size);
                 game.recordFont.draw(game.recordsBatch, strings.get(i + 1).split(" ")[0], game.horizontalOtstup + game.size / 10, game.verticalOtstup + game.size * (6 - i) - game.size / 3);
                 game.recordFont.draw(game.recordsBatch, strings.get(i + 1).split(" ")[1], game.horizontalOtstup + game.size / 10 + game.size * 3.3f, game.verticalOtstup + game.size * (6 - i) - game.size / 3);
-                if (!game.is_english) {
+                if (!game.isEnglish) {
                     if (strings.get(i + 1).split(" ")[2].contains("true")){
                         game.recordFont.draw(game.recordsBatch, "Пройдено", game.horizontalOtstup + game.size / 10 + game.size * 6.6f, game.verticalOtstup + game.size * (6 - i) - game.size / 3);
                     }
@@ -141,13 +141,13 @@ public class RecordScreen extends ScreenAdapter {
             game.recordsBatch.draw(game.arrowUp, game.horizontalOtstup, game.verticalOtstup -game.size*sdvig, game.size, game.size);
         }
         else game.recordsBatch.draw(game.arrowNo, game.horizontalOtstup, game.verticalOtstup -game.size*sdvig, game.size, game.size);
-        if (!game.is_english) {
+        if (!game.isEnglish) {
             game.recordsBatch.draw(game.returnButton, game.horizontalOtstup + game.size, game.verticalOtstup - game.size * sdvig, game.size * 8, game.size);
         }
         else {
             game.recordsBatch.draw(game.returnButtonEng, game.horizontalOtstup + game.size, game.verticalOtstup - game.size * sdvig, game.size * 8, game.size);
         }
-        if (!game.is_english) {
+        if (!game.isEnglish) {
             game.recordsBatch.draw(game.rowHeading, game.horizontalOtstup, game.verticalOtstup + game.size * 6 - game.size * sdvig, game.size * 10, game.size);
         }
         else {

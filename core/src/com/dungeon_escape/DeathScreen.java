@@ -64,7 +64,7 @@ public class DeathScreen extends ScreenAdapter {
             slime.draw(game.deathScreenBatch, game.size, delta);
         }
         game.deathScreenBatch.draw(game.deathImg, game.horizontalOtstup +game.size*4, game.verticalOtstup +game.size*3, game.size*2, game.size*2);
-        if (!game.is_english) {
+        if (!game.isEnglish) {
             game.deathScreenFont.draw(game.deathScreenBatch, "Игрок " + game.name + " был расплавлен слаймами", game.horizontalOtstup + game.size / 10, game.verticalOtstup + game.size * 6 + game.size / 2);
             game.deathScreenBatch.draw(game.returnButtonLarge, game.horizontalOtstup, game.verticalOtstup, game.size*10, game.size);
         }

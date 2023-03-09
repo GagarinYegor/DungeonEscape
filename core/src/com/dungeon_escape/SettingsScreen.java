@@ -22,14 +22,14 @@ public class SettingsScreen extends ScreenAdapter {
         game.settingsListener = new Input.TextInputListener() {
             @Override
             public void input(String s) {
-                if ((!game.is_english && s.equals("Да")) || (game.is_english && s.equals("Yes"))) {
+                if ((!game.isEnglish && s.equals("Да")) || (game.isEnglish && s.equals("Yes"))) {
                     start_timer = 0.1f;
                     FileHandle win_file = Gdx.files.local("text_resources/records.txt");
                     win_file.writeString("", false);
                     is_dialog_open = false;
                 }
                 else {
-                    if (!game.is_english) {
+                    if (!game.isEnglish) {
                         is_dialog_open = true;
                         Gdx.input.getTextInput(game.settingsListener, "Вы уверены что хотите очистить попытки?", "", "Введите \"Да\" в это поле");
                     } else {
@@ -67,18 +67,18 @@ public class SettingsScreen extends ScreenAdapter {
                     game.setScreen(new MainMenuScreen(game));
                     return true;
                 }
-                if (button == Input.Buttons.LEFT && touch_y == 3 && touch_x >= 0 && touch_x <= 4 && !game.is_english && !is_dialog_open) {
+                if (button == Input.Buttons.LEFT && touch_y == 3 && touch_x >= 0 && touch_x <= 4 && !game.isEnglish && !is_dialog_open) {
                     start_timer = 0.1f;
-                    game.is_english = true;
+                    game.isEnglish = true;
                     return true;
                 }
-                if (button == Input.Buttons.LEFT && touch_y == 3 && touch_x >= 5 && touch_x <= 9 && game.is_english && !is_dialog_open) {
+                if (button == Input.Buttons.LEFT && touch_y == 3 && touch_x >= 5 && touch_x <= 9 && game.isEnglish && !is_dialog_open) {
                     start_timer = 0.1f;
-                    game.is_english = false;
+                    game.isEnglish = false;
                     return true;
                 }
                 if (button == Input.Buttons.LEFT && touch_y == 1 && touch_x >= 0 && touch_x <= 9) {
-                    if (!game.is_english) {
+                    if (!game.isEnglish) {
                         is_dialog_open = true;
                         Gdx.input.getTextInput(game.settingsListener, "Вы уверены что хотите очистить попытки?", "", "Введите \"Да\" в это поле");
                     } else {
@@ -86,14 +86,14 @@ public class SettingsScreen extends ScreenAdapter {
                         Gdx.input.getTextInput(game.settingsListener, "Are you sure you want to erase the history?", "", "Enter \"Yes\" here");
                     }
                 }
-                if (button == Input.Buttons.LEFT && touch_y == 5 && touch_x >= 0 && touch_x <= 1 && !game.attack_button_auto_reset && !is_dialog_open) {
+                if (button == Input.Buttons.LEFT && touch_y == 5 && touch_x >= 0 && touch_x <= 1 && !game.attackButtonAutoReset && !is_dialog_open) {
                     start_timer = 0.1f;
-                    game.attack_button_auto_reset = true;
+                    game.attackButtonAutoReset = true;
                     return true;
                 }
-                if (button == Input.Buttons.LEFT && touch_y == 5 && touch_x >= 8 && touch_x <= 9 && game.attack_button_auto_reset && !is_dialog_open) {
+                if (button == Input.Buttons.LEFT && touch_y == 5 && touch_x >= 8 && touch_x <= 9 && game.attackButtonAutoReset && !is_dialog_open) {
                     start_timer = 0.1f;
-                    game.attack_button_auto_reset = false;
+                    game.attackButtonAutoReset = false;
                     return true;
                 }
                 return false;
@@ -106,7 +106,7 @@ public class SettingsScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0.25f, 0.25f, 0.25f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.settingsBatch.begin();
-        if (!game.is_english){
+        if (!game.isEnglish){
             game.settingsBatch.draw(game.englishButton, game.horizontalOtstup, game.verticalOtstup +game.size*3, game.size*5, game.size);
             game.settingsBatch.draw(game.russianButtonActiv, game.horizontalOtstup +game.size*5, game.verticalOtstup +game.size*3, game.size*5, game.size);
         }
@@ -116,12 +116,12 @@ public class SettingsScreen extends ScreenAdapter {
         }
         game.settingsBatch.draw(game.emptyButton, game.horizontalOtstup, game.verticalOtstup +game.size*4, game.size*10, game.size);
         game.settingsBatch.draw(game.emptyButton, game.horizontalOtstup, game.verticalOtstup +game.size*6, game.size*10, game.size);
-        if (!game.is_english) {
+        if (!game.isEnglish) {
             game.settingFont.draw(game.settingsBatch, "Язык интерфейса:", game.horizontalOtstup +game.size/10, game.verticalOtstup +game.size*5-game.size/3);
             game.settingFont.draw(game.settingsBatch, "Автоотключение кнопки атаки:", game.horizontalOtstup +game.size/10, game.verticalOtstup +game.size*7-game.size/3);
             game.settingsBatch.draw(game.returnButtonLarge, game.horizontalOtstup, game.verticalOtstup, game.size * 10, game.size);
             game.settingsBatch.draw(game.deleteButton, game.horizontalOtstup, game.verticalOtstup + game.size * 1, game.size * 10, game.size);
-            if (!game.attack_button_auto_reset) {
+            if (!game.attackButtonAutoReset) {
                 game.settingsBatch.draw(game.yesButton, game.horizontalOtstup, game.verticalOtstup + game.size * 5, game.size * 2, game.size);
                 game.settingsBatch.draw(game.noButtonActiv, game.horizontalOtstup + game.size * 8, game.verticalOtstup + game.size * 5, game.size * 2, game.size);
             }
@@ -135,7 +135,7 @@ public class SettingsScreen extends ScreenAdapter {
             game.settingFont.draw(game.settingsBatch, "Auto restart attack button:", game.horizontalOtstup +game.size/10, game.verticalOtstup +game.size*7-game.size/3);
             game.settingsBatch.draw(game.returnButtonLargeEng, game.horizontalOtstup, game.verticalOtstup, game.size * 10, game.size);
             game.settingsBatch.draw(game.deleteButtonEng, game.horizontalOtstup, game.verticalOtstup + game.size * 1, game.size * 10, game.size);
-            if (!game.attack_button_auto_reset) {
+            if (!game.attackButtonAutoReset) {
                 game.settingsBatch.draw(game.yesButtonEng, game.horizontalOtstup, game.verticalOtstup + game.size * 5, game.size * 2, game.size);
                 game.settingsBatch.draw(game.noButtonEngActiv, game.horizontalOtstup + game.size * 8, game.verticalOtstup + game.size * 5, game.size * 2, game.size);
             }

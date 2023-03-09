@@ -258,12 +258,12 @@ public class GameScreen extends ScreenAdapter {
         camera_move_right = 0;
         is_hod = true;
         currentTip = 1;
-        slimes = new Slime[game.slime_mass_y];
-        cages = new Cage[game.cage_x][game.cage_y];
-        levers = new Lever[game.lever_mass_y];
+        slimes = new Slime[game.slimeMassY];
+        cages = new Cage[game.cageX][game.cageY];
+        levers = new Lever[game.leverMassY];
         is_dialog_open = false;
-        for (int i = 0; i < game.cage_x; i++) {
-            for (int j = 0; j < game.cage_y; j++) {
+        for (int i = 0; i < game.cageX; i++) {
+            for (int j = 0; j < game.cageY; j++) {
                 if (game.map[i][j].contains("sf__"))
                     cages[i][j] = new Cage(i, j, true, game.size, game.horizontalOtstup, game.verticalOtstup, game.stoneFloorTextureRegion, 1);
                 else if (game.map[i][j].contains("sfwm"))
@@ -352,7 +352,7 @@ public class GameScreen extends ScreenAdapter {
                 cages[slimes[i].getX()][slimes[i].getY()].setMovable(false);
             }
             System.out.println(slimes.length);
-            for (int i = 0; i < game.lever_mass_y; i++) {
+            for (int i = 0; i < game.leverMassY; i++) {
                 if (game.levers_mass[i][4] == 0) {
                     levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontalOtstup, game.verticalOtstup, game.activLever, game.passivLever, game.cvd, game.ovd, game.leverSound, game.openDoorsSound, game.closedDoorsSound, saved_strings.get(8+slimes.length+i).equals("1"));
                     cages[game.levers_mass[i][0]][game.levers_mass[i][1]].setMovable(false);
@@ -393,7 +393,7 @@ public class GameScreen extends ScreenAdapter {
                 cages[slimes[i].getX()][slimes[i].getY()].setMovable(false);
             }
 
-            for (int i = 0; i < game.lever_mass_y; i++) {
+            for (int i = 0; i < game.leverMassY; i++) {
                 if (game.levers_mass[i][4] == 0) {
                     levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontalOtstup, game.verticalOtstup, game.activLever, game.passivLever, game.cvd, game.ovd, game.leverSound, game.openDoorsSound, game.closedDoorsSound, false);
                     cages[game.levers_mass[i][0]][game.levers_mass[i][1]].setMovable(false);
@@ -414,11 +414,11 @@ public class GameScreen extends ScreenAdapter {
         game.gameListener = new Input.TextInputListener() {
             @Override
             public void input(String s) {
-                if ((!game.is_english && s.equals("Да")) || (game.is_english && s.equals("Yes"))) {
+                if ((!game.isEnglish && s.equals("Да")) || (game.isEnglish && s.equals("Yes"))) {
                     close = true;
                 }
                 else {
-                    if (!game.is_english) {
+                    if (!game.isEnglish) {
                         is_dialog_open = true;
                         Gdx.input.getTextInput(game.gameListener, "Вы уверены что хотите отменить игру?", "", "Введите \"Да\" в это поле");
                     } else {
@@ -459,7 +459,7 @@ public class GameScreen extends ScreenAdapter {
                         save();
                     }
                     if (touch_x == 0 && touch_y == 6 && is_tips_activ && !is_dialog_open) {
-                        if (currentTip+1<=5) {
+                        if (currentTip+1<=6) {
                             currentTip+=1;
                         }
                         else {
@@ -477,7 +477,7 @@ public class GameScreen extends ScreenAdapter {
                     }
                     if (touch_x == 9 && touch_y == 0 && !is_map_activ && !is_tips_activ) {
                         if (!is_dialog_open) {
-                            if (!game.is_english) {
+                            if (!game.isEnglish) {
                                 is_dialog_open = true;
                                 Gdx.input.getTextInput(game.gameListener, "Вы уверены что хотите отменить игру?", "", "Введите \"Да\" в это поле");
                             } else {
@@ -497,7 +497,7 @@ public class GameScreen extends ScreenAdapter {
                                         if (slime.getX() == player.getX() && slime.getY() == player.getY() + 1) {
                                             player.attacking(player.getX(), player.getY() + 1);
                                             slime.attacked(player.getPower());
-                                            if (game.attack_button_auto_reset) is_attack = false;
+                                            if (game.attackButtonAutoReset) is_attack = false;
                                             hod_end();
                                         }
                                     }
@@ -505,7 +505,7 @@ public class GameScreen extends ScreenAdapter {
                                         if (lever.getX() == player.getX() && lever.getY() == player.getY() + 1) {
                                             player.attacking(player.getX(), player.getY() + 1);
                                             lever.click(cages);
-                                            if (game.attack_button_auto_reset) is_attack = false;
+                                            if (game.attackButtonAutoReset) is_attack = false;
                                             hod_end();
                                         }
                                     }
@@ -515,7 +515,7 @@ public class GameScreen extends ScreenAdapter {
                                         if (slime.getX() == player.getX() && slime.getY() == player.getY() - 1) {
                                             player.attacking(player.getX(), player.getY() - 1);
                                             slime.attacked(player.getPower());
-                                            if (game.attack_button_auto_reset) is_attack = false;
+                                            if (game.attackButtonAutoReset) is_attack = false;
                                             hod_end();
                                         }
                                     }
@@ -523,7 +523,7 @@ public class GameScreen extends ScreenAdapter {
                                         if (lever.getX() == player.getX() && lever.getY() == player.getY() - 1) {
                                             player.attacking(player.getX(), player.getY() - 1);
                                             lever.click(cages);
-                                            if (game.attack_button_auto_reset) is_attack = false;
+                                            if (game.attackButtonAutoReset) is_attack = false;
                                             hod_end();
                                         }
                                     }
@@ -533,7 +533,7 @@ public class GameScreen extends ScreenAdapter {
                                         if (slime.getX() == player.getX() + 1 && slime.getY() == player.getY()) {
                                             player.attacking(player.getX() + 1, player.getY());
                                             slime.attacked(player.getPower());
-                                            if (game.attack_button_auto_reset) is_attack = false;
+                                            if (game.attackButtonAutoReset) is_attack = false;
                                             hod_end();
                                         }
                                     }
@@ -541,7 +541,7 @@ public class GameScreen extends ScreenAdapter {
                                         if (lever.getX() == player.getX() + 1 && lever.getY() == player.getY()) {
                                             player.attacking(player.getX() + 1, player.getY());
                                             lever.click(cages);
-                                            if (game.attack_button_auto_reset) is_attack = false;
+                                            if (game.attackButtonAutoReset) is_attack = false;
                                             hod_end();
                                         }
                                     }
@@ -551,7 +551,7 @@ public class GameScreen extends ScreenAdapter {
                                         if (slime.getX() == player.getX() - 1 && slime.getY() == player.getY()) {
                                             player.attacking(player.getX() - 1, player.getY());
                                             slime.attacked(player.getPower());
-                                            if (game.attack_button_auto_reset) is_attack = false;
+                                            if (game.attackButtonAutoReset) is_attack = false;
                                             hod_end();
                                         }
                                     }
@@ -559,7 +559,7 @@ public class GameScreen extends ScreenAdapter {
                                         if (lever.getX() == player.getX() - 1 && lever.getY() == player.getY()) {
                                             player.attacking(player.getX() - 1, player.getY());
                                             lever.click(cages);
-                                            if (game.attack_button_auto_reset) is_attack = false;
+                                            if (game.attackButtonAutoReset) is_attack = false;
                                             hod_end();
                                         }
                                     }
@@ -611,14 +611,14 @@ public class GameScreen extends ScreenAdapter {
                 slime.death();
             }
         }
-        game.left_border_x = player.getRealX()- game.size*4-game.horizontalOtstup;
-        game.right_border_x = player.getRealX()+ game.size*6;
-        game.up_border_x = player.getRealX()- game.size*4-game.horizontalOtstup;
-        game.down_border_x = player.getRealX()- game.size*4-game.horizontalOtstup;
-        game.left_border_y = player.getRealY()- game.size*3-game.verticalOtstup;
-        game.right_border_y = player.getRealY()- game.size*3-game.verticalOtstup;
-        game.up_border_y = player.getRealY()+ game.size*4;
-        game.down_border_y = player.getRealY()- game.size*3-game.verticalOtstup;
+        game.leftBorderX = player.getRealX()- game.size*4-game.horizontalOtstup;
+        game.rightBorderX = player.getRealX()+ game.size*6;
+        game.upBorderX = player.getRealX()- game.size*4-game.horizontalOtstup;
+        game.downBorderX = player.getRealX()- game.size*4-game.horizontalOtstup;
+        game.leftBorderY = player.getRealY()- game.size*3-game.verticalOtstup;
+        game.rightBorderY = player.getRealY()- game.size*3-game.verticalOtstup;
+        game.upBorderY = player.getRealY()+ game.size*4;
+        game.downBorderY = player.getRealY()- game.size*3-game.verticalOtstup;
         if (camera_move_right > 0){
             camera.translate(game.speed*delta, 0);
             camera_move_right -= game.speed*delta;
@@ -664,8 +664,8 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.gameBatch.setProjectionMatrix(camera.combined);
         game.gameBatch.begin();
-        for (int i = 0; i < game.cage_x; i++){
-            for (int j = 0; j < game.cage_y; j++) {
+        for (int i = 0; i < game.cageX; i++){
+            for (int j = 0; j < game.cageY; j++) {
                 //cages[i][j].draw(game.batch, game.size, delta);
                 if (Math.abs(i - player.getX()) < 6 && Math.abs(j - player.getY()) < 5) {
                     cages[i][j].draw(game.gameBatch, game.size, delta);
@@ -687,77 +687,132 @@ public class GameScreen extends ScreenAdapter {
             }
         }
         if (game.verticalOtstup !=0){
-            game.gameBatch.draw(game.border, game.up_border_x-game.size, game.up_border_y, game.width+2*game.size, game.verticalOtstup +game.size);
-            game.gameBatch.draw(game.border, game.down_border_x-game.size, game.down_border_y-game.size, game.width+2*game.size, game.verticalOtstup +game.size);
+            game.gameBatch.draw(game.border, game.upBorderX -game.size, game.upBorderY, game.width+2*game.size, game.verticalOtstup +game.size);
+            game.gameBatch.draw(game.border, game.downBorderX -game.size, game.downBorderY -game.size, game.width+2*game.size, game.verticalOtstup +game.size);
         }
         if (game.horizontalOtstup !=0) {
-            game.gameBatch.draw(game.border, game.left_border_x - game.size, game.left_border_y - game.size, game.horizontalOtstup + game.size, game.height + 2 * game.size);
-            game.gameBatch.draw(game.border, game.right_border_x - game.size, game.right_border_y - game.size, game.horizontalOtstup + 2*game.size, game.height + 2 * game.size);
+            game.gameBatch.draw(game.border, game.leftBorderX - game.size, game.leftBorderY - game.size, game.horizontalOtstup + game.size, game.height + 2 * game.size);
+            game.gameBatch.draw(game.border, game.rightBorderX - game.size, game.rightBorderY - game.size, game.horizontalOtstup + 2*game.size, game.height + 2 * game.size);
         }
-        if (is_attack) game.gameBatch.draw(game.activAttackButton, game.right_border_x - game.size, game.verticalOtstup +game.right_border_y+game.size, game.size, game.size);
-        else game.gameBatch.draw(game.passivAttackButton, game.right_border_x - game.size, game.verticalOtstup +game.right_border_y+game.size, game.size, game.size);
-        if (is_tips_activ) game.gameBatch.draw(game.activTipsButton, game.right_border_x - game.size, game.verticalOtstup +game.right_border_y+game.size*6, game.size, game.size);
-        else game.gameBatch.draw(game.passivTipsButton, game.right_border_x - game.size, game.verticalOtstup +game.right_border_y+game.size*6, game.size, game.size);
-        game.gameBatch.draw(game.close_button, game.right_border_x - game.size, game.verticalOtstup +game.right_border_y+game.size*0, game.size, game.size);
-        game.gameBatch.draw(game.waitingButton, game.right_border_x - game.size, game.verticalOtstup +game.right_border_y+game.size*2, game.size, game.size);
+        if (is_attack) game.gameBatch.draw(game.activAttackButton, game.rightBorderX - game.size, game.verticalOtstup +game.rightBorderY +game.size, game.size, game.size);
+        else game.gameBatch.draw(game.passivAttackButton, game.rightBorderX - game.size, game.verticalOtstup +game.rightBorderY +game.size, game.size, game.size);
+        if (is_tips_activ) game.gameBatch.draw(game.activTipsButton, game.rightBorderX - game.size, game.verticalOtstup +game.rightBorderY +game.size*6, game.size, game.size);
+        else game.gameBatch.draw(game.passivTipsButton, game.rightBorderX - game.size, game.verticalOtstup +game.rightBorderY +game.size*6, game.size, game.size);
+        game.gameBatch.draw(game.close_button, game.rightBorderX - game.size, game.verticalOtstup +game.rightBorderY +game.size*0, game.size, game.size);
+        game.gameBatch.draw(game.waitingButton, game.rightBorderX - game.size, game.verticalOtstup +game.rightBorderY +game.size*2, game.size, game.size);
 
-        game.gameBatch.draw(game.infoWindow, game.right_border_x - game.size, game.verticalOtstup +game.right_border_y + game.size * 4, game.size, game.size * 2);
-        if (!game.is_english) {
-            game.infoFont.draw(game.gameBatch, "Имя:", game.right_border_x - game.size + game.size / 10, game.verticalOtstup +game.right_border_y + game.size * 6 - game.size * 3 / 20);
-            game.infoNameFont.draw(game.gameBatch, player.getName(), game.right_border_x - game.size + game.size / 10, game.verticalOtstup +game.right_border_y + game.size * 6 - game.size * 7 / 20);
-            game.infoFont.draw(game.gameBatch, "Здоровье:", game.right_border_x - game.size + game.size / 10, game.verticalOtstup +game.right_border_y + game.size * 6 - game.size * 10 / 20);
-            game.infoFont.draw(game.gameBatch, player.getHealth() + "/" + player.getMaxHealth(), game.right_border_x - game.size + game.size / 10, game.verticalOtstup +game.right_border_y + game.size * 6 - game.size * 15 / 20);
-            game.infoFont.draw(game.gameBatch, "Ход №:", game.right_border_x - game.size + game.size / 10, game.verticalOtstup +game.right_border_y + game.size * 6 - game.size * 20 / 20);
-            game.infoFont.draw(game.gameBatch, "" + game.moves, game.right_border_x - game.size + game.size / 10, game.verticalOtstup +game.right_border_y + game.size * 6 - game.size * 25 / 20);
-            game.infoFont.draw(game.gameBatch, "Сила:", game.right_border_x - game.size + game.size / 10, game.verticalOtstup +game.right_border_y + game.size * 6 - game.size * 30 / 20);
-            game.infoFont.draw(game.gameBatch, "" + player.getPower(), game.right_border_x - game.size + game.size / 10, game.verticalOtstup +game.right_border_y + game.size * 6 - game.size * 35 / 20);
+        game.gameBatch.draw(game.infoWindow, game.rightBorderX - game.size, game.verticalOtstup +game.rightBorderY + game.size * 4, game.size, game.size * 2);
+        if (!game.isEnglish) {
+            game.infoFont.draw(game.gameBatch, "Имя:", game.rightBorderX - game.size + game.size / 10, game.verticalOtstup +game.rightBorderY + game.size * 6 - game.size * 3 / 20);
+            game.infoNameFont.draw(game.gameBatch, player.getName(), game.rightBorderX - game.size + game.size / 10, game.verticalOtstup +game.rightBorderY + game.size * 6 - game.size * 7 / 20);
+            game.infoFont.draw(game.gameBatch, "Здоровье:", game.rightBorderX - game.size + game.size / 10, game.verticalOtstup +game.rightBorderY + game.size * 6 - game.size * 10 / 20);
+            game.infoFont.draw(game.gameBatch, player.getHealth() + "/" + player.getMaxHealth(), game.rightBorderX - game.size + game.size / 10, game.verticalOtstup +game.rightBorderY + game.size * 6 - game.size * 15 / 20);
+            game.infoFont.draw(game.gameBatch, "Ход №:", game.rightBorderX - game.size + game.size / 10, game.verticalOtstup +game.rightBorderY + game.size * 6 - game.size * 20 / 20);
+            game.infoFont.draw(game.gameBatch, "" + game.moves, game.rightBorderX - game.size + game.size / 10, game.verticalOtstup +game.rightBorderY + game.size * 6 - game.size * 25 / 20);
+            game.infoFont.draw(game.gameBatch, "Сила:", game.rightBorderX - game.size + game.size / 10, game.verticalOtstup +game.rightBorderY + game.size * 6 - game.size * 30 / 20);
+            game.infoFont.draw(game.gameBatch, "" + player.getPower(), game.rightBorderX - game.size + game.size / 10, game.verticalOtstup +game.rightBorderY + game.size * 6 - game.size * 35 / 20);
         }
         else {
-            game.infoFont.draw(game.gameBatch, "Name:", game.right_border_x - game.size + game.size / 10, game.verticalOtstup +game.right_border_y + game.size * 6 - game.size * 3 / 20);
-            game.infoNameFont.draw(game.gameBatch, player.getName(), game.right_border_x - game.size + game.size / 10, game.verticalOtstup +game.right_border_y + game.size * 6 - game.size * 7 / 20);
-            game.infoFont.draw(game.gameBatch, "Health:", game.right_border_x - game.size + game.size / 10, game.verticalOtstup +game.right_border_y + game.size * 6 - game.size * 10 / 20);
-            game.infoFont.draw(game.gameBatch, player.getHealth() + "/" + player.getMaxHealth(), game.right_border_x - game.size + game.size / 10, game.verticalOtstup +game.right_border_y + game.size * 6 - game.size * 15 / 20);
-            game.infoFont.draw(game.gameBatch, "Moves:", game.right_border_x - game.size + game.size / 10, game.verticalOtstup +game.right_border_y + game.size * 6 - game.size * 20 / 20);
-            game.infoFont.draw(game.gameBatch, "" + game.moves, game.right_border_x - game.size + game.size / 10, game.verticalOtstup +game.right_border_y + game.size * 6 - game.size * 25 / 20);
-            game.infoFont.draw(game.gameBatch, "Power:", game.right_border_x - game.size + game.size / 10, game.verticalOtstup +game.right_border_y + game.size * 6 - game.size * 30 / 20);
-            game.infoFont.draw(game.gameBatch, "" + player.getPower(), game.right_border_x - game.size + game.size / 10, game.verticalOtstup +game.right_border_y + game.size * 6 - game.size * 35 / 20);
+            game.infoFont.draw(game.gameBatch, "Name:", game.rightBorderX - game.size + game.size / 10, game.verticalOtstup +game.rightBorderY + game.size * 6 - game.size * 3 / 20);
+            game.infoNameFont.draw(game.gameBatch, player.getName(), game.rightBorderX - game.size + game.size / 10, game.verticalOtstup +game.rightBorderY + game.size * 6 - game.size * 7 / 20);
+            game.infoFont.draw(game.gameBatch, "Health:", game.rightBorderX - game.size + game.size / 10, game.verticalOtstup +game.rightBorderY + game.size * 6 - game.size * 10 / 20);
+            game.infoFont.draw(game.gameBatch, player.getHealth() + "/" + player.getMaxHealth(), game.rightBorderX - game.size + game.size / 10, game.verticalOtstup +game.rightBorderY + game.size * 6 - game.size * 15 / 20);
+            game.infoFont.draw(game.gameBatch, "Moves:", game.rightBorderX - game.size + game.size / 10, game.verticalOtstup +game.rightBorderY + game.size * 6 - game.size * 20 / 20);
+            game.infoFont.draw(game.gameBatch, "" + game.moves, game.rightBorderX - game.size + game.size / 10, game.verticalOtstup +game.rightBorderY + game.size * 6 - game.size * 25 / 20);
+            game.infoFont.draw(game.gameBatch, "Power:", game.rightBorderX - game.size + game.size / 10, game.verticalOtstup +game.rightBorderY + game.size * 6 - game.size * 30 / 20);
+            game.infoFont.draw(game.gameBatch, "" + player.getPower(), game.rightBorderX - game.size + game.size / 10, game.verticalOtstup +game.rightBorderY + game.size * 6 - game.size * 35 / 20);
         }
         if (is_map_find){
             if (!is_map_activ) {
-                game.gameBatch.draw(game.passivMapButton, game.right_border_x - game.size, game.verticalOtstup +game.right_border_y+game.size*3, game.size, game.size);
+                game.gameBatch.draw(game.passivMapButton, game.rightBorderX - game.size, game.verticalOtstup +game.rightBorderY +game.size*3, game.size, game.size);
             }
             else {
-                game.gameBatch.draw(game.activMapButton, game.right_border_x - game.size, game.verticalOtstup +game.right_border_y+game.size*3, game.size, game.size);
+                game.gameBatch.draw(game.activMapButton, game.rightBorderX - game.size, game.verticalOtstup +game.rightBorderY +game.size*3, game.size, game.size);
             }
         }
         if (is_map_activ){
-            game.gameBatch.draw(game.mapImg, game.left_border_x+game.horizontalOtstup +game.size, game.left_border_y+game.verticalOtstup, game.size*7, game.size*7);
+            game.gameBatch.draw(game.mapImg, game.leftBorderX +game.horizontalOtstup +game.size, game.leftBorderY +game.verticalOtstup, game.size*7, game.size*7);
         }
 
         if (is_tips_activ){
             switch (currentTip) {
                 case 1:
-                    game.gameBatch.draw(game.tip1, game.left_border_x + game.horizontalOtstup, game.left_border_y + game.verticalOtstup, game.size * 10, game.size * 7);
+                    game.gameBatch.draw(game.tip1, game.leftBorderX + game.horizontalOtstup, game.leftBorderY + game.verticalOtstup, game.size * 10, game.size * 7);
+                    if (game.isEnglish){
+                        game.tipsFont.draw(game.gameBatch, "Next tip", game.horizontalOtstup+game.leftBorderX + game.size * 1.1f, game.verticalOtstup + game.leftBorderY + game.size * 6.6f);
+                        game.tipsFont.draw(game.gameBatch, "Open/close tips", game.horizontalOtstup+game.leftBorderX + game.size * 7.3f, game.verticalOtstup + game.leftBorderY + game.size * 6.6f);
+                        game.tipsFont.draw(game.gameBatch, "Stats"+"\n"+"window", game.horizontalOtstup+game.leftBorderX + game.size * 9.1f, game.verticalOtstup + game.leftBorderY + game.size * 5.9f);
+                        game.tipsFont.draw(game.gameBatch, "Map"+"\n"+"button", game.horizontalOtstup+game.leftBorderX + game.size * 8f, game.verticalOtstup + game.leftBorderY + game.size * 3.7f);
+                        game.tipsFont.draw(game.gameBatch, "Wait"+"\n"+"button", game.horizontalOtstup+game.leftBorderX + game.size * 8f, game.verticalOtstup + game.leftBorderY + game.size * 2.7f);
+                        game.tipsFont.draw(game.gameBatch, "Attack"+"\n"+"button", game.horizontalOtstup+game.leftBorderX + game.size * 8f, game.verticalOtstup + game.leftBorderY + game.size * 1.7f);
+                        game.tipsFont.draw(game.gameBatch, "Pass"+"\n"+"button", game.horizontalOtstup+game.leftBorderX + game.size * 8f, game.verticalOtstup + game.leftBorderY + game.size * 0.7f);
+                        game.tipsFont.draw(game.gameBatch, "Hero", game.horizontalOtstup+game.leftBorderX + game.size * 4.2f, game.verticalOtstup + game.leftBorderY + game.size * 4.2f);
+
+                    }
+                    else {
+                        game.tipsFont.draw(game.gameBatch, "Следующая подсказка", game.horizontalOtstup+game.leftBorderX + game.size * 1.1f, game.verticalOtstup + game.leftBorderY + game.size * 6.6f);
+                        game.tipsFont.draw(game.gameBatch, "Открыть/закрыть подсказки", game.horizontalOtstup+game.leftBorderX + game.size * 5.9f, game.verticalOtstup + game.leftBorderY + game.size * 6.6f);
+                        game.tipsFont.draw(game.gameBatch, "Окно"+"\n"+"харак-"+"\n"+"терис-"+"\n"+"тик", game.horizontalOtstup+game.leftBorderX + game.size * 9.1f, game.verticalOtstup + game.leftBorderY + game.size * 5.9f);
+                        game.tipsFont.draw(game.gameBatch, "Кнопка"+"\n"+"карты", game.horizontalOtstup+game.leftBorderX + game.size * 8f, game.verticalOtstup + game.leftBorderY + game.size * 3.7f);
+                        game.tipsFont.draw(game.gameBatch, "Кнопка"+"\n"+"пропуска"+"\n"+"хода", game.horizontalOtstup+game.leftBorderX + game.size * 8f, game.verticalOtstup + game.leftBorderY + game.size * 2.9f);
+                        game.tipsFont.draw(game.gameBatch, "Кнопка"+"\n"+"атаки", game.horizontalOtstup+game.leftBorderX + game.size * 8f, game.verticalOtstup + game.leftBorderY + game.size * 1.7f);
+                        game.tipsFont.draw(game.gameBatch, "Сдаться", game.horizontalOtstup+game.leftBorderX + game.size * 8f, game.verticalOtstup + game.leftBorderY + game.size * 0.6f);
+                        game.tipsFont.draw(game.gameBatch, "Персонаж", game.horizontalOtstup+game.leftBorderX + game.size * 4f, game.verticalOtstup + game.leftBorderY + game.size * 4.2f);
+                    }
                     break;
                 case 2:
-                    game.gameBatch.draw(game.tip2, game.left_border_x + game.horizontalOtstup, game.left_border_y + game.verticalOtstup, game.size * 10, game.size * 7);
+                    game.gameBatch.draw(game.tip2, game.leftBorderX + game.horizontalOtstup, game.leftBorderY + game.verticalOtstup, game.size * 10, game.size * 7);
+                    if (game.isEnglish){
+                        game.tipsFont.draw(game.gameBatch, "      Unactive"+"\n"+"attack button", game.horizontalOtstup+game.leftBorderX + game.size * 0.7f, game.verticalOtstup + game.leftBorderY + game.size * 5f);
+                        game.tipsFont.draw(game.gameBatch, "       Active"+"\n"+"attack button", game.horizontalOtstup+game.leftBorderX + game.size * 2.8f, game.verticalOtstup + game.leftBorderY + game.size * 5f);
+                        game.tipsFont.draw(game.gameBatch, "   Unactive"+"\n"+"map button", game.horizontalOtstup+game.leftBorderX + game.size * 0.85f, game.verticalOtstup + game.leftBorderY + game.size * 1f);
+                        game.tipsFont.draw(game.gameBatch, "      Active"+"\n"+"map button", game.horizontalOtstup+game.leftBorderX + game.size * 2.85f, game.verticalOtstup + game.leftBorderY + game.size * 1f);
+                        game.tipsFont.draw(game.gameBatch, "   Unactive"+"\n"+" tips button", game.horizontalOtstup+game.leftBorderX + game.size * 5.85f, game.verticalOtstup + game.leftBorderY + game.size * 1f);
+                        game.tipsFont.draw(game.gameBatch, "      Active"+"\n"+" tips button", game.horizontalOtstup+game.leftBorderX + game.size * 7.85f, game.verticalOtstup + game.leftBorderY + game.size * 1f);
+
+                    }
+                    else {
+                        game.tipsFont.draw(game.gameBatch, " Неактивная"+"\n"+"кнопка атаки", game.horizontalOtstup+game.leftBorderX + game.size * 0.8f, game.verticalOtstup + game.leftBorderY + game.size * 5f);
+                        game.tipsFont.draw(game.gameBatch, "    Активная"+"\n"+"кнопка атаки", game.horizontalOtstup+game.leftBorderX + game.size * 2.8f, game.verticalOtstup + game.leftBorderY + game.size * 5f);
+                        game.tipsFont.draw(game.gameBatch, " Неактивная"+"\n"+"кнопка карты", game.horizontalOtstup+game.leftBorderX + game.size * 0.8f, game.verticalOtstup + game.leftBorderY + game.size * 1f);
+                        game.tipsFont.draw(game.gameBatch, "    Активная"+"\n"+"кнопка карты", game.horizontalOtstup+game.leftBorderX + game.size * 2.8f, game.verticalOtstup + game.leftBorderY + game.size * 1f);
+                        game.tipsFont.draw(game.gameBatch, "      Неактивная"+"\n"+"кнопка подсказок", game.horizontalOtstup+game.leftBorderX + game.size * 5.5f, game.verticalOtstup + game.leftBorderY + game.size * 1f);
+                        game.tipsFont.draw(game.gameBatch, "         Активная"+"\n"+"кнопка подсказок", game.horizontalOtstup+game.leftBorderX + game.size * 7.5f, game.verticalOtstup + game.leftBorderY + game.size * 1f);
+
+                    }
                     break;
                 case 3:
-                    game.gameBatch.draw(game.tip3, game.left_border_x + game.horizontalOtstup, game.left_border_y + game.verticalOtstup, game.size * 10, game.size * 7);
+
+                    game.gameBatch.draw(game.tip3, game.leftBorderX + game.horizontalOtstup, game.leftBorderY + game.verticalOtstup, game.size * 10, game.size * 7);
+                    if (game.isEnglish){
+
+                    }
+                    else {
+                        game.tipsFont.draw(game.gameBatch, "Персонаж за ход может переместиться на одну из соседник клеток."+"\n"+"Для этого нужно нажать на клетку на которую вы хотите переместиться.", game.horizontalOtstup+game.leftBorderX + game.size * 0, game.verticalOtstup + game.leftBorderY + game.size * 0.8f);
+                    }
                     break;
                 case 4:
-                    game.gameBatch.draw(game.tip4, game.left_border_x + game.horizontalOtstup, game.left_border_y + game.verticalOtstup, game.size * 10, game.size * 7);
+                    game.gameBatch.draw(game.tip4, game.leftBorderX + game.horizontalOtstup, game.leftBorderY + game.verticalOtstup, game.size * 10, game.size * 7);
+                    if (game.isEnglish){
+
+                    }
+                    else {
+                        game.tipsFont.draw(game.gameBatch, "Персонаж за ход может атаковать одну из соседник клеток. Для этого нужно"+"\n"+"нажать кнопку атаки, а затем на клетку, которую вы хотите атаковать."+"\n"+"Если в ней нет врага или рычага ничего не произойдет и ход не потратится.", game.horizontalOtstup+game.leftBorderX + game.size * 0, game.verticalOtstup + game.leftBorderY + game.size * 1f);
+                    }
                     break;
                 case 5:
-                    game.gameBatch.draw(game.tip5, game.left_border_x + game.horizontalOtstup, game.left_border_y + game.verticalOtstup, game.size * 10, game.size * 7);
+                    game.gameBatch.draw(game.tip5, game.leftBorderX + game.horizontalOtstup, game.leftBorderY + game.verticalOtstup, game.size * 10, game.size * 7);
+                    break;
+                case 6:
+                    game.gameBatch.draw(game.tip6, game.leftBorderX + game.horizontalOtstup, game.leftBorderY + game.verticalOtstup, game.size * 10, game.size * 7);
                     break;
             }
-            game.gameBatch.draw(game.arrowNext, game.left_border_x + game.horizontalOtstup, game.left_border_y + game.verticalOtstup + game.size*6, game.size, game.size);
+            game.gameBatch.draw(game.arrowNext, game.leftBorderX + game.horizontalOtstup, game.leftBorderY + game.verticalOtstup + game.size*6, game.size, game.size);
         }
 
         if (start_timer>=0){
             start_timer-=delta;
-            game.gameBatch.draw(game.border, game.left_border_x, game.left_border_y, game.width+game.size*2, game.height+game.size*2);
+            game.gameBatch.draw(game.border, game.leftBorderX, game.leftBorderY, game.width+game.size*2, game.height+game.size*2);
         }
         camera.update();
         game.gameBatch.end();
