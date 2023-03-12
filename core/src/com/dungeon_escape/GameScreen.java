@@ -785,7 +785,7 @@ public class GameScreen extends ScreenAdapter {
 
                     game.gameBatch.draw(game.tip3, game.leftBorderX + game.horizontalOtstup, game.leftBorderY + game.verticalOtstup, game.size * 10, game.size * 7);
                     if (game.isEnglish){
-
+                        game.tipsFont.draw(game.gameBatch, "A hero in a move can move to one of the neighbors of the cages."+"\n"+"To do this, you need to click on the cage to which you want to move.", game.horizontalOtstup+game.leftBorderX + game.size * 0, game.verticalOtstup + game.leftBorderY + game.size * 0.8f);
                     }
                     else {
                         game.tipsFont.draw(game.gameBatch, "Персонаж за ход может переместиться на одну из соседник клеток."+"\n"+"Для этого нужно нажать на клетку на которую вы хотите переместиться.", game.horizontalOtstup+game.leftBorderX + game.size * 0, game.verticalOtstup + game.leftBorderY + game.size * 0.8f);
@@ -794,7 +794,7 @@ public class GameScreen extends ScreenAdapter {
                 case 4:
                     game.gameBatch.draw(game.tip4, game.leftBorderX + game.horizontalOtstup, game.leftBorderY + game.verticalOtstup, game.size * 10, game.size * 7);
                     if (game.isEnglish){
-
+                        game.tipsFont.draw(game.gameBatch, "A hero in a move can attack one of the neighbors of the cages. This requires"+"\n"+"press the attack button and then the cage you want to attack."+"\n"+"If there is no enemy or lever in it, nothing will happen and the move will not be spent.", game.horizontalOtstup+game.leftBorderX + game.size * 0, game.verticalOtstup + game.leftBorderY + game.size * 1f);
                     }
                     else {
                         game.tipsFont.draw(game.gameBatch, "Персонаж за ход может атаковать одну из соседник клеток. Для этого нужно"+"\n"+"нажать кнопку атаки, а затем на клетку, которую вы хотите атаковать."+"\n"+"Если в ней нет врага или рычага ничего не произойдет и ход не потратится.", game.horizontalOtstup+game.leftBorderX + game.size * 0, game.verticalOtstup + game.leftBorderY + game.size * 1f);
@@ -802,9 +802,21 @@ public class GameScreen extends ScreenAdapter {
                     break;
                 case 5:
                     game.gameBatch.draw(game.tip5, game.leftBorderX + game.horizontalOtstup, game.leftBorderY + game.verticalOtstup, game.size * 10, game.size * 7);
+                    if (game.isEnglish){
+                        game.tipsFont.draw(game.gameBatch, "A slime in a move can move to one of the neighbors of the cages."+"\n"+"Unlike the player, he can also move diagonally.", game.horizontalOtstup+game.leftBorderX + game.size * 0, game.verticalOtstup + game.leftBorderY + game.size * 0.8f);
+                    }
+                    else {
+                        game.tipsFont.draw(game.gameBatch, "Слайм за ход может переместиться на одну из соседник клеток."+"\n"+"В отличии от игрока он также может перемещаться по диагонали.", game.horizontalOtstup+game.leftBorderX + game.size * 0, game.verticalOtstup + game.leftBorderY + game.size * 0.8f);
+                    }
                     break;
                 case 6:
                     game.gameBatch.draw(game.tip6, game.leftBorderX + game.horizontalOtstup, game.leftBorderY + game.verticalOtstup, game.size * 10, game.size * 7);
+                    if (game.isEnglish){
+                        game.tipsFont.draw(game.gameBatch, "Slime in a move can attack within a radius of two cages."+"\n"+"Also, the slime charge of the slime can fly over the door.", game.horizontalOtstup+game.leftBorderX + game.size * 0, game.verticalOtstup + game.leftBorderY + game.size * 0.8f);
+                    }
+                    else {
+                        game.tipsFont.draw(game.gameBatch, "Слайм за ход может атаковать в радиусе двух клеток."+"\n"+"Также слизь слайма может перелетать над дверями.", game.horizontalOtstup+game.leftBorderX + game.size * 0, game.verticalOtstup + game.leftBorderY + game.size * 0.8f);
+                    }
                     break;
             }
             game.gameBatch.draw(game.arrowNext, game.leftBorderX + game.horizontalOtstup, game.leftBorderY + game.verticalOtstup + game.size*6, game.size, game.size);
