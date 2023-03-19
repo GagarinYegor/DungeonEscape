@@ -18,8 +18,8 @@ public class GameScreen extends ScreenAdapter {
     Player player;
     Lever [] levers;
     OrthographicCamera camera;
-    float start_timer, camera_move_up, camera_move_down, camera_move_left, camera_move_right;
-    boolean is_hod, is_attack, check_flag, slime_hod, is_map_find, is_map_activ, is_tips_activ, is_dialog_open, close;
+    float start_timer, camera_move_up, camera_move_down, camera_move_left, camera_move_right, clickDelay;
+    boolean is_hod, is_attack, check_flag, slime_hod, is_map_find, is_map_activ, is_tips_activ, is_dialog_open, close, isClickDelay;
     FileHandle saved_file;
     int currentTip;
 
@@ -50,6 +50,11 @@ public class GameScreen extends ScreenAdapter {
         }
     }
 
+    public void click(){
+        clickDelay = 0.5f;
+        isClickDelay = true;
+    }
+
     public void check_hod(){
         if (player.getX() == 20 && player.getY() == 0){
             game.theme.stop();
@@ -67,6 +72,9 @@ public class GameScreen extends ScreenAdapter {
                     if (slime.getAttack()) check_flag = false;
                     if (slime.getAttacked()) check_flag = false;
                 }
+            }
+            for (Lever lever : levers) {
+                if (lever.getActivated()) check_flag = false;
             }
             if (player.isMoving()) check_flag = false;
             if (player.isAttacking()) check_flag = false;
@@ -98,6 +106,8 @@ public class GameScreen extends ScreenAdapter {
     }
 
     public void hod_end(){
+        clickDelay = 0.5f;
+        isClickDelay = true;
         if (player.getHealth()< player.getMaxHealth()) {
             player.setHealth(player.getHealth() + 5);
             if (player.getHealth()> player.getMaxHealth()){
@@ -248,6 +258,8 @@ public class GameScreen extends ScreenAdapter {
         game.theme.setLooping(true);
         game.theme.play();
         game.theme.setVolume(0.5f);
+        isClickDelay = false;
+        clickDelay = 0;
         start_timer = 0.1f;
         close = false;
         camera = new OrthographicCamera(game.width, game.height);
@@ -438,6 +450,167 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(new InputAdapter() {
+            public boolean keyDown(int keycode){
+                if (!isClickDelay && keycode == Input.Keys.M && is_map_find && !is_tips_activ && !is_dialog_open) {
+                    click();
+                    is_map_activ = !is_map_activ;
+                    save();
+                }
+                if (!isClickDelay && keycode == Input.Keys.N && is_tips_activ && !is_dialog_open) {
+                    click();
+                    if (currentTip+1<=6) {
+                        currentTip+=1;
+                    }
+                    else {
+                        currentTip=1;
+                    }
+                    save();
+                }
+                if (!isClickDelay && keycode == Input.Keys.A && !is_map_activ && !is_tips_activ && !is_dialog_open) {
+                    click();
+                    is_attack = !is_attack;
+                    save();
+                }
+                if (!isClickDelay && keycode == Input.Keys.T && !is_map_activ && !is_dialog_open) {
+                    click();
+                    is_tips_activ = !is_tips_activ;
+                    save();
+                }
+                if (!isClickDelay && keycode == Input.Keys.E && !is_map_activ && !is_tips_activ) {
+                    click();
+                    if (!is_dialog_open) {
+                        if (!game.isEnglish) {
+                            is_dialog_open = true;
+                            Gdx.input.getTextInput(game.gameListener, "Вы уверены что хотите отменить игру?", "", "Введите \"Да\" в это поле");
+                        } else {
+                            is_dialog_open = true;
+                            Gdx.input.getTextInput(game.gameListener, "Are you sure you want to cancel the game?", "", "Enter \"Yes\" here");
+                        }
+                    }
+                }
+                if(!isClickDelay && !is_map_activ && !is_tips_activ && !is_dialog_open) {
+                    if (is_hod) {
+                        if (keycode == Input.Keys.P) {
+                            click();
+                            hod_end();
+                        }
+                        if (is_attack) {
+                                if (keycode == Input.Keys.UP) { // up
+                                    for (Slime slime : slimes) {
+                                        if (slime.getX() == player.getX() && slime.getY() == player.getY() + 1) {
+                                            player.attacking(player.getX(), player.getY() + 1);
+                                            slime.attacked(player.getPower());
+                                            if (game.attackButtonAutoReset) is_attack = false;
+                                            click();
+                                            hod_end();
+                                        }
+                                    }
+                                    for (Lever lever : levers) {
+                                        if (lever.getX() == player.getX() && lever.getY() == player.getY() + 1) {
+                                            player.attacking(player.getX(), player.getY() + 1);
+                                            lever.click(cages);
+                                            if (game.attackButtonAutoReset) is_attack = false;
+                                            click();
+                                            hod_end();
+                                        }
+                                    }
+                                }
+                                if (keycode == Input.Keys.DOWN) { // down
+                                    for (Slime slime : slimes) {
+                                        if (slime.getX() == player.getX() && slime.getY() == player.getY() - 1) {
+                                            player.attacking(player.getX(), player.getY() - 1);
+                                            slime.attacked(player.getPower());
+                                            if (game.attackButtonAutoReset) is_attack = false;
+                                            click();
+                                            hod_end();
+                                        }
+                                    }
+                                    for (Lever lever : levers) {
+                                        if (lever.getX() == player.getX() && lever.getY() == player.getY() - 1) {
+                                            player.attacking(player.getX(), player.getY() - 1);
+                                            lever.click(cages);
+                                            if (game.attackButtonAutoReset) is_attack = false;
+                                            click();
+                                            hod_end();
+                                        }
+                                    }
+                                }
+                                if (keycode == Input.Keys.RIGHT) { // right
+                                    for (Slime slime : slimes) {
+                                        if (slime.getX() == player.getX() + 1 && slime.getY() == player.getY()) {
+                                            player.attacking(player.getX() + 1, player.getY());
+                                            slime.attacked(player.getPower());
+                                            if (game.attackButtonAutoReset) is_attack = false;
+                                            click();
+                                            hod_end();
+                                        }
+                                    }
+                                    for (Lever lever : levers) {
+                                        if (lever.getX() == player.getX() + 1 && lever.getY() == player.getY()) {
+                                            player.attacking(player.getX() + 1, player.getY());
+                                            lever.click(cages);
+                                            if (game.attackButtonAutoReset) is_attack = false;
+                                            click();
+                                            hod_end();
+                                        }
+                                    }
+                                }
+                                if (keycode == Input.Keys.LEFT) { //left
+                                    for (Slime slime : slimes) {
+                                        if (slime.getX() == player.getX() - 1 && slime.getY() == player.getY()) {
+                                            player.attacking(player.getX() - 1, player.getY());
+                                            slime.attacked(player.getPower());
+                                            if (game.attackButtonAutoReset) is_attack = false;
+                                            click();
+                                            hod_end();
+                                        }
+                                    }
+                                    for (Lever lever : levers) {
+                                        if (lever.getX() == player.getX() - 1 && lever.getY() == player.getY()) {
+                                            player.attacking(player.getX() - 1, player.getY());
+                                            lever.click(cages);
+                                            if (game.attackButtonAutoReset) is_attack = false;
+                                            click();
+                                            hod_end();
+                                        }
+                                    }
+                                }
+                            } else {
+                            if (keycode == Input.Keys.UP) {
+                                    if (cages[player.getX()][player.getY() + 1].getMovable()) {
+                                        Go(0, 1);
+                                        click();
+                                        hod_end();
+                                    }
+                                }
+                            if (keycode == Input.Keys.DOWN) {
+                                    if (cages[player.getX()][player.getY() - 1].getMovable()) {
+                                        Go(0, -1);
+                                        click();
+                                        hod_end();
+                                    }
+                                }
+                            if (keycode == Input.Keys.RIGHT) {
+                                    if (cages[player.getX() + 1][player.getY()].getMovable()) {
+                                        Go(1, 0);
+                                        click();
+                                        hod_end();
+                                    }
+                                }
+                            if (keycode == Input.Keys.LEFT) {
+                                    if (cages[player.getX() - 1][player.getY()].getMovable()) {
+                                        Go(-1, 0);
+                                        click();
+                                        hod_end();
+                                    }
+                                }
+                        }
+                    }
+                    return true;
+                }
+                return false;
+            }
+
             public boolean touchDown (int x, int y, int pointer, int button) {
                 int touch_x;
                 int touch_y;
@@ -601,6 +774,14 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+        if (isClickDelay){
+            clickDelay-=delta;
+            if (clickDelay<=0){
+                clickDelay = 0;
+                isClickDelay = false;
+            }
+        }
+
         if (close) {
             game.setScreen(new DeathScreen(game));
         }
@@ -679,7 +860,7 @@ public class GameScreen extends ScreenAdapter {
             }
         }
         for (Lever lever: levers){
-            lever.draw(game.gameBatch, game.size);
+            lever.draw(game.gameBatch, game.size, delta);
         }
         for (Slime slime: slimes){
             if (Math.abs(slime.getX() - player.getX()) < 6 && Math.abs(slime.getY() - player.getY()) < 5) {
