@@ -48,7 +48,7 @@ public class Slime {
     public void draw(SpriteBatch batch, float size, float dt) {
         if (isAlive) {
             batch.draw(titleTextTable, realX, realY + size - size / 4, size, size / 4);
-            if (health>=100) titleFont.draw(batch, "  "+health+"/"+ maxHealth, realX + size / 10, realY + size - size / 15);
+            if (health >= 100) titleFont.draw(batch, "  "+health+"/"+ maxHealth, realX + size / 10, realY + size - size / 15);
             else titleFont.draw(batch, "   "+health+"/"+ maxHealth, realX + size / 10, realY + size - size / 15);
 
             if (isAttacked) {
@@ -107,20 +107,16 @@ public class Slime {
         }
     }
     public void attacking(int x, int y){
-        if (isAttacking == false) {
-            slimeAttackingSound.play();
-            isAttacking = true;
-            activatedTimer = 1f;
-            charge.setTarget(x, y, this.x, this.y);
-        }
+        slimeAttackingSound.play();
+        isAttacking = true;
+        activatedTimer = 1f;
+        charge.setTarget(x, y, this.x, this.y);
     }
     public void attacked(int damage){
-        if (isAttacked == false) {
-            slimeAttackedSound.play();
-            isAttacked = true;
-            activatedTimer = 1f;
-            health-=damage;
-        }
+        slimeAttackedSound.play();
+        isAttacked = true;
+        activatedTimer = 1f;
+        health-=damage;
     }
     public void move(int x, int y){
         this.x += x;
@@ -145,13 +141,12 @@ public class Slime {
     public void death(){
         x = 24;
         y = 24;
-        realX = x*size+ horizontalIndent;
-        realY = y*size+ verticalIndent;
+        realX = x * size + horizontalIndent;
+        realY = y * size + verticalIndent;
         isAlive = false;
     }
     public boolean getMoving(){return isMoving;}
     public boolean getAttacking(){return isAttacking;}
     public boolean getAttacked(){return isAttacked;}
-    public void blastDraw(SpriteBatch batch, float size, float dt){
-        charge.draw(batch, size, dt);}
+    public void blastDraw(SpriteBatch batch, float size, float dt){ charge.draw(batch, size, dt);}
 }

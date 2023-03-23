@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Player {
     private boolean isAttacking, isAttacked, isMoving, isRight;
     private int x, y, health, maxHealth, power;
-    private float realX, realY, attackedTimer, speed, horizontalOtstup, verticalOtstup;
+    private float realX, realY, activatedTimer, speed, horizontalOtstup, verticalOtstup;
     private Animation playerAnimationRight, playerAnimationLeft, playerMowingRight, playerMowingLeft;
     private Texture attackingPlayerRight, attackedPlayerRight, attackingPlayerLeft, attackedPlayerLeft;
     private Charge charge;
@@ -43,7 +43,7 @@ public class Player {
         this.playerAttackedSound = playerAttackedSound;
         isAttacking = false;
         isAttacked = false;
-        attackedTimer = 0;
+        activatedTimer = 0;
         charge = new Charge(x, y, size, horizontalOtstup, verticalOtstup, player_blast, 8, speed);
         this.maxHealth = maxHealth;
         this.health = health;
@@ -53,22 +53,29 @@ public class Player {
     }
 
     public void draw(SpriteBatch batch, float size, float dt){
-        if(!isMoving) {
+        if (!isMoving) {
             if (isAttacked) {
                 if (isRight) batch.draw(attackedPlayerRight, realX, realY, size, size);
                 else batch.draw(attackedPlayerLeft, realX, realY, size, size);
-                if (attackedTimer < 0.5f) {
-                    attackedTimer += dt;
+                if (activatedTimer > 0) {
+                    activatedTimer -= dt;
                 } else isAttacked = false;
-            } else {
-                if (isAttacking) {
-                    if (isRight) batch.draw(attackingPlayerRight, realX, realY, size, size);
-                    else batch.draw(attackingPlayerLeft, realX, realY, size, size);
-                    if (!charge.isActiv()) isAttacking = false;
-                } else {
-                    if (isRight) batch.draw(playerAnimationRight.getFrame(), realX, realY, size, size);
-                    else batch.draw(playerAnimationLeft.getFrame(), realX, realY, size, size);
+            }
+            if (isAttacking) {
+                if (activatedTimer > 0 && charge.isActiv()) {
+                    activatedTimer -= dt;
+                    if (!isAttacked) {
+                        if (isRight) batch.draw(attackingPlayerRight, realX, realY, size, size);
+                        else batch.draw(attackingPlayerLeft, realX, realY, size, size);
+                    }
                 }
+                else{
+                    isAttacking = false;
+                }
+            }
+            if (!isAttacked && !isAttacking) {
+                if (isRight) batch.draw(playerAnimationRight.getFrame(), realX, realY, size, size);
+                else batch.draw(playerAnimationLeft.getFrame(), realX, realY, size, size);
             }
         }
         else {
@@ -80,38 +87,38 @@ public class Player {
                 batch.draw(playerMowingLeft.getFrame(), realX, realY, size, size);
                 playerMowingLeft.update(dt);
             }
-            if (realX <x*size+ horizontalOtstup){
+            if (realX < x * size + horizontalOtstup){
                 isRight = true;
-                if (realX +speed*dt<x*size+ horizontalOtstup) {
-                    realX += speed*dt;
+                if (realX + speed * dt < x * size + horizontalOtstup) {
+                    realX += speed * dt;
                 }
                 //else real_x+=speed*dt-(real_x+speed*dt-(x*size+horizontal_otstup));
-                else realX = x*size+ horizontalOtstup;
+                else realX = x * size + horizontalOtstup;
             }
-            if (realX >x*size+ horizontalOtstup){
+            if (realX > x * size + horizontalOtstup){
                 isRight = false;
-                if (realX -speed*dt>x*size+ horizontalOtstup) {
+                if (realX -speed * dt > x * size + horizontalOtstup) {
                     realX -= speed*dt;
                 }
                 //else real_x-=speed*dt-(real_x+speed*dt-(x*size+horizontal_otstup));
-                else realX = x*size+ horizontalOtstup;
+                else realX = x * size + horizontalOtstup;
             }
-            if (realY <y*size+ verticalOtstup){
-                if (realY +speed*dt<y*size+ verticalOtstup) {
-                    realY += speed*dt;
+            if (realY < y * size + verticalOtstup){
+                if (realY + speed * dt < y * size + verticalOtstup) {
+                    realY += speed * dt;
                 }
                 //else real_y+=speed*dt-(real_y+speed*dt-(y*size+vertical_otstup));
-                else realY = y*size+ verticalOtstup;
+                else realY = y * size+ verticalOtstup;
             }
-            if (realY >y*size+ verticalOtstup){
-                if (realY -speed*dt>y*size+ verticalOtstup) {
-                    realY -= speed*dt;
+            if (realY > y * size+ verticalOtstup){
+                if (realY -speed * dt > y * size + verticalOtstup) {
+                    realY -= speed * dt;
                 }
                 //else real_y-=speed*dt-(real_y+speed*dt-(y*size+vertical_otstup));
-                else realY = y*size+ verticalOtstup;
+                else realY = y * size + verticalOtstup;
             }
         }
-        if (realX ==x*size+ horizontalOtstup && realY ==y*size+ verticalOtstup) {
+        if (realX == x * size + horizontalOtstup && realY == y * size + verticalOtstup) {
             isMoving = false;
         }
         playerAnimationRight.update(dt);
@@ -120,19 +127,16 @@ public class Player {
     }
 
     public void attacking(int x, int y){
-        if (isAttacking == false) {
-            playerAttackingSound.play();
-            isAttacking = true;
-            charge.setTarget(x, y, this.x, this.y);
-        }
+        playerAttackingSound.play();
+        isAttacking = true;
+        activatedTimer = 1f;
+        charge.setTarget(x, y, this.x, this.y);
     }
     public void attacked(int damage){
-        if (isAttacked == false) {
-            health -= damage;
-            playerAttackedSound.play();
-            isAttacked = true;
-            attackedTimer = 0;
-        }
+        playerAttackedSound.play();
+        isAttacked = true;
+        activatedTimer = 1f;
+        health-=damage;
     }
     public void move(int x, int y){
         this.x += x;
