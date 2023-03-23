@@ -79,6 +79,7 @@ public class GameScreen extends ScreenAdapter {
             if (player.isMoving()) check_flag = false;
             if (player.isAttacking()) check_flag = false;
             if (player.isAttacked()) check_flag = false;
+            if (isClickDelay) check_flag = false;
             if (check_flag) is_hod = true;
         }
         else{
@@ -106,8 +107,6 @@ public class GameScreen extends ScreenAdapter {
     }
 
     public void hod_end(){
-        clickDelay = 0.5f;
-        isClickDelay = true;
         if (player.getHealth()< player.getMaxHealth()) {
             player.setHealth(player.getHealth() + 5);
             if (player.getHealth()> player.getMaxHealth()){
@@ -363,7 +362,7 @@ public class GameScreen extends ScreenAdapter {
                         Integer.parseInt(saved_strings.get(7+i).split(" ")[3]));
                 cages[slimes[i].getX()][slimes[i].getY()].setMovable(false);
             }
-            System.out.println(slimes.length);
+            //System.out.println(slimes.length);
             for (int i = 0; i < game.leverMassY; i++) {
                 if (game.levers_mass[i][4] == 0) {
                     levers[i] = new Lever(game.levers_mass[i][0], game.levers_mass[i][1], game.levers_mass[i][2], game.levers_mass[i][3], game.size, game.horizontalOtstup, game.verticalOtstup, game.activLever, game.passivLever, game.cvd, game.ovd, game.leverSound, game.openDoorsSound, game.closedDoorsSound, saved_strings.get(8+slimes.length+i).equals("1"));
@@ -389,10 +388,8 @@ public class GameScreen extends ScreenAdapter {
             is_map_activ = false;
             is_tips_activ = false;
             player = new Player(3, 3, game.size, game.horizontalOtstup, game.verticalOtstup,
-                    game.playerTextureRegionRight, game.playerTextureRegionLeft,
-                    12,
-                    game.playerTextureRegionMowingRight, game.playerTextureRegionMowingLeft,
-                    14,
+                    game.playerTextureRegionRight, game.playerTextureRegionLeft, 12,
+                    game.playerTextureRegionMowingRight, game.playerTextureRegionMowingLeft, 14,
                     game.speed, game.playerBlast,
                     game.playerAttackingRight, game.playerAttackedRight,
                     game.playerAttackingLeft, game.playerAttackedLeft,
@@ -426,7 +423,7 @@ public class GameScreen extends ScreenAdapter {
         game.gameListener = new Input.TextInputListener() {
             @Override
             public void input(String s) {
-                Gdx.input.setOnscreenKeyboardVisible(true);
+                //Gdx.input.setOnscreenKeyboardVisible(true);
                 if ((!game.isEnglish && s.equals("Да")) || (game.isEnglish && s.equals("Yes"))) {
                     close = true;
                 }
@@ -613,6 +610,7 @@ public class GameScreen extends ScreenAdapter {
             }
 
             public boolean touchDown (int x, int y, int pointer, int button) {
+                System.out.println(isClickDelay);
                 int touch_x;
                 int touch_y;
                 if ((Gdx.input.getX()-game.horizontalOtstup) / game.size / camera.zoom>=0){
@@ -628,42 +626,49 @@ public class GameScreen extends ScreenAdapter {
                     touch_y = (int) ((game.height - (game.verticalOtstup +Gdx.input.getY())) / game.size - 1);
                 }
                 if (button == Input.Buttons.LEFT) {
-                    if (touch_x == 9 && touch_y == 3 && is_map_find && !is_tips_activ && !is_dialog_open) {
+                    if (!isClickDelay && touch_x == 9 && touch_y == 3 && is_map_find && !is_tips_activ && !is_dialog_open) {
                         is_map_activ = !is_map_activ;
+                        click();
                         save();
                     }
-                    if (touch_x == 0 && touch_y == 6 && is_tips_activ && !is_dialog_open) {
+                    if (!isClickDelay && touch_x == 0 && touch_y == 6 && is_tips_activ && !is_dialog_open) {
                         if (currentTip+1<=6) {
                             currentTip+=1;
                         }
                         else {
                             currentTip=1;
                         }
+                        click();
                         save();
                     }
-                    if (touch_x == 9 && touch_y == 1 && !is_map_activ && !is_tips_activ && !is_dialog_open) {
+                    if (!isClickDelay && touch_x == 9 && touch_y == 1 && !is_map_activ && !is_tips_activ && !is_dialog_open) {
                         is_attack = !is_attack;
+                        click();
                         save();
                     }
-                    if (touch_x == 9 && touch_y == 6 && !is_map_activ && !is_dialog_open) {
+                    if (!isClickDelay && touch_x == 9 && touch_y == 6 && !is_map_activ && !is_dialog_open) {
                         is_tips_activ = !is_tips_activ;
+                        click();
                         save();
                     }
-                    if (touch_x == 9 && touch_y == 0 && !is_map_activ && !is_tips_activ) {
+                    if (!isClickDelay && touch_x == 9 && touch_y == 0 && !is_map_activ && !is_tips_activ) {
                         if (!is_dialog_open) {
                             if (!game.isEnglish) {
                                 is_dialog_open = true;
+                                click();
                                 Gdx.input.getTextInput(game.gameListener, "Вы уверены что хотите отменить игру?", "", "Введите \"Да\" в это поле");
                             } else {
                                 is_dialog_open = true;
+                                click();
                                 Gdx.input.getTextInput(game.gameListener, "Are you sure you want to cancel the game?", "", "Enter \"Yes\" here");
                             }
                         }
                     }
-                    if(!is_map_activ && !is_tips_activ && !is_dialog_open) {
+                    if(!isClickDelay && !is_map_activ && !is_tips_activ && !is_dialog_open) {
                         if (is_hod) {
                             if (touch_x == 9 && touch_y == 2) {
                                 hod_end();
+                                click();
                             }
                             if (is_attack) {
                                 if (touch_x == 4 && touch_y == 4) { // up
@@ -673,6 +678,7 @@ public class GameScreen extends ScreenAdapter {
                                             slime.attacked(player.getPower());
                                             if (game.attackButtonAutoReset) is_attack = false;
                                             hod_end();
+                                            click();
                                         }
                                     }
                                     for (Lever lever : levers) {
@@ -681,6 +687,7 @@ public class GameScreen extends ScreenAdapter {
                                             lever.click(cages);
                                             if (game.attackButtonAutoReset) is_attack = false;
                                             hod_end();
+                                            click();
                                         }
                                     }
                                 }
@@ -691,6 +698,7 @@ public class GameScreen extends ScreenAdapter {
                                             slime.attacked(player.getPower());
                                             if (game.attackButtonAutoReset) is_attack = false;
                                             hod_end();
+                                            click();
                                         }
                                     }
                                     for (Lever lever : levers) {
@@ -699,6 +707,7 @@ public class GameScreen extends ScreenAdapter {
                                             lever.click(cages);
                                             if (game.attackButtonAutoReset) is_attack = false;
                                             hod_end();
+                                            click();
                                         }
                                     }
                                 }
@@ -709,6 +718,7 @@ public class GameScreen extends ScreenAdapter {
                                             slime.attacked(player.getPower());
                                             if (game.attackButtonAutoReset) is_attack = false;
                                             hod_end();
+                                            click();
                                         }
                                     }
                                     for (Lever lever : levers) {
@@ -717,6 +727,7 @@ public class GameScreen extends ScreenAdapter {
                                             lever.click(cages);
                                             if (game.attackButtonAutoReset) is_attack = false;
                                             hod_end();
+                                            click();
                                         }
                                     }
                                 }
@@ -726,7 +737,7 @@ public class GameScreen extends ScreenAdapter {
                                             player.attacking(player.getX() - 1, player.getY());
                                             slime.attacked(player.getPower());
                                             if (game.attackButtonAutoReset) is_attack = false;
-                                            hod_end();
+                                            hod_end();click();
                                         }
                                     }
                                     for (Lever lever : levers) {
@@ -735,6 +746,7 @@ public class GameScreen extends ScreenAdapter {
                                             lever.click(cages);
                                             if (game.attackButtonAutoReset) is_attack = false;
                                             hod_end();
+                                            click();
                                         }
                                     }
                                 }
@@ -743,24 +755,28 @@ public class GameScreen extends ScreenAdapter {
                                     if (cages[player.getX()][player.getY() + 1].getMovable()) {
                                         Go(0, 1);
                                         hod_end();
+                                        click();
                                     }
                                 }
                                 if (touch_x == 4 && touch_y == 2) {
                                     if (cages[player.getX()][player.getY() - 1].getMovable()) {
                                         Go(0, -1);
                                         hod_end();
+                                        click();
                                     }
                                 }
                                 if (touch_x == 5 && touch_y == 3) {
                                     if (cages[player.getX() + 1][player.getY()].getMovable()) {
                                         Go(1, 0);
                                         hod_end();
+                                        click();
                                     }
                                 }
                                 if (touch_x == 3 && touch_y == 3) {
                                     if (cages[player.getX() - 1][player.getY()].getMovable()) {
                                         Go(-1, 0);
                                         hod_end();
+                                        click();
                                     }
                                 }
                             }
@@ -777,8 +793,7 @@ public class GameScreen extends ScreenAdapter {
     public void render(float delta) {
         if (isClickDelay){
             clickDelay-=delta;
-            if (clickDelay<=0){
-                clickDelay = 0;
+            if (clickDelay<0){
                 isClickDelay = false;
             }
         }
