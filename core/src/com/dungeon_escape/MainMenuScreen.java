@@ -36,8 +36,8 @@ public class MainMenuScreen extends ScreenAdapter {
         buttons_real_y=game.size;
 
         slime = new Slime(7, 5, game.size, game.horizontalOtstup, game.verticalOtstup,
-                game.greenSlimeTextureRegion, 6, game.speed, game.slimeBlast,
-                game.greenSlimeAttacking, game.greenSlimeAttacked,
+                game.greenSlimeTextureRegion, 6, game.speed, game.slimeChargeTextureRegion,
+                game.greenAttackingSlimeTextureRegion, game.greenAttackedSlimeTextureRegion,
                 game.slimeAttackingSound, game.slimeAttackedSound, game.titleTextTable, game.slimeFont, 100, 100);
 
         player = new Player(2, 5, game.size, game.horizontalOtstup, game.verticalOtstup,

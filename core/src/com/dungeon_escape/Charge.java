@@ -4,13 +4,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Blast {
+public class Charge {
     private int x, y;
     private float realX, realY, speed, verticalOtstup, horizontalOtstup, size;
     private Animation blastAnimation;
     private boolean isActiv;
 
-    public Blast (int x, int y, float size, float horizontalOtstup, float verticalOtstup, Texture blastTextureRegion, int frameCount, float speed){
+    public Charge(int x, int y, float size, float horizontalOtstup, float verticalOtstup, Texture blastTextureRegion, int frameCount, float speed){
         this.speed = speed;
         this.x = x;
         this.y = y;

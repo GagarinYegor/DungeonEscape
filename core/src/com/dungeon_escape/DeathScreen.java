@@ -22,7 +22,7 @@ public class DeathScreen extends ScreenAdapter {
         saved_file.delete();
         slimes = new Slime[10];
         for (int i = 0; i< 10; i++){
-            slimes[i] =  new Slime(i, 1, game.size, game.horizontalOtstup, game.verticalOtstup, game.greenSlimeTextureRegion, 6, game.speed, game.slimeBlast, game.greenSlimeAttacking, game.greenSlimeAttacked, game.slimeAttackingSound, game.slimeAttackedSound, game.titleTextTable, game.slimeFont, 100, 100);
+            slimes[i] =  new Slime(i, 1, game.size, game.horizontalOtstup, game.verticalOtstup, game.greenSlimeTextureRegion, 6, game.speed, game.slimeChargeTextureRegion, game.greenAttackingSlimeTextureRegion, game.greenAttackedSlimeTextureRegion, game.slimeAttackingSound, game.slimeAttackedSound, game.titleTextTable, game.slimeFont, 100, 100);
         }
         this.game = game;
     }

@@ -45,7 +45,7 @@ public class GameScreen extends ScreenAdapter {
         }
         saved_file.writeString("///levers///" + "\n", true);
         for (int i = 0; i<levers.length; i++) {
-            if (levers[i].isActiv()) saved_file.writeString("1" + "\n", true);
+            if (levers[i].getActive()) saved_file.writeString("1" + "\n", true);
             else saved_file.writeString("0" + "\n", true);
         }
     }
@@ -69,7 +69,7 @@ public class GameScreen extends ScreenAdapter {
             for (Slime slime : slimes) {
                 if (slime.getHealth()>0) {
                     if (slime.getMoving()) check_flag = false;
-                    if (slime.getAttack()) check_flag = false;
+                    if (slime.getAttacking()) check_flag = false;
                     if (slime.getAttacked()) check_flag = false;
                 }
             }
@@ -357,8 +357,8 @@ public class GameScreen extends ScreenAdapter {
                 slimes[i] = new Slime(Integer.parseInt(saved_strings.get(7+i).split(" ")[1]),
                         Integer.parseInt(saved_strings.get(7+i).split(" ")[0]), game.size,
                         game.horizontalOtstup, game.verticalOtstup, game.greenSlimeTextureRegion,
-                        6, game.speed, game.slimeBlast, game.greenSlimeAttacking,
-                        game.greenSlimeAttacked, game.slimeAttackingSound, game.slimeAttackedSound,
+                        6, game.speed, game.slimeChargeTextureRegion, game.greenAttackingSlimeTextureRegion,
+                        game.greenAttackedSlimeTextureRegion, game.slimeAttackingSound, game.slimeAttackedSound,
                         game.titleTextTable, game.slimeFont, Integer.parseInt(saved_strings.get(7+i).split(" ")[2]),
                         Integer.parseInt(saved_strings.get(7+i).split(" ")[3]));
                 cages[slimes[i].getX()][slimes[i].getY()].setMovable(false);
@@ -401,7 +401,7 @@ public class GameScreen extends ScreenAdapter {
             is_attack = false;
 
             for (int i = 0; i < slimes.length; i++) {
-                slimes[i] = new Slime(game.slimes_mass[i][1], game.slimes_mass[i][0], game.size, game.horizontalOtstup, game.verticalOtstup, game.greenSlimeTextureRegion, 6, game.speed, game.slimeBlast, game.greenSlimeAttacking, game.greenSlimeAttacked, game.slimeAttackingSound, game.slimeAttackedSound, game.titleTextTable, game.slimeFont, 100, 100);
+                slimes[i] = new Slime(game.slimes_mass[i][1], game.slimes_mass[i][0], game.size, game.horizontalOtstup, game.verticalOtstup, game.greenSlimeTextureRegion, 6, game.speed, game.slimeChargeTextureRegion, game.greenAttackingSlimeTextureRegion, game.greenAttackedSlimeTextureRegion, game.slimeAttackingSound, game.slimeAttackedSound, game.titleTextTable, game.slimeFont, 100, 100);
                 cages[slimes[i].getX()][slimes[i].getY()].setMovable(false);
             }
 
@@ -426,6 +426,7 @@ public class GameScreen extends ScreenAdapter {
         game.gameListener = new Input.TextInputListener() {
             @Override
             public void input(String s) {
+                Gdx.input.setOnscreenKeyboardVisible(true);
                 if ((!game.isEnglish && s.equals("Да")) || (game.isEnglish && s.equals("Yes"))) {
                     close = true;
                 }
@@ -864,7 +865,7 @@ public class GameScreen extends ScreenAdapter {
         }
         for (Slime slime: slimes){
             if (Math.abs(slime.getX() - player.getX()) < 6 && Math.abs(slime.getY() - player.getY()) < 5) {
-                slime.blast_drow(game.gameBatch, game.size, delta);
+                slime.blastDraw(game.gameBatch, game.size, delta);
             }
         }
         if (game.verticalOtstup !=0){

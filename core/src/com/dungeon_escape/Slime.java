@@ -1,122 +1,131 @@
 package com.dungeon_escape;
 
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Slime {
-    private boolean is_attack, is_attacked, is_moving, is_alive;
-    private int x, y, health, max_health, power;
-    private float real_x, real_y, attacked_timer, speed, horizontal_otstup, vertical_otstup, size;
-    private Animation slime_animation;
-    private Texture attacking_slime, title_text_table, attacked_slime;
-    private BitmapFont font;
-    private Blast blast;
-    private Sound slime_attacking_sound, slime_attacked_sound;
+    private boolean isAttacking, isAttacked, isMoving, isAlive;
+    private int x, y, health, maxHealth, power;
+    private float realX, realY, activatedTimer, speed, horizontalIndent, verticalIndent, size;
+    private Animation slimeAnimation, attackingSlimeAnimation,  attackedSlimeAnimation;
+    private Texture titleTextTable;
+    private BitmapFont titleFont;
+    private Charge charge;
+    private Sound slimeAttackingSound, slimeAttackedSound;
 
-    Slime(int x, int y, float size, float horizontal_otstup, float vertical_otstup,
-          Texture slime_texture_region, int frameCount, float speed, Texture slime_blast,
-          Texture attacking_slime, Texture attacked_slime, Sound slime_attacking_sound,
-          Sound slime_attacked_sound, Texture title_text_table, BitmapFont slimeFont, int health, int max_health){
+    Slime(int x, int y, float size, float horizontalIndent, float verticalIndent,
+          Texture slimeTextureRegion, int frameCount, float speed, Texture slimeCharge,
+          Texture attackingSlimeTextureRegion, Texture attackedSlimeTextureRegion, Sound slimeAttackingSound,
+          Sound slimeAttackedSound, Texture titleTextTable, BitmapFont slimeFont, int health, int maxHealth){
         this.speed = speed;
         this.x = x;
         this.y = y;
-        real_x = this.x*size+horizontal_otstup;
-        real_y = this.y*size+vertical_otstup;
-        this.vertical_otstup = vertical_otstup;
-        this.horizontal_otstup = horizontal_otstup;
-        this.attacking_slime = attacking_slime;
-        this.attacked_slime = attacked_slime;
-        slime_animation = new Animation(new TextureRegion(slime_texture_region), frameCount, 0.5f);
-        this.title_text_table = title_text_table;
-        font = slimeFont;
-        this.slime_attacking_sound = slime_attacking_sound;
-        this.slime_attacked_sound = slime_attacked_sound;
-        is_attack = false;
-        is_attacked = false;
-        attacked_timer = 0;
-        blast = new Blast(x, y, size, horizontal_otstup, vertical_otstup, slime_blast, 8, speed);
+        realX = this.x*size+ horizontalIndent;
+        realY = this.y*size+ verticalIndent;
+        this.verticalIndent = verticalIndent;
+        this.horizontalIndent = horizontalIndent;
+        attackingSlimeAnimation = new Animation(new TextureRegion(attackingSlimeTextureRegion), frameCount, 0.5f);
+        attackedSlimeAnimation = new Animation(new TextureRegion(attackedSlimeTextureRegion), frameCount, 0.5f);
+        slimeAnimation = new Animation(new TextureRegion(slimeTextureRegion), frameCount, 0.5f);
+        this.titleTextTable = titleTextTable;
+        titleFont = slimeFont;
+        this.slimeAttackingSound = slimeAttackingSound;
+        this.slimeAttackedSound = slimeAttackedSound;
+        isAttacking = false;
+        isAttacked = false;
+        activatedTimer = 0;
+        charge = new Charge(x, y, size, horizontalIndent, verticalIndent, slimeCharge, 8, speed);
         this.size = size;
-        is_alive = true;
-        this.max_health = max_health;
+        isAlive = true;
+        this.maxHealth = maxHealth;
         this.health = health;
         power = 15;
     }
 
     public void draw(SpriteBatch batch, float size, float dt) {
-        if (is_alive) {
-            batch.draw(title_text_table, real_x, real_y + size - size / 4, size, size / 4);
-            if (health>=100)font.draw(batch, "  "+health+"/"+max_health, real_x + size / 10, real_y + size - size / 15);
-            else font.draw(batch, "   "+health+"/"+max_health, real_x + size / 10, real_y + size - size / 15);
-            if (is_attacked) {
-                batch.draw(attacked_slime, real_x, real_y, size, size);
-                if (attacked_timer < 0.5f) {
-                    attacked_timer += dt;
-                } else is_attacked = false;
-            } else {
-                batch.draw(slime_animation.getFrame(), real_x, real_y, size, size);
-                if (is_attack) {
-                    batch.draw(attacking_slime, real_x, real_y, size, size);
-                    if (!blast.isActiv()) is_attack = false;
+        if (isAlive) {
+            batch.draw(titleTextTable, realX, realY + size - size / 4, size, size / 4);
+            if (health>=100) titleFont.draw(batch, "  "+health+"/"+ maxHealth, realX + size / 10, realY + size - size / 15);
+            else titleFont.draw(batch, "   "+health+"/"+ maxHealth, realX + size / 10, realY + size - size / 15);
+
+            if (isAttacked) {
+                batch.draw(attackedSlimeAnimation.getFrame(), realX, realY, size, size);
+                if (activatedTimer > 0) {
+                    activatedTimer -= dt;
+                } else isAttacked = false;
+            }
+            if (isAttacking) {
+                if (activatedTimer > 0 && charge.isActiv()) {
+                    activatedTimer -= dt;
+                    if (!isAttacked) batch.draw(attackingSlimeAnimation.getFrame(), realX, realY, size, size);
+                }
+                else{
+                    isAttacking = false;
                 }
             }
-            if (is_moving) {
-                batch.draw(slime_animation.getFrame(), real_x, real_y, size, size);
-                //slime_animation.update(dt);
-                if (real_x < x * size + horizontal_otstup) {
-                    if (real_x + speed * dt < x * size + horizontal_otstup) {
-                        real_x += speed * dt;
+
+            if (!isAttacked && !isAttacking) {
+                batch.draw(slimeAnimation.getFrame(), realX, realY, size, size);
+            }
+
+            if (isMoving) {
+                if (realX < x * size + horizontalIndent) {
+                    if (realX + speed * dt < x * size + horizontalIndent) {
+                        realX += speed * dt;
                     } else
-                        real_x += speed * dt - (real_x + speed * dt - (x * size + horizontal_otstup));
+                        realX += speed * dt - (realX + speed * dt - (x * size + horizontalIndent));
                 }
-                if (real_x > x * size + horizontal_otstup) {
-                    if (real_x + speed * dt > x * size + horizontal_otstup) {
-                        real_x -= speed * dt;
+                if (realX > x * size + horizontalIndent) {
+                    if (realX + speed * dt > x * size + horizontalIndent) {
+                        realX -= speed * dt;
                     } else
-                        real_x -= speed * dt - (real_x + speed * dt - (x * size + horizontal_otstup));
+                        realX -= speed * dt - (realX + speed * dt - (x * size + horizontalIndent));
                 }
-                if (real_y < y * size + vertical_otstup) {
-                    if (real_y + speed * dt < y * size + vertical_otstup) {
-                        real_y += speed * dt;
+                if (realY < y * size + verticalIndent) {
+                    if (realY + speed * dt < y * size + verticalIndent) {
+                        realY += speed * dt;
                     } else {
-                        real_y += speed * dt - (real_y + speed * dt - (y * size + vertical_otstup));
+                        realY += speed * dt - (realY + speed * dt - (y * size + verticalIndent));
                     }
                 }
-                if (real_y > y * size + vertical_otstup) {
-                    if (real_y + speed * dt > y * size + vertical_otstup) {
-                        real_y -= speed * dt;
+                if (realY > y * size + verticalIndent) {
+                    if (realY + speed * dt > y * size + verticalIndent) {
+                        realY -= speed * dt;
                     } else
-                        real_y -= speed * dt - (real_y + speed * dt - (y * size + vertical_otstup));
+                        realY -= speed * dt - (realY + speed * dt - (y * size + verticalIndent));
                 }
             }
-            if (real_x == x * size + horizontal_otstup && real_y == y * size + vertical_otstup) {
-                is_moving = false;
+            if (realX == x * size + horizontalIndent && realY == y * size + verticalIndent) {
+                isMoving = false;
             }
-            slime_animation.update(dt);
+            slimeAnimation.update(dt);
+            attackedSlimeAnimation.update(dt);
+            attackingSlimeAnimation.update(dt);
         }
     }
     public void attacking(int x, int y){
-        if (is_attack == false) {
-            slime_attacking_sound.play();
-            is_attack = true;
-            blast.setTarget(x, y, this.x, this.y);
+        if (isAttacking == false) {
+            slimeAttackingSound.play();
+            isAttacking = true;
+            activatedTimer = 1f;
+            charge.setTarget(x, y, this.x, this.y);
         }
     }
     public void attacked(int damage){
-        if (is_attacked == false) {
-            slime_attacked_sound.play();
-            is_attacked = true;
+        if (isAttacked == false) {
+            slimeAttackedSound.play();
+            isAttacked = true;
+            activatedTimer = 1f;
             health-=damage;
-            attacked_timer = 0;
         }
     }
     public void move(int x, int y){
         this.x += x;
         this.y += y;
-        is_moving = true;
+        isMoving = true;
     }
     public int getX(){
         return x;
@@ -128,7 +137,7 @@ public class Slime {
         return health;
     }
     public int getMaxHealth(){
-        return max_health;
+        return maxHealth;
     }
     public int getPower(){
         return power;
@@ -136,12 +145,13 @@ public class Slime {
     public void death(){
         x = 24;
         y = 24;
-        real_x = x*size+horizontal_otstup;
-        real_y = y*size+vertical_otstup;
-        is_alive = false;
+        realX = x*size+ horizontalIndent;
+        realY = y*size+ verticalIndent;
+        isAlive = false;
     }
-    public boolean getMoving(){return is_moving;}
-    public boolean getAttack(){return is_attack;}
-    public boolean getAttacked(){return is_attacked;}
-    public void blast_drow(SpriteBatch batch, float size, float dt){blast.draw(batch, size, dt);}
+    public boolean getMoving(){return isMoving;}
+    public boolean getAttacking(){return isAttacking;}
+    public boolean getAttacked(){return isAttacked;}
+    public void blastDraw(SpriteBatch batch, float size, float dt){
+        charge.draw(batch, size, dt);}
 }

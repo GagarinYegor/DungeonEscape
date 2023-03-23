@@ -7,41 +7,44 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Lever {
     private int x, y, doorX, doorY;
     private float realX, realY, doorRealX, doorRealY, activatedTimer;
-    private boolean isActiv, isActivated;
-    private  Texture activLever, passivLever, closedDoor, openedDoor;
+    private boolean isActive, isActivated;
+    private Texture activeLever, passiveLever, closedDoor, openedDoor;
     private Sound lever_sound, openDoorSound, closeDoorSound;
-    Lever (int x, int y, int doorX, int door_y, float size, float horizontalOtstup, float verticalOtstup, Texture activLever, Texture passivlever, Texture closedDoor, Texture openedDoor, Sound leverSound, Sound openDoorSound, Sound closeDoorSound, boolean isActiv){
+
+    Lever (int x, int y, int doorX, int door_y, float size, float horizontalIndent, float verticalIndent,
+           Texture activeLever, Texture passiveLever, Texture closedDoor, Texture openedDoor,
+           Sound leverSound, Sound openDoorSound, Sound closeDoorSound, boolean isActive){
         this.x = x;
         this.y = y;
         this.doorX = doorX;
         this.doorY = door_y;
-        realX = this.x*size+ horizontalOtstup;
-        realY = this.y*size+verticalOtstup;
-        doorRealX = this.doorX *size+ horizontalOtstup;
-        doorRealY = this.doorY *size+verticalOtstup;
-        this.activLever = activLever;
-        this.passivLever = passivlever;
+        realX = this.x*size+ horizontalIndent;
+        realY = this.y*size+verticalIndent;
+        doorRealX = this.doorX *size+ horizontalIndent;
+        doorRealY = this.doorY *size+verticalIndent;
+        this.activeLever = activeLever;
+        this.passiveLever = passiveLever;
         this.closedDoor = closedDoor;
         this.openedDoor = openedDoor;
         this.lever_sound = leverSound;
         this.openDoorSound = openDoorSound;
         this.closeDoorSound = closeDoorSound;
-        this.isActiv = isActiv;
+        this.isActive = isActive;
         activatedTimer = 0;
     }
 
     public void draw(SpriteBatch batch, float size, float dt){
         if (isActivated) {
-            if (activatedTimer < 0.5f) {
-                activatedTimer += dt;
+            if (activatedTimer > 0 ) {
+                activatedTimer -= dt;
             } else isActivated = false;
         }
-        if (isActiv) {
-            batch.draw(activLever, realX, realY, size, size);
+        if (isActive) {
+            batch.draw(activeLever, realX, realY, size, size);
             batch.draw(openedDoor, doorRealX, doorRealY, size, size*2);
         }
         else {
-            batch.draw(passivLever, realX, realY, size, size);
+            batch.draw(passiveLever, realX, realY, size, size);
             batch.draw(closedDoor, doorRealX, doorRealY, size, size*2);
         }
     }
@@ -49,11 +52,11 @@ public class Lever {
     public void click(Cage [][] cages){
         if (!isActivated) {
             lever_sound.play();
-            if (!isActiv) openDoorSound.play();
+            if (!isActive) openDoorSound.play();
             else closeDoorSound.play();
-            isActiv = !isActiv;
+            isActive = !isActive;
             cages[doorX][doorY].setMovable(!cages[doorX][doorY].getMovable());
-            activatedTimer = 0;
+            activatedTimer = 0.5f;
             isActivated = true;
         }
     }
@@ -65,5 +68,5 @@ public class Lever {
         return y;
     }
     public boolean getActivated() {return isActivated;}
-    public boolean isActiv() {return isActiv;}
+    public boolean getActive() {return isActive;}
 }

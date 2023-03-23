@@ -11,7 +11,7 @@ public class Player {
     private float realX, realY, attackedTimer, speed, horizontalOtstup, verticalOtstup;
     private Animation playerAnimationRight, playerAnimationLeft, playerMowingRight, playerMowingLeft;
     private Texture attackingPlayerRight, attackedPlayerRight, attackingPlayerLeft, attackedPlayerLeft;
-    private Blast blast;
+    private Charge charge;
     private String name;
 
     Sound playerAttackingSound, playerAttackedSound;
@@ -44,7 +44,7 @@ public class Player {
         isAttacking = false;
         isAttacked = false;
         attackedTimer = 0;
-        blast = new Blast(x, y, size, horizontalOtstup, verticalOtstup, player_blast, 8, speed);
+        charge = new Charge(x, y, size, horizontalOtstup, verticalOtstup, player_blast, 8, speed);
         this.maxHealth = maxHealth;
         this.health = health;
         power = 20;
@@ -64,7 +64,7 @@ public class Player {
                 if (isAttacking) {
                     if (isRight) batch.draw(attackingPlayerRight, realX, realY, size, size);
                     else batch.draw(attackingPlayerLeft, realX, realY, size, size);
-                    if (!blast.isActiv()) isAttacking = false;
+                    if (!charge.isActiv()) isAttacking = false;
                 } else {
                     if (isRight) batch.draw(playerAnimationRight.getFrame(), realX, realY, size, size);
                     else batch.draw(playerAnimationLeft.getFrame(), realX, realY, size, size);
@@ -116,14 +116,14 @@ public class Player {
         }
         playerAnimationRight.update(dt);
         playerAnimationLeft.update(dt);
-        blast.draw(batch, size, dt);
+        charge.draw(batch, size, dt);
     }
 
     public void attacking(int x, int y){
         if (isAttacking == false) {
             playerAttackingSound.play();
             isAttacking = true;
-            blast.setTarget(x, y, this.x, this.y);
+            charge.setTarget(x, y, this.x, this.y);
         }
     }
     public void attacked(int damage){

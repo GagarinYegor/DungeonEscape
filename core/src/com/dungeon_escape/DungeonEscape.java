@@ -20,7 +20,7 @@ public class DungeonEscape extends Game {
 
 	BitmapFont infoFont, recordFont, deathScreenFont, winScreenFont, infoNameFont, settingFont, slimeFont, tipsFont;
 
-	Texture greenSlimeTextureRegion, slimeBlast, greenSlimeAttacked, greenSlimeAttacking,
+	Texture greenSlimeTextureRegion, slimeChargeTextureRegion, greenAttackedSlimeTextureRegion, greenAttackingSlimeTextureRegion,
 			playerTextureRegionRight, playerTextureRegionLeft, playerBlast,
 			playerAttackedRight, playerAttackingRight,
 			playerAttackedLeft, playerAttackingLeft,
@@ -74,10 +74,10 @@ public class DungeonEscape extends Game {
 		name = "";
 
 		//slime res
-		greenSlimeTextureRegion = new Texture("slime/images/green_slime_texture_region.png");
-		greenSlimeAttacking = new Texture("slime/images/green_attacking_slime.png");
-		greenSlimeAttacked = new Texture("slime/images/green_attacked_slime.png");
-		slimeBlast = new Texture("slime/images/slime_charge.png");
+		greenSlimeTextureRegion = new Texture("slime/images/greenSlimeTextureRegion.png");
+		greenAttackingSlimeTextureRegion = new Texture("slime/images/greenAttackingSlimeTextureRegion.png");
+		greenAttackedSlimeTextureRegion = new Texture("slime/images/greenAttackedSlimeTextureRegion.png");
+		slimeChargeTextureRegion = new Texture("slime/images/slimeChargeTextureRegion.png");
 		slimeAttackedSound = Gdx.audio.newSound(Gdx.files.internal("slime/sounds/slime_attacked.mp3"));
 		slimeAttackingSound = Gdx.audio.newSound(Gdx.files.internal("slime/sounds/slime_attacking.wav"));
 
@@ -293,9 +293,9 @@ public class DungeonEscape extends Game {
 	@Override
 	public void dispose () {
 		greenSlimeTextureRegion.dispose();
-		slimeBlast.dispose();
-		greenSlimeAttacked.dispose();
-		greenSlimeAttacking.dispose();
+		slimeChargeTextureRegion.dispose();
+		greenAttackedSlimeTextureRegion.dispose();
+		greenAttackingSlimeTextureRegion.dispose();
 		playerTextureRegionRight.dispose();
 		playerTextureRegionLeft.dispose();
 		playerBlast.dispose();
