@@ -21,7 +21,7 @@ public class DungeonEscape extends Game {
 	BitmapFont infoFont, recordFont, deathScreenFont, winScreenFont, infoNameFont, settingFont, slimeFont, tipsFont;
 
 	Texture greenSlimeTextureRegion, slimeChargeTextureRegion, greenAttackedSlimeTextureRegion, greenAttackingSlimeTextureRegion,
-			playerTextureRegionRight, playerTextureRegionLeft, playerBlast,
+			playerTextureRegionRight, playerTextureRegionLeft, playerCharge,
 			playerAttackedRight, playerAttackingRight,
 			playerAttackedLeft, playerAttackingLeft,
 			playerTextureRegionMowingRight, playerTextureRegionMowingLeft,
@@ -36,12 +36,12 @@ public class DungeonEscape extends Game {
 			wu__, wd__, wl__, wr__,
 			cwul, cwur, cwdl, cwdr,
 			cul_, cur_, cdl_, cdr_,
-			activLever, passivLever,
+			activeLever, passiveLever,
 			chd, ohd, cvd, ovd,
 			screensaver, stoneFloorTextureRegion, exitImg, exitDoor, stoneFloorSc,
 			wdwt, sfwm, clmn, mapImg, passivMapButton, activMapButton, deathImg, emptyButton,
-			yesButton, noButton, yesButtonEng, noButtonEng, passivTipsButton, activTipsButton,
-			yesButtonActiv, noButtonActiv, yesButtonEngActiv, noButtonEngActiv, close_button,
+			yesButton, noButton, yesButtonEng, noButtonEng, passiveTipsButton, activeTipsButton,
+			yesButtonActive, noButtonActive, yesButtonEngActive, noButtonEngActive, closeButton,
 			tip1, tip2, tip3, tip4, tip5, tip6;
 
 	Sound slimeAttackedSound, slimeAttackingSound,
@@ -50,7 +50,7 @@ public class DungeonEscape extends Game {
 
 	Music theme;
 
-	float size, horizontalOtstup, verticalOtstup, leftBorderX, leftBorderY, rightBorderX, rightBorderY,
+	float size, horizontalIndend, verticalIndent, leftBorderX, leftBorderY, rightBorderX, rightBorderY,
 			upBorderX, upBorderY, downBorderX, downBorderY, width, height, speed;
 	final String FONT_CHARS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?№-+=()*&.;:,{}\"´`'<>";
 
@@ -94,15 +94,15 @@ public class DungeonEscape extends Game {
 		playerAttackingRight = new Texture("player/player_attacking_right.png");
 		playerAttackedLeft = new Texture("player/player_attacked_left.png");
 		playerAttackingLeft = new Texture("player/player_attacking_left.png");
-		playerBlast = new Texture("interface/nothing.png");
+		playerCharge = new Texture("interface/nothing.png");
 		sound = Gdx.audio.newSound(Gdx.files.internal("player/attacked_player_sound.wav"));
 		playerAttackingSound = Gdx.audio.newSound(Gdx.files.internal("player/attacking_player_sound.wav"));
 		playerTextureRegionMowingRight = new Texture("player/player_right_moving_texture_region.png");
 		playerTextureRegionMowingLeft = new Texture("player/player_left_moving_texture_region.png");
 
 		//lever res
-		activLever = new Texture("levers/al__.png");
-		passivLever = new Texture("levers/dl__.png");
+		activeLever = new Texture("levers/al__.png");
+		passiveLever = new Texture("levers/dl__.png");
 
 		//doors res
 		ohd = new Texture("doors/ohd.png");
@@ -132,13 +132,13 @@ public class DungeonEscape extends Game {
 		rowHeadingEng = new Texture("interface/row_heading_eng.png");
 		emptyButton = new Texture("interface/buttons/empty_button.png");
 		yesButton = new Texture("interface/buttons/yes_button.png");
-		yesButtonActiv = new Texture("interface/buttons/yes_button_activ.png");
+		yesButtonActive = new Texture("interface/buttons/yes_button_activ.png");
 		yesButtonEng = new Texture("interface/buttons/yes_button_eng.png");
-		yesButtonEngActiv = new Texture("interface/buttons/yes_button_eng_activ.png");
+		yesButtonEngActive = new Texture("interface/buttons/yes_button_eng_activ.png");
 		noButton = new Texture("interface/buttons/no_button.png");
-		noButtonActiv = new Texture("interface/buttons/no_button_activ.png");
+		noButtonActive = new Texture("interface/buttons/no_button_activ.png");
 		noButtonEng = new Texture("interface/buttons/no_button_eng.png");
-		noButtonEngActiv = new Texture("interface/buttons/no_button_eng_activ.png");
+		noButtonEngActive = new Texture("interface/buttons/no_button_eng_activ.png");
 
 		passivMapButton = new Texture("interface/buttons/passiv_map_button.png");
 		activMapButton = new Texture("interface/buttons/activ_map_button.png");
@@ -149,9 +149,9 @@ public class DungeonEscape extends Game {
 		russianButtonActiv = new Texture("interface/buttons/russian_button_activ.png");
 		englishButton = new Texture("interface/buttons/english_button.png");
 		englishButtonActiv = new Texture("interface/buttons/english_button_activ.png");
-		passivTipsButton = new Texture("interface/buttons/passiv_tips_button.png");
-		activTipsButton = new Texture("interface/buttons/activ_tips_button.png");
-		close_button = new Texture("interface/buttons/close_button.png");
+		passiveTipsButton = new Texture("interface/buttons/passiv_tips_button.png");
+		activeTipsButton = new Texture("interface/buttons/activ_tips_button.png");
+		closeButton = new Texture("interface/buttons/close_button.png");
 
 		row = new Texture("interface/row.png");
 		arrowNext = new Texture("interface/arrow_next.png");
@@ -196,19 +196,19 @@ public class DungeonEscape extends Game {
 		width = Gdx.app.getGraphics().getWidth();
 		height = Gdx.app.getGraphics().getHeight();
 		size = height / 7;
-		horizontalOtstup = (width-size*10)/2;
-		verticalOtstup = 0;
-		if(horizontalOtstup < 0){
-			horizontalOtstup = 0;
-			size = width/10;
-			verticalOtstup = (height - 7*size)/2;
+		horizontalIndend = (width - size * 10) / 2;
+		verticalIndent = 0;
+		if(horizontalIndend < 0){
+			horizontalIndend = 0;
+			size = width / 10;
+			verticalIndent = (height - 7 * size) / 2;
 		}
 		leftBorderX = 0;
 		leftBorderY = 0;
-		rightBorderX = width- horizontalOtstup;
+		rightBorderX = width - horizontalIndend;
 		rightBorderY = 0;
 		upBorderX = 0;
-		upBorderY = height- verticalOtstup;
+		upBorderY = height - verticalIndent;
 		downBorderX = 0;
 		downBorderY = 0;
 
@@ -218,11 +218,11 @@ public class DungeonEscape extends Game {
 		FileHandle file = Gdx.files.internal("text_resources/map.txt");
 		String [] text_y = file.readString().split("\n");
 		cageY = text_y.length;
-		for (int i = 0; i< cageY; i++){
+		for (int i = 0; i < cageY; i++){
 			String [] text_x = text_y[i].split(" ");
 			cageX = text_x.length;
-			for (int j = 0; j< cageX; j++){
-				map [j][(cageY -1)-i] = text_x[j];
+			for (int j = 0; j < cageX; j++){
+				map [j][(cageY - 1) - i] = text_x[j];
 			}
 		}
 
@@ -231,8 +231,8 @@ public class DungeonEscape extends Game {
 		slimeMassX = 2;
 		slimeMassY = 28;
 		slimes_mass = new int[slimeMassY][slimeMassX];
-		for (int i = 0; i< slimeMassY; i++){
-			for (int j = 0; j< slimeMassX; j++){
+		for (int i = 0; i < slimeMassY; i++){
+			for (int j = 0; j < slimeMassX; j++){
 				slimes_mass[i][j] = slimes_scan.nextInt();
 			}
 		}
@@ -242,8 +242,8 @@ public class DungeonEscape extends Game {
 		leverMassX = 5;
 		leverMassY = 21;
 		levers_mass = new int[leverMassY][leverMassX];
-		for (int i = 0; i< leverMassY; i++){
-			for (int j = 0; j< leverMassX; j++){
+		for (int i = 0; i < leverMassY; i++){
+			for (int j = 0; j < leverMassX; j++){
 				levers_mass[i][j] = levers_scan.nextInt();
 			}
 		}
@@ -253,35 +253,35 @@ public class DungeonEscape extends Game {
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.characters = FONT_CHARS;
 
-		parameter.size = (int)(size/2.1f);
+		parameter.size = (int)(size / 2.1f);
 		parameter.color = Color.WHITE;
 		deathScreenFont = generator.generateFont(parameter);
 
-		parameter.size = (int)(size/2.3f);
+		parameter.size = (int)(size / 2.3f);
 		parameter.color = Color.WHITE;
 		winScreenFont = generator.generateFont(parameter);
 
-		parameter.size = (int)(size/5.5f);
+		parameter.size = (int)(size / 5.5f);
 		parameter.color = Color.BLACK;
 		infoFont = generator.generateFont(parameter);
 
-		parameter.size = (int)(size/7.6f);
+		parameter.size = (int)(size / 7.6f);
 		parameter.color = Color.BLACK;
 		infoNameFont = generator.generateFont(parameter);
 
-		parameter.size = (int)(size/2.1f);
+		parameter.size = (int)(size / 2.1f);
 		parameter.color = Color.DARK_GRAY;
 		recordFont = generator.generateFont(parameter);
 
-		parameter.size = (int)(size/2.1f);
+		parameter.size = (int)(size / 2.1f);
 		parameter.color = Color.DARK_GRAY;
 		settingFont = generator.generateFont(parameter);
 
-		parameter.size = (int)(size/5.5f);
+		parameter.size = (int)(size / 5.5f);
 		parameter.color = Color.RED;
 		slimeFont = generator.generateFont(parameter);
 
-		parameter.size = (int)(size/4);
+		parameter.size = (int)(size / 4);
 		parameter.color = Color.WHITE;
 		tipsFont = generator.generateFont(parameter);
 
@@ -298,7 +298,7 @@ public class DungeonEscape extends Game {
 		greenAttackingSlimeTextureRegion.dispose();
 		playerTextureRegionRight.dispose();
 		playerTextureRegionLeft.dispose();
-		playerBlast.dispose();
+		playerCharge.dispose();
 		playerAttackedRight.dispose();
 		playerAttackingRight.dispose();
 		playerAttackedLeft.dispose();
@@ -348,8 +348,8 @@ public class DungeonEscape extends Game {
 		cur_.dispose();
 		cdl_.dispose();
 		cdr_.dispose();
-		activLever.dispose();
-		passivLever.dispose();
+		activeLever.dispose();
+		passiveLever.dispose();
 		chd.dispose();
 		ohd.dispose();
 		cvd.dispose();
@@ -371,10 +371,10 @@ public class DungeonEscape extends Game {
 		noButton.dispose();
 		yesButtonEng.dispose();
 		noButtonEng.dispose();
-		yesButtonActiv.dispose();
-		noButtonActiv.dispose();
-		yesButtonEngActiv.dispose();
-		noButtonEngActiv.dispose();
+		yesButtonActive.dispose();
+		noButtonActive.dispose();
+		yesButtonEngActive.dispose();
+		noButtonEngActive.dispose();
 
 		infoFont.dispose();
 		recordFont.dispose();

@@ -51,17 +51,17 @@ public class SettingsScreen extends ScreenAdapter {
             public boolean touchDown (int x, int y, int pointer, int button) {
                 int touch_x;
                 int touch_y;
-                if ((Gdx.input.getX()-game.horizontalOtstup) / game.size>=0){
-                    touch_x = (int) ((Gdx.input.getX()-game.horizontalOtstup) / game.size);
+                if ((Gdx.input.getX()-game.horizontalIndend) / game.size>=0){
+                    touch_x = (int) ((Gdx.input.getX()-game.horizontalIndend) / game.size);
                 }
                 else{
-                    touch_x = (int) ((Gdx.input.getX()-game.horizontalOtstup) / game.size - 1);
+                    touch_x = (int) ((Gdx.input.getX()-game.horizontalIndend) / game.size - 1);
                 }
-                if ((game.height - (game.verticalOtstup +Gdx.input.getY())) / game.size >=0){
-                    touch_y= (int) ((game.height - (game.verticalOtstup +Gdx.input.getY())) / game.size);
+                if ((game.height - (game.verticalIndent +Gdx.input.getY())) / game.size >=0){
+                    touch_y= (int) ((game.height - (game.verticalIndent +Gdx.input.getY())) / game.size);
                 }
                 else {
-                    touch_y = (int) ((game.height - (game.verticalOtstup +Gdx.input.getY())) / game.size - 1);
+                    touch_y = (int) ((game.height - (game.verticalIndent +Gdx.input.getY())) / game.size - 1);
                 }
                 if (button == Input.Buttons.LEFT && touch_y == 0 && touch_x >= 0 && touch_x <= 9 && !is_dialog_open) {
                     game.setScreen(new MainMenuScreen(game));
@@ -107,41 +107,41 @@ public class SettingsScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.settingsBatch.begin();
         if (!game.isEnglish){
-            game.settingsBatch.draw(game.englishButton, game.horizontalOtstup, game.verticalOtstup +game.size*3, game.size*5, game.size);
-            game.settingsBatch.draw(game.russianButtonActiv, game.horizontalOtstup +game.size*5, game.verticalOtstup +game.size*3, game.size*5, game.size);
+            game.settingsBatch.draw(game.englishButton, game.horizontalIndend, game.verticalIndent +game.size*3, game.size*5, game.size);
+            game.settingsBatch.draw(game.russianButtonActiv, game.horizontalIndend +game.size*5, game.verticalIndent +game.size*3, game.size*5, game.size);
         }
         else {
-            game.settingsBatch.draw(game.englishButtonActiv, game.horizontalOtstup, game.verticalOtstup +game.size*3, game.size*5, game.size);
-            game.settingsBatch.draw(game.russianButton, game.horizontalOtstup +game.size*5, game.verticalOtstup +game.size*3, game.size*5, game.size);
+            game.settingsBatch.draw(game.englishButtonActiv, game.horizontalIndend, game.verticalIndent +game.size*3, game.size*5, game.size);
+            game.settingsBatch.draw(game.russianButton, game.horizontalIndend +game.size*5, game.verticalIndent +game.size*3, game.size*5, game.size);
         }
-        game.settingsBatch.draw(game.emptyButton, game.horizontalOtstup, game.verticalOtstup +game.size*4, game.size*10, game.size);
-        game.settingsBatch.draw(game.emptyButton, game.horizontalOtstup, game.verticalOtstup +game.size*6, game.size*10, game.size);
+        game.settingsBatch.draw(game.emptyButton, game.horizontalIndend, game.verticalIndent +game.size*4, game.size*10, game.size);
+        game.settingsBatch.draw(game.emptyButton, game.horizontalIndend, game.verticalIndent +game.size*6, game.size*10, game.size);
         if (!game.isEnglish) {
-            game.settingFont.draw(game.settingsBatch, "Язык интерфейса:", game.horizontalOtstup +game.size/10, game.verticalOtstup +game.size*5-game.size/3);
-            game.settingFont.draw(game.settingsBatch, "Автоотключение кнопки атаки:", game.horizontalOtstup +game.size/10, game.verticalOtstup +game.size*7-game.size/3);
-            game.settingsBatch.draw(game.returnButtonLarge, game.horizontalOtstup, game.verticalOtstup, game.size * 10, game.size);
-            game.settingsBatch.draw(game.deleteButton, game.horizontalOtstup, game.verticalOtstup + game.size * 1, game.size * 10, game.size);
+            game.settingFont.draw(game.settingsBatch, "Язык интерфейса:", game.horizontalIndend +game.size/10, game.verticalIndent +game.size*5-game.size/3);
+            game.settingFont.draw(game.settingsBatch, "Автоотключение кнопки атаки:", game.horizontalIndend +game.size/10, game.verticalIndent +game.size*7-game.size/3);
+            game.settingsBatch.draw(game.returnButtonLarge, game.horizontalIndend, game.verticalIndent, game.size * 10, game.size);
+            game.settingsBatch.draw(game.deleteButton, game.horizontalIndend, game.verticalIndent + game.size * 1, game.size * 10, game.size);
             if (!game.attackButtonAutoReset) {
-                game.settingsBatch.draw(game.yesButton, game.horizontalOtstup, game.verticalOtstup + game.size * 5, game.size * 2, game.size);
-                game.settingsBatch.draw(game.noButtonActiv, game.horizontalOtstup + game.size * 8, game.verticalOtstup + game.size * 5, game.size * 2, game.size);
+                game.settingsBatch.draw(game.yesButton, game.horizontalIndend, game.verticalIndent + game.size * 5, game.size * 2, game.size);
+                game.settingsBatch.draw(game.noButtonActive, game.horizontalIndend + game.size * 8, game.verticalIndent + game.size * 5, game.size * 2, game.size);
             }
             else {
-                game.settingsBatch.draw(game.yesButtonActiv, game.horizontalOtstup, game.verticalOtstup + game.size * 5, game.size * 2, game.size);
-                game.settingsBatch.draw(game.noButton, game.horizontalOtstup + game.size * 8, game.verticalOtstup + game.size * 5, game.size * 2, game.size);
+                game.settingsBatch.draw(game.yesButtonActive, game.horizontalIndend, game.verticalIndent + game.size * 5, game.size * 2, game.size);
+                game.settingsBatch.draw(game.noButton, game.horizontalIndend + game.size * 8, game.verticalIndent + game.size * 5, game.size * 2, game.size);
             }
         }
         else {
-            game.settingFont.draw(game.settingsBatch, "Interface language:", game.horizontalOtstup +game.size/10, game.verticalOtstup +game.size*5-game.size/3);
-            game.settingFont.draw(game.settingsBatch, "Auto restart attack button:", game.horizontalOtstup +game.size/10, game.verticalOtstup +game.size*7-game.size/3);
-            game.settingsBatch.draw(game.returnButtonLargeEng, game.horizontalOtstup, game.verticalOtstup, game.size * 10, game.size);
-            game.settingsBatch.draw(game.deleteButtonEng, game.horizontalOtstup, game.verticalOtstup + game.size * 1, game.size * 10, game.size);
+            game.settingFont.draw(game.settingsBatch, "Interface language:", game.horizontalIndend +game.size/10, game.verticalIndent +game.size*5-game.size/3);
+            game.settingFont.draw(game.settingsBatch, "Auto restart attack button:", game.horizontalIndend +game.size/10, game.verticalIndent +game.size*7-game.size/3);
+            game.settingsBatch.draw(game.returnButtonLargeEng, game.horizontalIndend, game.verticalIndent, game.size * 10, game.size);
+            game.settingsBatch.draw(game.deleteButtonEng, game.horizontalIndend, game.verticalIndent + game.size * 1, game.size * 10, game.size);
             if (!game.attackButtonAutoReset) {
-                game.settingsBatch.draw(game.yesButtonEng, game.horizontalOtstup, game.verticalOtstup + game.size * 5, game.size * 2, game.size);
-                game.settingsBatch.draw(game.noButtonEngActiv, game.horizontalOtstup + game.size * 8, game.verticalOtstup + game.size * 5, game.size * 2, game.size);
+                game.settingsBatch.draw(game.yesButtonEng, game.horizontalIndend, game.verticalIndent + game.size * 5, game.size * 2, game.size);
+                game.settingsBatch.draw(game.noButtonEngActive, game.horizontalIndend + game.size * 8, game.verticalIndent + game.size * 5, game.size * 2, game.size);
             }
             else {
-                game.settingsBatch.draw(game.yesButtonEngActiv, game.horizontalOtstup, game.verticalOtstup + game.size * 5, game.size * 2, game.size);
-                game.settingsBatch.draw(game.noButtonEng, game.horizontalOtstup + game.size * 8, game.verticalOtstup + game.size * 5, game.size * 2, game.size);
+                game.settingsBatch.draw(game.yesButtonEngActive, game.horizontalIndend, game.verticalIndent + game.size * 5, game.size * 2, game.size);
+                game.settingsBatch.draw(game.noButtonEng, game.horizontalIndend + game.size * 8, game.verticalIndent + game.size * 5, game.size * 2, game.size);
             }
         }
         if (start_timer>=0){

@@ -25,17 +25,17 @@ public class WinScreen extends ScreenAdapter {
             public boolean touchDown (int x, int y, int pointer, int button) {
                 int touch_x;
                 int touch_y;
-                if ((Gdx.input.getX()-game.horizontalOtstup) / game.size>=0){
-                    touch_x = (int) ((Gdx.input.getX()-game.horizontalOtstup) / game.size);
+                if ((Gdx.input.getX()-game.horizontalIndend) / game.size>=0){
+                    touch_x = (int) ((Gdx.input.getX()-game.horizontalIndend) / game.size);
                 }
                 else{
-                    touch_x = (int) ((Gdx.input.getX()-game.horizontalOtstup) / game.size - 1);
+                    touch_x = (int) ((Gdx.input.getX()-game.horizontalIndend) / game.size - 1);
                 }
-                if ((game.height - (game.verticalOtstup +Gdx.input.getY())) / game.size >=0){
-                    touch_y= (int) ((game.height - (game.verticalOtstup +Gdx.input.getY())) / game.size);
+                if ((game.height - (game.verticalIndent +Gdx.input.getY())) / game.size >=0){
+                    touch_y= (int) ((game.height - (game.verticalIndent +Gdx.input.getY())) / game.size);
                 }
                 else {
-                    touch_y = (int) ((game.height - (game.verticalOtstup +Gdx.input.getY())) / game.size - 1);
+                    touch_y = (int) ((game.height - (game.verticalIndent +Gdx.input.getY())) / game.size - 1);
                 }
                 if (button == Input.Buttons.LEFT && touch_y == 0 && touch_x >= 1 && touch_x <= 8) {
                     game.setScreen(new MainMenuScreen(game));
@@ -51,14 +51,14 @@ public class WinScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.winScreenBatch.begin();
-        game.winScreenBatch.draw(game.winScreenImg, game.horizontalOtstup, game.verticalOtstup, game.size*10, game.size*7);
+        game.winScreenBatch.draw(game.winScreenImg, game.horizontalIndend, game.verticalIndent, game.size*10, game.size*7);
         if (!game.isEnglish) {
-            game.winScreenFont.draw(game.winScreenBatch, "Игрок " + game.name + " успешно покинул подземелье!", game.horizontalOtstup + game.size / 10, game.verticalOtstup + game.size * 6 + game.size / 2);
-            game.winScreenBatch.draw(game.returnButtonLarge, game.horizontalOtstup, game.verticalOtstup, game.size*10, game.size);
+            game.winScreenFont.draw(game.winScreenBatch, "Игрок " + game.name + " успешно покинул подземелье!", game.horizontalIndend + game.size / 10, game.verticalIndent + game.size * 6 + game.size / 2);
+            game.winScreenBatch.draw(game.returnButtonLarge, game.horizontalIndend, game.verticalIndent, game.size*10, game.size);
         }
         else {
-            game.winScreenFont.draw(game.winScreenBatch, "Player  " + game.name + " is finally escaped the dungeon!", game.horizontalOtstup + game.size / 10, game.verticalOtstup + game.size * 6 + game.size / 2);
-            game.winScreenBatch.draw(game.returnButtonLargeEng, game.horizontalOtstup, game.verticalOtstup, game.size*10, game.size);
+            game.winScreenFont.draw(game.winScreenBatch, "Player  " + game.name + " is finally escaped the dungeon!", game.horizontalIndend + game.size / 10, game.verticalIndent + game.size * 6 + game.size / 2);
+            game.winScreenBatch.draw(game.returnButtonLargeEng, game.horizontalIndend, game.verticalIndent, game.size*10, game.size);
         }
         game.winScreenBatch.end();
     }
