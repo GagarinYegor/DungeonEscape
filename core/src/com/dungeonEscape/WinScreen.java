@@ -1,4 +1,4 @@
-package com.dungeon_escape;
+package com.dungeonEscape;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

@@ -1,4 +1,4 @@
-package com.dungeon_escape;
+package com.dungeonEscape;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -55,14 +55,19 @@ public class Slime {
                 batch.draw(attackedSlimeAnimation.getFrame(), realX, realY, size, size);
                 if (activatedTimer > 0) {
                     activatedTimer -= dt;
-                } else isAttacked = false;
+                }
+                else {
+                    isAttacked = false;
+                }
             }
             if (isAttacking) {
                 if (activatedTimer > 0 && charge.isActiv()) {
                     activatedTimer -= dt;
-                    if (!isAttacked) batch.draw(attackingSlimeAnimation.getFrame(), realX, realY, size, size);
+                    if (!isAttacked) {
+                        batch.draw(attackingSlimeAnimation.getFrame(), realX, realY, size, size);
+                    }
                 }
-                else{
+                else {
                     isAttacking = false;
                 }
             }
@@ -75,27 +80,33 @@ public class Slime {
                 if (realX < x * size + horizontalIndent) {
                     if (realX + speed * dt < x * size + horizontalIndent) {
                         realX += speed * dt;
-                    } else
+                    }
+                    else {
                         realX += speed * dt - (realX + speed * dt - (x * size + horizontalIndent));
+                    }
                 }
                 if (realX > x * size + horizontalIndent) {
                     if (realX + speed * dt > x * size + horizontalIndent) {
                         realX -= speed * dt;
-                    } else
+                    }
+                    else
                         realX -= speed * dt - (realX + speed * dt - (x * size + horizontalIndent));
                 }
                 if (realY < y * size + verticalIndent) {
                     if (realY + speed * dt < y * size + verticalIndent) {
                         realY += speed * dt;
-                    } else {
+                    }
+                    else {
                         realY += speed * dt - (realY + speed * dt - (y * size + verticalIndent));
                     }
                 }
                 if (realY > y * size + verticalIndent) {
                     if (realY + speed * dt > y * size + verticalIndent) {
                         realY -= speed * dt;
-                    } else
+                    }
+                    else {
                         realY -= speed * dt - (realY + speed * dt - (y * size + verticalIndent));
+                    }
                 }
             }
             if (realX == x * size + horizontalIndent && realY == y * size + verticalIndent) {
@@ -116,37 +127,45 @@ public class Slime {
         slimeAttackedSound.play();
         isAttacked = true;
         activatedTimer = 1f;
-        health-=damage;
+        health -= damage;
     }
     public void move(int x, int y){
         this.x += x;
         this.y += y;
         isMoving = true;
     }
-    public int getX(){
+    public int getX() {
         return x;
     }
-    public int getY(){
+    public int getY() {
         return y;
     }
-    public int getHealth(){
+    public int getHealth() {
         return health;
     }
-    public int getMaxHealth(){
+    public int getMaxHealth() {
         return maxHealth;
     }
-    public int getPower(){
+    public int getPower() {
         return power;
     }
-    public void death(){
+    public void death() {
         x = 24;
         y = 24;
         realX = x * size + horizontalIndent;
         realY = y * size + verticalIndent;
         isAlive = false;
     }
-    public boolean getMoving(){return isMoving;}
-    public boolean getAttacking(){return isAttacking;}
-    public boolean getAttacked(){return isAttacked;}
-    public void blastDraw(SpriteBatch batch, float size, float dt){ charge.draw(batch, size, dt);}
+    public boolean getMoving() {
+        return isMoving;
+    }
+    public boolean getAttacking() {
+        return isAttacking;
+    }
+    public boolean getAttacked() {
+        return isAttacked;
+    }
+    public void blastDraw(SpriteBatch batch, float size, float dt) {
+        charge.draw(batch, size, dt);
+    }
 }

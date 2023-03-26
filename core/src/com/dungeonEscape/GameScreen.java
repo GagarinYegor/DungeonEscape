@@ -1,4 +1,4 @@
-package com.dungeon_escape;
+package com.dungeonEscape;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
@@ -20,13 +20,13 @@ public class GameScreen extends ScreenAdapter {
     OrthographicCamera camera;
     float startTimer, cameraMoveUp, cameraMoveDown, cameraMoveLeft, cameraMoveRight, clickDelay;
     boolean isMove, isAttack, checkFlag, slimeMove, isMapFind, isMapActive, isTipsActiv, isDialogOpen, close, isClickDelay;
-    FileHandle saved_file;
+    FileHandle savedFile;
     int currentTip;
 
     private void save() {
-        saved_file.writeString("///moves///" + "\n", false);
-        saved_file.writeString(game.moves + "\n", true);
-        saved_file.writeString("///is_map_find, is_map_activ, is_attack, is_tips_activ///" + "\n", true);
+        savedFile.writeString("///moves///" + "\n", false);
+        savedFile.writeString(game.moves + "\n", true);
+        savedFile.writeString("///is_map_find, is_map_activ, is_attack, is_tips_activ///" + "\n", true);
         String text = "";
         if (isMapFind) text += "1 ";
         else text += "0 ";
@@ -36,17 +36,17 @@ public class GameScreen extends ScreenAdapter {
         else text += "0 ";
         if (isTipsActiv) text += "1" + "\n";
         else text += "0" + "\n";
-        saved_file.writeString(text, true);
-        saved_file.writeString("///playerX, playerY, name, health, maxHealth///" + "\n", true);
-        saved_file.writeString(player.getX() + " " + player.getY() + " " + player.getName() + " " + player.getMaxHealth() + " " + player.getHealth() + "\n", true);
-        saved_file.writeString("///slimes///" + "\n", true);
+        savedFile.writeString(text, true);
+        savedFile.writeString("///playerX, playerY, name, health, maxHealth///" + "\n", true);
+        savedFile.writeString(player.getX() + " " + player.getY() + " " + player.getName() + " " + player.getMaxHealth() + " " + player.getHealth() + "\n", true);
+        savedFile.writeString("///slimes///" + "\n", true);
         for (int i = 0; i<slimes.length; i++) {
-            saved_file.writeString(slimes[i].getY() + " " + slimes[i].getX() + " " + slimes[i].getHealth() + " " + slimes[i].getMaxHealth() + "\n", true);
+            savedFile.writeString(slimes[i].getY() + " " + slimes[i].getX() + " " + slimes[i].getHealth() + " " + slimes[i].getMaxHealth() + "\n", true);
         }
-        saved_file.writeString("///levers///" + "\n", true);
+        savedFile.writeString("///levers///" + "\n", true);
         for (int i = 0; i<levers.length; i++) {
-            if (levers[i].getActive()) saved_file.writeString("1" + "\n", true);
-            else saved_file.writeString("0" + "\n", true);
+            if (levers[i].getActive()) savedFile.writeString("1" + "\n", true);
+            else savedFile.writeString("0" + "\n", true);
         }
     }
 
@@ -76,9 +76,9 @@ public class GameScreen extends ScreenAdapter {
             for (Lever lever : levers) {
                 if (lever.getActivated()) checkFlag = false;
             }
-            if (player.isMoving()) checkFlag = false;
-            if (player.isAttacking()) checkFlag = false;
-            if (player.isAttacked()) checkFlag = false;
+            if (player.getMoving()) checkFlag = false;
+            if (player.getAttacking()) checkFlag = false;
+            if (player.getAttacked()) checkFlag = false;
             if (isClickDelay) checkFlag = false;
             if (checkFlag) isMove = true;
         }
@@ -253,7 +253,7 @@ public class GameScreen extends ScreenAdapter {
 
     public GameScreen(final DungeonEscape game) {
         this.game = game;
-        saved_file = Gdx.files.local("text_resources/saved_records.txt");
+        savedFile = Gdx.files.local("text_resources/saved_records.txt");
         game.theme.setLooping(true);
         game.theme.play();
         game.theme.setVolume(0.5f);
@@ -268,7 +268,7 @@ public class GameScreen extends ScreenAdapter {
         cameraMoveLeft = 0;
         cameraMoveRight = 0;
         isMove = true;
-        currentTip = 1;
+        currentTip = 0;
         slimes = new Slime[game.slimeMassY];
         cages = new Cage[game.cageX][game.cageY];
         levers = new Lever[game.leverMassY];
@@ -460,7 +460,7 @@ public class GameScreen extends ScreenAdapter {
                         currentTip += 1;
                     }
                     else {
-                        currentTip = 1;
+                        currentTip = 0;
                     }
                     save();
                 }
@@ -636,7 +636,7 @@ public class GameScreen extends ScreenAdapter {
                             currentTip += 1;
                         }
                         else {
-                            currentTip = 1;
+                            currentTip = 0;
                         }
                         click();
                         save();
@@ -800,6 +800,7 @@ public class GameScreen extends ScreenAdapter {
 
         if (close) {
             game.theme.stop();
+
             game.setScreen(new DeathScreen(game));
         }
         check_hod();
@@ -892,8 +893,8 @@ public class GameScreen extends ScreenAdapter {
             game.gameBatch.draw(game.border, game.leftBorderX - game.size, game.leftBorderY - game.size, game.horizontalIndend + game.size, game.height + 2 * game.size);
             game.gameBatch.draw(game.border, game.rightBorderX - game.size, game.rightBorderY - game.size, game.horizontalIndend + 2*game.size, game.height + 2 * game.size);
         }
-        if (isAttack) game.gameBatch.draw(game.activAttackButton, game.rightBorderX - game.size, game.verticalIndent +game.rightBorderY +game.size, game.size, game.size);
-        else game.gameBatch.draw(game.passivAttackButton, game.rightBorderX - game.size, game.verticalIndent +game.rightBorderY +game.size, game.size, game.size);
+        if (isAttack) game.gameBatch.draw(game.activeAttackButton, game.rightBorderX - game.size, game.verticalIndent +game.rightBorderY +game.size, game.size, game.size);
+        else game.gameBatch.draw(game.passiveAttackButton, game.rightBorderX - game.size, game.verticalIndent +game.rightBorderY +game.size, game.size, game.size);
         if (isTipsActiv) game.gameBatch.draw(game.activeTipsButton, game.rightBorderX - game.size, game.verticalIndent +game.rightBorderY +game.size*6, game.size, game.size);
         else game.gameBatch.draw(game.passiveTipsButton, game.rightBorderX - game.size, game.verticalIndent +game.rightBorderY +game.size*6, game.size, game.size);
         game.gameBatch.draw(game.closeButton, game.rightBorderX - game.size, game.verticalIndent +game.rightBorderY +game.size*0, game.size, game.size);
@@ -925,7 +926,7 @@ public class GameScreen extends ScreenAdapter {
                 game.gameBatch.draw(game.passivMapButton, game.rightBorderX - game.size, game.verticalIndent +game.rightBorderY +game.size*3, game.size, game.size);
             }
             else {
-                game.gameBatch.draw(game.activMapButton, game.rightBorderX - game.size, game.verticalIndent +game.rightBorderY +game.size*3, game.size, game.size);
+                game.gameBatch.draw(game.activeMapButton, game.rightBorderX - game.size, game.verticalIndent +game.rightBorderY +game.size*3, game.size, game.size);
             }
         }
         if (isMapActive){
@@ -934,6 +935,17 @@ public class GameScreen extends ScreenAdapter {
 
         if (isTipsActiv){
             switch (currentTip) {
+                case 0:
+                    game.gameBatch.draw(game.tip0, game.leftBorderX + game.horizontalIndend, game.leftBorderY + game.verticalIndent, game.size * 10, game.size * 7);
+                    if (game.isEnglish){
+                        game.tipsFont.draw(game.gameBatch, "Next tip", game.horizontalIndend +game.leftBorderX + game.size * 1.1f, game.verticalIndent + game.leftBorderY + game.size * 6.6f);
+
+                    }
+                    else {
+                        game.tipsFont.draw(game.gameBatch, "Цель игры - ныйти выход из подземелья. На пути могут попадаться слаймы,"+"\n"+"которые будут атаковать игрока. Игрок также может атаковать слаймов.", game.horizontalIndend +game.leftBorderX + game.size * 1.1f, game.verticalIndent + game.leftBorderY + game.size * 6.6f);
+
+                    }
+                    break;
                 case 1:
                     game.gameBatch.draw(game.tip1, game.leftBorderX + game.horizontalIndend, game.leftBorderY + game.verticalIndent, game.size * 10, game.size * 7);
                     if (game.isEnglish){

@@ -1,4 +1,4 @@
-package com.dungeon_escape;
+package com.dungeonEscape;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;

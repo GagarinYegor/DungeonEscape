@@ -1,10 +1,9 @@
-package com.dungeon_escape;
+package com.dungeonEscape;
 
 import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.dungeon_escape.DungeonEscape;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override

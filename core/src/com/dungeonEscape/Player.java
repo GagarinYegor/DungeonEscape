@@ -1,4 +1,4 @@
-package com.dungeon_escape;
+package com.dungeonEscape;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -92,7 +92,6 @@ public class Player {
                 if (realX + speed * dt < x * size + horizontalOtstup) {
                     realX += speed * dt;
                 }
-                //else real_x+=speed*dt-(real_x+speed*dt-(x*size+horizontal_otstup));
                 else realX = x * size + horizontalOtstup;
             }
             if (realX > x * size + horizontalOtstup){
@@ -100,21 +99,18 @@ public class Player {
                 if (realX -speed * dt > x * size + horizontalOtstup) {
                     realX -= speed*dt;
                 }
-                //else real_x-=speed*dt-(real_x+speed*dt-(x*size+horizontal_otstup));
                 else realX = x * size + horizontalOtstup;
             }
             if (realY < y * size + verticalOtstup){
                 if (realY + speed * dt < y * size + verticalOtstup) {
                     realY += speed * dt;
                 }
-                //else real_y+=speed*dt-(real_y+speed*dt-(y*size+vertical_otstup));
                 else realY = y * size+ verticalOtstup;
             }
             if (realY > y * size+ verticalOtstup){
                 if (realY -speed * dt > y * size + verticalOtstup) {
                     realY -= speed * dt;
                 }
-                //else real_y-=speed*dt-(real_y+speed*dt-(y*size+vertical_otstup));
                 else realY = y * size + verticalOtstup;
             }
         }
@@ -164,9 +160,9 @@ public class Player {
     public int getPower(){
         return power;
     }
-    public boolean isMoving(){return isMoving;}
-    public boolean isAttacking(){return isAttacking;}
-    public boolean isAttacked(){return isAttacked;}
+    public boolean getMoving(){return isMoving;}
+    public boolean getAttacking(){return isAttacking;}
+    public boolean getAttacked(){return isAttacked;}
     public String getName(){return name;}
     public void setHealth(int newHealth){health = newHealth;}
 }

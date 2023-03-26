@@ -1,4 +1,4 @@
-package com.dungeon_escape;
+package com.dungeonEscape;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

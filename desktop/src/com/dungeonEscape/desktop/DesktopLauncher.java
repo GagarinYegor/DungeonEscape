@@ -1,10 +1,8 @@
-package com.dungeon_escape.desktop;
+package com.dungeonEscape.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.dungeon_escape.DungeonEscape;
-
-import java.awt.Toolkit;
+import com.dungeonEscape.DungeonEscape;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
