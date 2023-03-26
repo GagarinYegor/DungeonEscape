@@ -29,8 +29,8 @@ public class DungeonEscape extends Game {
 			returnButtonLarge, settingsScreenButton, deleteButton,
 			beginButtonEng, recordButtonEng, returnButtonEng, rowHeadingEng,
 			returnButtonLargeEng, settingsScreenButtonEng, deleteButtonEng,
-			row, infoWindow, russianButton, englishButton, russianButtonActiv, englishButtonActiv,
-			titleTextTable, border, activAttackButton, passivAttackButton, waitingButton,
+			row, infoWindow, russianButton, englishButton, russianButtonActive, englishButtonActive,
+			titleTextTable, border, activeAttackButton, passiveAttackButton, waitingButton,
 			deathScreenImg, winScreenImg,
 			arrowUp, arrowDown, arrowNo, arrowNext,
 			wu__, wd__, wl__, wr__,
@@ -39,7 +39,7 @@ public class DungeonEscape extends Game {
 			activeLever, passiveLever,
 			chd, ohd, cvd, ovd,
 			screensaver, stoneFloorTextureRegion, exitImg, exitDoor, stoneFloorSc,
-			wdwt, sfwm, clmn, mapImg, passivMapButton, activMapButton, deathImg, emptyButton,
+			wdwt, sfwm, clmn, mapImg, passivMapButton, activeMapButton, deathImg, emptyButton,
 			yesButton, noButton, yesButtonEng, noButtonEng, passiveTipsButton, activeTipsButton,
 			yesButtonActive, noButtonActive, yesButtonEngActive, noButtonEngActive, closeButton,
 			tip1, tip2, tip3, tip4, tip5, tip6;
@@ -141,14 +141,14 @@ public class DungeonEscape extends Game {
 		noButtonEngActive = new Texture("interface/buttons/no_button_eng_activ.png");
 
 		passivMapButton = new Texture("interface/buttons/passiv_map_button.png");
-		activMapButton = new Texture("interface/buttons/activ_map_button.png");
-		passivAttackButton = new Texture("interface/buttons/passiv_attack_button.png");
-		activAttackButton = new Texture("interface/buttons/activ_attack_button.png");
+		activeMapButton = new Texture("interface/buttons/activ_map_button.png");
+		passiveAttackButton = new Texture("interface/buttons/passiv_attack_button.png");
+		activeAttackButton = new Texture("interface/buttons/activ_attack_button.png");
 		waitingButton = new Texture("interface/buttons/waiting_button.png");
 		russianButton = new Texture("interface/buttons/russian_button.png");
-		russianButtonActiv = new Texture("interface/buttons/russian_button_activ.png");
+		russianButtonActive = new Texture("interface/buttons/russian_button_activ.png");
 		englishButton = new Texture("interface/buttons/english_button.png");
-		englishButtonActiv = new Texture("interface/buttons/english_button_activ.png");
+		englishButtonActive = new Texture("interface/buttons/english_button_activ.png");
 		passiveTipsButton = new Texture("interface/buttons/passiv_tips_button.png");
 		activeTipsButton = new Texture("interface/buttons/activ_tips_button.png");
 		closeButton = new Texture("interface/buttons/close_button.png");
@@ -323,12 +323,12 @@ public class DungeonEscape extends Game {
 		infoWindow.dispose();
 		russianButton.dispose();
 		englishButton.dispose();
-		russianButtonActiv.dispose();
-		englishButtonActiv.dispose();
+		russianButtonActive.dispose();
+		englishButtonActive.dispose();
 		titleTextTable.dispose();
 		border.dispose();
-		activAttackButton.dispose();
-		passivAttackButton.dispose();
+		activeAttackButton.dispose();
+		passiveAttackButton.dispose();
 		waitingButton.dispose();
 		deathScreenImg.dispose();
 		winScreenImg.dispose();
@@ -364,7 +364,7 @@ public class DungeonEscape extends Game {
 		clmn.dispose();
 		mapImg.dispose();
 		passivMapButton.dispose();
-		activMapButton.dispose();
+		activeMapButton.dispose();
 		deathImg.dispose();
 		emptyButton.dispose();
 		yesButton.dispose();

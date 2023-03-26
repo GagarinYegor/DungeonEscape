@@ -892,8 +892,8 @@ public class GameScreen extends ScreenAdapter {
             game.gameBatch.draw(game.border, game.leftBorderX - game.size, game.leftBorderY - game.size, game.horizontalIndend + game.size, game.height + 2 * game.size);
             game.gameBatch.draw(game.border, game.rightBorderX - game.size, game.rightBorderY - game.size, game.horizontalIndend + 2*game.size, game.height + 2 * game.size);
         }
-        if (isAttack) game.gameBatch.draw(game.activAttackButton, game.rightBorderX - game.size, game.verticalIndent +game.rightBorderY +game.size, game.size, game.size);
-        else game.gameBatch.draw(game.passivAttackButton, game.rightBorderX - game.size, game.verticalIndent +game.rightBorderY +game.size, game.size, game.size);
+        if (isAttack) game.gameBatch.draw(game.activeAttackButton, game.rightBorderX - game.size, game.verticalIndent +game.rightBorderY +game.size, game.size, game.size);
+        else game.gameBatch.draw(game.passiveAttackButton, game.rightBorderX - game.size, game.verticalIndent +game.rightBorderY +game.size, game.size, game.size);
         if (isTipsActiv) game.gameBatch.draw(game.activeTipsButton, game.rightBorderX - game.size, game.verticalIndent +game.rightBorderY +game.size*6, game.size, game.size);
         else game.gameBatch.draw(game.passiveTipsButton, game.rightBorderX - game.size, game.verticalIndent +game.rightBorderY +game.size*6, game.size, game.size);
         game.gameBatch.draw(game.closeButton, game.rightBorderX - game.size, game.verticalIndent +game.rightBorderY +game.size*0, game.size, game.size);
@@ -925,7 +925,7 @@ public class GameScreen extends ScreenAdapter {
                 game.gameBatch.draw(game.passivMapButton, game.rightBorderX - game.size, game.verticalIndent +game.rightBorderY +game.size*3, game.size, game.size);
             }
             else {
-                game.gameBatch.draw(game.activMapButton, game.rightBorderX - game.size, game.verticalIndent +game.rightBorderY +game.size*3, game.size, game.size);
+                game.gameBatch.draw(game.activeMapButton, game.rightBorderX - game.size, game.verticalIndent +game.rightBorderY +game.size*3, game.size, game.size);
             }
         }
         if (isMapActive){
