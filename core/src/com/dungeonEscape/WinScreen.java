@@ -13,31 +13,31 @@ public class WinScreen extends ScreenAdapter {
 
     public WinScreen(DungeonEscape game) {
         this.game = game;
-        FileHandle win_file = Gdx.files.local("text_resources/records.txt");
-        win_file.writeString("\n"+game.name+" "+game.moves+" true", true);
-        FileHandle saved_file = Gdx.files.local("text_resources/saved_records.txt");
-        saved_file.delete();
+        FileHandle winFile = Gdx.files.local("text_resources/records.txt");
+        winFile.writeString("\n"+game.name+" "+game.moves+" true", true);
+        FileHandle savedFile = Gdx.files.local("text_resources/saved_records.txt");
+        savedFile.delete();
     }
 
     @Override
     public void show(){
         Gdx.input.setInputProcessor(new InputAdapter() {
             public boolean touchDown (int x, int y, int pointer, int button) {
-                int touch_x;
-                int touch_y;
+                int touchX;
+                int touchY;
                 if ((Gdx.input.getX()-game.horizontalIndend) / game.size>=0){
-                    touch_x = (int) ((Gdx.input.getX()-game.horizontalIndend) / game.size);
+                    touchX = (int) ((Gdx.input.getX()-game.horizontalIndend) / game.size);
                 }
                 else{
-                    touch_x = (int) ((Gdx.input.getX()-game.horizontalIndend) / game.size - 1);
+                    touchX = (int) ((Gdx.input.getX()-game.horizontalIndend) / game.size - 1);
                 }
                 if ((game.height - (game.verticalIndent +Gdx.input.getY())) / game.size >=0){
-                    touch_y= (int) ((game.height - (game.verticalIndent +Gdx.input.getY())) / game.size);
+                    touchY= (int) ((game.height - (game.verticalIndent +Gdx.input.getY())) / game.size);
                 }
                 else {
-                    touch_y = (int) ((game.height - (game.verticalIndent +Gdx.input.getY())) / game.size - 1);
+                    touchY = (int) ((game.height - (game.verticalIndent +Gdx.input.getY())) / game.size - 1);
                 }
-                if (button == Input.Buttons.LEFT && touch_y == 0 && touch_x >= 1 && touch_x <= 8) {
+                if (button == Input.Buttons.LEFT && touchY == 0 && touchX >= 1 && touchX <= 8) {
                     game.setScreen(new MainMenuScreen(game));
                     return true;
                 }

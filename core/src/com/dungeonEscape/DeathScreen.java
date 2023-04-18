@@ -16,10 +16,10 @@ public class DeathScreen extends ScreenAdapter {
     public DeathScreen(DungeonEscape game) {
         game.deathScreenBatch = new SpriteBatch();
         this.game = game;
-        FileHandle win_file = Gdx.files.local("text_resources/records.txt");
-        win_file.writeString("\n"+game.name+" "+game.moves+" false", true);
-        FileHandle saved_file = Gdx.files.local("text_resources/saved_records.txt");
-        saved_file.delete();
+        FileHandle winFile = Gdx.files.local("text_resources/records.txt");
+        winFile.writeString("\n"+game.name+" "+game.moves+" false", true);
+        FileHandle savedFile = Gdx.files.local("text_resources/saved_records.txt");
+        savedFile.delete();
         slimes = new Slime[10];
         for (int i = 0; i< 10; i++){
             slimes[i] =  new Slime(i, 1, game.size, game.horizontalIndend, game.verticalIndent, game.greenSlimeTextureRegion, 6, game.speed, game.slimeChargeTextureRegion, game.greenAttackingSlimeTextureRegion, game.greenAttackedSlimeTextureRegion, game.slimeAttackingSound, game.slimeAttackedSound, game.titleTextTable, game.slimeFont, 100, 100);
@@ -31,21 +31,21 @@ public class DeathScreen extends ScreenAdapter {
     public void show(){
         Gdx.input.setInputProcessor(new InputAdapter() {
             public boolean touchDown (int x, int y, int pointer, int button) {
-                int touch_x;
-                int touch_y;
+                int touchX;
+                int touchY;
                 if ((Gdx.input.getX()-game.horizontalIndend) / game.size>=0){
-                    touch_x = (int) ((Gdx.input.getX()-game.horizontalIndend) / game.size);
+                    touchX = (int) ((Gdx.input.getX()-game.horizontalIndend) / game.size);
                 }
                 else{
-                    touch_x = (int) ((Gdx.input.getX()-game.horizontalIndend) / game.size - 1);
+                    touchX = (int) ((Gdx.input.getX()-game.horizontalIndend) / game.size - 1);
                 }
                 if ((game.height - (game.verticalIndent +Gdx.input.getY())) / game.size >=0){
-                    touch_y= (int) ((game.height - (game.verticalIndent +Gdx.input.getY())) / game.size);
+                    touchY= (int) ((game.height - (game.verticalIndent +Gdx.input.getY())) / game.size);
                 }
                 else {
-                    touch_y = (int) ((game.height - (game.verticalIndent +Gdx.input.getY())) / game.size - 1);
+                    touchY = (int) ((game.height - (game.verticalIndent +Gdx.input.getY())) / game.size - 1);
                 }
-                if (button == Input.Buttons.LEFT && touch_y == 0 && touch_x >= 0 && touch_x <= 9) {
+                if (button == Input.Buttons.LEFT && touchY == 0 && touchX >= 0 && touchX <= 9) {
                     game.setScreen(new MainMenuScreen(game));
                     return true;
                 }
