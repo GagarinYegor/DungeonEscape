@@ -55,7 +55,7 @@ public class DungeonEscape extends Game {
 	final String FONT_CHARS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?№-+=()*&.;:,{}\"´`'<>";
 
 	public static final int SCR_WIDTH = 960, SCR_HEIGHT = 540;
-	//public static final int SCR_WIDTH = 540, SCR_HEIGHT = 960;
+	//public static final int SCR_WIDTH = 800, SCR_HEIGHT = 600;
 
 	String [][] map;
 	int[][] slimes_mass;
@@ -67,7 +67,7 @@ public class DungeonEscape extends Game {
 
 	@Override
 	public void create() {
-		isEnglish = true;
+		isEnglish = false;
 		attackButtonAutoReset = false;
 		gameBatch = new SpriteBatch();
 		winScreenBatch = new SpriteBatch();

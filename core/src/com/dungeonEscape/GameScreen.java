@@ -386,7 +386,7 @@ public class GameScreen extends ScreenAdapter {
             game.moves = 0;
             isMapFind = false;
             isMapActive = false;
-            isTipsActiv = false;
+            isTipsActiv = true;
             player = new Player(3, 3, game.size, game.horizontalIndend, game.verticalIndent,
                     game.playerTextureRegionRight, game.playerTextureRegionLeft, 12,
                     game.playerTextureRegionMowingRight, game.playerTextureRegionMowingLeft, 14,
@@ -938,12 +938,11 @@ public class GameScreen extends ScreenAdapter {
                 case 0:
                     game.gameBatch.draw(game.tip0, game.leftBorderX + game.horizontalIndend, game.leftBorderY + game.verticalIndent, game.size * 10, game.size * 7);
                     if (game.isEnglish){
-                        game.tipsFont.draw(game.gameBatch, "Next tip", game.horizontalIndend +game.leftBorderX + game.size * 1.1f, game.verticalIndent + game.leftBorderY + game.size * 6.6f);
+                        game.tipsFont.draw(game.gameBatch, "Welcome to the DungeonEscape game!"+"\n"+"The goal of the game is to find a way out of the dungeon"+"\n"+"in the minimum number of moves."+"\n"+"Slimes can get in the way that will attack the player."+"\n"+"The player can also attack slimes.", game.horizontalIndend +game.leftBorderX + game.size * 1.1f, game.verticalIndent + game.leftBorderY + game.size * 6.6f);
 
                     }
                     else {
-                        game.tipsFont.draw(game.gameBatch, "Цель игры - ныйти выход из подземелья. На пути могут попадаться слаймы,"+"\n"+"которые будут атаковать игрока. Игрок также может атаковать слаймов.", game.horizontalIndend +game.leftBorderX + game.size * 1.1f, game.verticalIndent + game.leftBorderY + game.size * 6.6f);
-
+                        game.tipsFont.draw(game.gameBatch, "Добро пожаловать в игру DungeonEscape!"+"\n"+"Цель игры - найти выход из подземелья за минимальное число ходов."+"\n"+"На пути могут попадаться слаймы, которые будут атаковать игрока."+"\n"+"Игрок также может атаковать слаймов.", game.horizontalIndend + game.leftBorderX + game.size * 1.1f, game.verticalIndent + game.leftBorderY + game.size * 6.6f);
                     }
                     break;
                 case 1:

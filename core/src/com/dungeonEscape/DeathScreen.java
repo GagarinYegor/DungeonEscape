@@ -19,6 +19,7 @@ public class DeathScreen extends ScreenAdapter {
         FileHandle winFile = Gdx.files.local("text_resources/records.txt");
         winFile.writeString("\n"+game.name+" "+game.moves+" false", true);
         FileHandle savedFile = Gdx.files.local("text_resources/saved_records.txt");
+        savedFile.writeString("", false);
         savedFile.delete();
         slimes = new Slime[10];
         for (int i = 0; i< 10; i++){
